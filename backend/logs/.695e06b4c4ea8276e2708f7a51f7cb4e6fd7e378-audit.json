@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\Users\\1234d\\OneDrive\\מסמכים\\GitHub\\fullstack-project-athletix\\backend\\logs\\.695e06b4c4ea8276e2708f7a51f7cb4e6fd7e378-audit.json",
+    "files": [
+        {
+            "date": 1747573663362,
+            "name": "C:\\Users\\1234d\\OneDrive\\מסמכים\\GitHub\\fullstack-project-athletix\\backend\\logs\\log-18-05-2025.log",
+            "hash": "b1e5fe18925283832bb00d4ac3e0fd56f522c5ce20be60928372c31154417571"
+        }
+    ],
+    "hashType": "sha256"
+}

@@ -1,0 +1,26 @@
+@local = http://localhost:3000
+
+POST {{local}}/athletix/users/register
+Content-Type: application/json
+
+{
+  "firstName": "Ad",
+  "lastName": "dd",
+  "email": "123d@asd.com",
+  "password": "cAds!1244",
+  "stats": {
+    "weight": 40,
+    "height": 220
+  },
+  "age": 18,
+  "gender":"male"
+}
+
+###
+POST {{local}}/athletix/users/login
+Content-Type: application/json
+
+{
+     "email": "123d@asd.com",
+  "password": "cAds!1244"
+}

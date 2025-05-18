@@ -1,0 +1,19 @@
+18-05-2025 16:59:40 | ERROR: status: 400 | Message: Password must be at least 8 characters, include 1 uppercase, 1 lowercase, 4 digits, and 1 special character
+18-05-2025 17:01:03 | ERROR: status: 400 | Message: User failed to register: Password must be at least 8 characters, include 1 uppercase, 1 lowercase, 4 digits, and 1 special character
+18-05-2025 17:12:23 | ERROR: status: 400 | Message: User failed to register, Password must be at least 8 characters, include 1 uppercase, 1 lowercase, 4 digits, and 1 special character
+18-05-2025 17:14:06 | INFO: status: 200 | Message: User registered successfully
+18-05-2025 17:22:10 | ERROR: status: 400 | Message: Email already in use
+18-05-2025 17:22:18 | INFO: status: 200 | Message: User registered successfully
+18-05-2025 17:26:50 | ERROR: status: 400 | Message: Email already in use
+18-05-2025 17:27:18 | ERROR: status: 400 | Message: User failed to register, Email already in use
+18-05-2025 17:29:36 | INFO: status: 200 | Message: User registered successfully
+18-05-2025 17:30:31 | INFO: status: 200 | Message: User registered successfully
+18-05-2025 17:31:12 | INFO: status: 200 | Message: User registered successfully
+18-05-2025 17:36:23 | ERROR: status: 400 | Message: User failed to register, Email already in use.
+18-05-2025 17:36:27 | INFO: status: 200 | Message: User registered successfully
+18-05-2025 17:41:43 | ERROR: status: 400 | Message: User failed to register, "age" is required
+18-05-2025 17:42:06 | ERROR: status: 400 | Message: User failed to register, You must be at least 18 years old to register
+18-05-2025 18:11:30 | ERROR: status: 400 | Message: User failed to register, "gender" is required
+18-05-2025 18:11:49 | ERROR: status: 400 | Message: User failed to register, Email already in use.
+18-05-2025 18:11:58 | INFO: status: 200 | Message: User registered successfully
+18-05-2025 18:12:27 | ERROR: status: 400 | Message: failed to login, password not matching.
