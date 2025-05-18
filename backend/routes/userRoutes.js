@@ -1,98 +1,101 @@
 const express = require("express");
 const router = express.Router();
-const { userValidation, User, loginValidation } = require("../model/user");
+const { User, updateValidation } = require("../model/user");
 const logger = require("../fileLogger/fileLogger");
-const bcrypt = require("bcrypt");
 const _ = require("lodash");
-const jwt = require("jsonwebtoken");
+const { permitRoles } = require("../middleware/role");
+const authMw = require("../middleware/auth");
 
-router.post("/register", async (req, res) => {
-  // input validation
-  const { error } = userValidation.validate(req.body);
-  if (error) {
-    res.status(400).send({
-      message: "Invalid input fields",
-      details: error.details.map((e) => e.message),
-    });
-    logger.error(
-      `status: ${
-        res.statusCode
-      } | Message: User failed to register, ${error.details.map(
-        (e) => e.message
-      )}`
-    );
-    return;
+router.get(
+  "/me",
+  authMw,
+  permitRoles("user", "trainer", "admin"),
+  async (req, res) => {
+    try {
+      const user = await User.findById(req.user._id);
+      if (!user) {
+        res.status(400).send("User not found.");
+        logger.error(`status: ${res.statusCode} | Message: User not found.`);
+        return;
+      }
+      res.send(user);
+      logger.info(
+        `status: ${res.statusCode} | Message: User sent successfully.`
+      );
+    } catch (err) {
+      res.status(500).send("Internal server error.");
+      logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
+    }
   }
-  // system validation
-  let user = await User.findOne({ email: req.body.email });
-  if (user) {
-    res.status(400).send("Email already in use.");
-    logger.error(
-      `status: ${res.statusCode} | Message: User failed to register, Email already in use.`
-    );
-    return;
+);
+
+router.put(
+  "/me",
+  authMw,
+  permitRoles("user", "trainer", "admin"),
+  async (req, res) => {
+    const { error } = updateValidation.validate(req.body);
+    if (error) {
+      res.status(400).send({
+        message: "Invalid input fields",
+        details: error.details.map((e) => e.message),
+      });
+      logger.error(
+        `status: ${
+          res.statusCode
+        } | Message: User failed to register, ${error.details.map(
+          (e) => e.message
+        )}`
+      );
+      return;
+    }
+    try {
+      const user = await User.findByIdAndUpdate(
+        req.user._id,
+        { $set: req.body },
+        { new: true, runValidators: true }
+      );
+      if (!user) {
+        res.status(400).send("User not found.");
+        logger.error(
+          `status: ${res.statusCode} | Message: Failed to update, User not found.`
+        );
+        return;
+      }
+      res.send(user);
+      logger.info(
+        `status: ${res.statusCode} | Message: User updated successfully.`
+      );
+    } catch (err) {
+      res.status(500).send("Internal server error.");
+      logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
+    }
   }
-  // proccess
-  user = await new User({
-    ...req.body,
-    password: await bcrypt.hash(req.body.password, 14),
-  }).save();
+);
 
-  // response
-  res.send(
-    _.pick(user, ["firstName", "lastName", "email", "_id", "createdAt"])
-  );
-  logger.info(
-    `status: ${res.statusCode} | Message: User registered successfully`
-  );
-});
-
-router.post("/login", async (req, res) => {
-  const { error } = loginValidation.validate(req.body);
-  if (error) {
-    res.status(400).send({
-      message: "Invalid input fields",
-      details: error.details.map((e) => e.message),
-    });
-    logger.error(
-      `status: ${
-        res.statusCode
-      } | Message: User failed to register, ${error.details.map(
-        (e) => e.message
-      )}`
-    );
-    return;
+router.delete(
+  "/me",
+  authMw,
+  permitRoles("admin", "trainer", "user"),
+  async (req, res) => {
+    try {
+      const deletedUser = await User.findByIdAndDelete(req.user._id);
+      if (!deletedUser) {
+        res.status(400).send("User not found.");
+        logger.error(
+          `status: ${res.statusCode} | Message: Failed to delete, User not found.`
+        );
+        return;
+      }
+      res.send(deletedUser);
+      logger.info(
+        `status: ${res.statusCode} | Message: User deleted successfully.`
+      );
+    } catch (err) {
+      res.status(500).send("Internal server error.");
+      logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
+    }
   }
-
-  const user = await User.findOne({ email: req.body.email });
-  if (!user) {
-    res.status(400).send("Invalid email.");
-    logger.error(
-      `status: ${res.statusCode} | Message: failed to login, User not found.`
-    );
-    return;
-  }
-
-  const isValidPassword = await bcrypt.compare(
-    req.body.password,
-    user.password
-  );
-
-  if (!isValidPassword) {
-    res.status(400).send("Invalid password.");
-    logger.error(
-      `status: ${res.statusCode} | Message: failed to login, password not matching.`
-    );
-    return;
-  }
-
-  const token = jwt.sign(
-    { _id: user._id, role: user.role },
-    process.env.JWT_KEY
-  );
-
-  res.send({ token });
-  logger.info(`status: ${res.statusCode} | Message: Token provided.`);
-});
+);
 
 module.exports = router;

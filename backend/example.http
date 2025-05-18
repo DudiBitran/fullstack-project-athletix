@@ -1,12 +1,14 @@
 @local = http://localhost:3000
-
-POST {{local}}/athletix/users/register
+@userToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODI5ZjhiZTY1YzQ2ZDI5NWJhZTY4OWQiLCJyb2xlIjoidXNlciIsImlhdCI6MTc0NzU4MTI0M30.UEqN5p5L9mDkLU5Sy81ThH-drrBB0ubtAVwd_5IPDuk
+@adminToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODI5ZjhiZTY1YzQ2ZDI5NWJhZTY4OWQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NDc2MDcyNDd9.2MbM43hO4bLmqzPzO4Vt1-0me30LtDmK7Qd1yneC6bs
+@trainerToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODJhNTYxMDg4YTM5NzI5ZTk2ZDVmNTgiLCJyb2xlIjoidHJhaW5lciIsImlhdCI6MTc0NzYwODk2OX0.JN0JIx6rh5RByaFZs_nnRNaRxbevgdVA60k6V_cpyLs
+POST {{local}}/athletix/auth/register
 Content-Type: application/json
 
 {
   "firstName": "Ad",
   "lastName": "dd",
-  "email": "123d@asd.com",
+  "email": "123dddr@asdd.com",
   "password": "cAds!1244",
   "stats": {
     "weight": 40,
@@ -17,10 +19,37 @@ Content-Type: application/json
 }
 
 ###
-POST {{local}}/athletix/users/login
+POST {{local}}/athletix/auth/login
 Content-Type: application/json
 
 {
      "email": "123d@asd.com",
   "password": "cAds!1244"
 }
+
+###
+GET {{local}}/athletix/users/me
+x-auth-token:{{userToken}}
+
+###
+PUT {{local}}/athletix/users/me
+x-auth-token:{{userToken}}
+Content-Type: application/json
+
+{
+    "firstName":"ddd",
+    "lastName":"ddd",
+    "email":"ddd@ddd.com"
+
+}
+
+###
+GET {{local}}/athletix/users/admin
+x-auth-token:{{adminToken}}
+
+###
+PUT {{local}}/athletix/users/admin/682a561088a39729e96d5f58/assign-trainer
+x-auth-token:{{trainerToken}}
+Content-Type: application/json
+
+

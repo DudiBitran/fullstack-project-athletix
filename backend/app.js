@@ -15,6 +15,8 @@ app.use(cors());
 app.use(morgan(format));
 app.use(express.json());
 app.use("/athletix/users", require("./routes/userRoutes"));
+app.use("/athletix/auth", require("./routes/authRoutes"));
+app.use("/athletix/users/admin", require("./routes/adminUserRoutes"));
 
 mongoose
   .connect(process.env.MONGO_ATLAS_URI)

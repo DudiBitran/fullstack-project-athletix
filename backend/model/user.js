@@ -75,6 +75,14 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+userSchema.set("toJSON", {
+  transform: function (doc, ret) {
+    delete ret.__v;
+    delete ret.password;
+    return ret;
+  },
+});
+
 const User = mongoose.model("User", userSchema, "users");
 
 const passwordRegex =
@@ -130,8 +138,13 @@ const loginValidation = Joi.object(
   _.pick(validation, ["email", "password"])
 ).required();
 
+const updateValidation = Joi.object(
+  _.pick(validation, ["firstName", "lastName", "image", "email"])
+);
+
 module.exports = {
   userValidation,
   loginValidation,
+  updateValidation,
   User,
 };

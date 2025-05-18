@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
   if (!token) {
     res.status(400).send("Access denied, No token provided.");
     logger.error(
-      `status: ${req.statusCode} | Message: Access denied, No token provided.`
+      `status: ${res.statusCode} | Message: Access denied, No token provided.`
     );
     return;
   }
@@ -16,6 +16,6 @@ module.exports = (req, res, next) => {
     next();
   } catch {
     res.status(400).send("Invalid token.");
-    logger.error(`status: ${req.statusCode} | Message: Invalid token.`);
+    logger.error(`status: ${res.statusCode} | Message: Invalid token.`);
   }
 };
