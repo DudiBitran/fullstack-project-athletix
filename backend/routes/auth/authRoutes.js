@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { userValidation, User, loginValidation } = require("../model/user");
-const logger = require("../fileLogger/fileLogger");
+const { userValidation, User, loginValidation } = require("../../model/user");
+const logger = require("../../fileLogger/fileLogger");
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -24,27 +24,37 @@ router.post("/register", async (req, res) => {
     return;
   }
   // system validation
-  let user = await User.findOne({ email: req.body.email });
-  if (user) {
-    res.status(400).send("Email already in use.");
-    logger.error(
-      `status: ${res.statusCode} | Message: User failed to register, Email already in use.`
-    );
-    return;
-  }
-  // proccess
-  user = await new User({
-    ...req.body,
-    password: await bcrypt.hash(req.body.password, 14),
-  }).save();
+  try {
+    // proccess
+    const user = await new User({
+      ...req.body,
+      password: await bcrypt.hash(req.body.password, 14),
+    }).save();
 
-  // response
-  res.send(
-    _.pick(user, ["firstName", "lastName", "email", "_id", "createdAt"])
-  );
-  logger.info(
-    `status: ${res.statusCode} | Message: User registered successfully`
-  );
+    // response
+    res.send(
+      _.pick(user, ["firstName", "lastName", "email", "_id", "createdAt"])
+    );
+    logger.info(
+      `status: ${res.statusCode} | Message: User registered successfully`
+    );
+  } catch (err) {
+    if (err.code === 11000) {
+      const field = Object.keys(err.keyPattern)[0];
+      const value = err.keyValue[field];
+      res
+        .status(400)
+        .send(
+          `The input field "${field}", with the value "${value}", already exist.`
+        );
+      logger.error(
+        `status: ${res.statusCode} | Message: User failed to register, ${field} already in use.`
+      );
+      return;
+    }
+    res.status(500).send("Internal server error.");
+    logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
+  }
 });
 
 router.post("/login", async (req, res) => {
@@ -86,10 +96,7 @@ router.post("/login", async (req, res) => {
     return;
   }
 
-  const token = jwt.sign(
-    { _id: user._id, role: user.role },
-    process.env.JWT_KEY
-  );
+  const token = jwt.sign({ _id: user._id }, process.env.JWT_KEY);
 
   res.send({ token });
   logger.info(`status: ${res.statusCode} | Message: Token provided.`);

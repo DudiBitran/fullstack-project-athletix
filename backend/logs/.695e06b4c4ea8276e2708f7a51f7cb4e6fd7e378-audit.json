@@ -6,9 +6,14 @@
     "auditLog": "C:\\Users\\1234d\\OneDrive\\מסמכים\\GitHub\\fullstack-project-athletix\\backend\\logs\\.695e06b4c4ea8276e2708f7a51f7cb4e6fd7e378-audit.json",
     "files": [
         {
-            "date": 1747573663362,
-            "name": "C:\\Users\\1234d\\OneDrive\\מסמכים\\GitHub\\fullstack-project-athletix\\backend\\logs\\log-18-05-2025.log",
-            "hash": "b1e5fe18925283832bb00d4ac3e0fd56f522c5ce20be60928372c31154417571"
+            "date": 1747610660677,
+            "name": "C:\\Users\\1234d\\OneDrive\\מסמכים\\GitHub\\fullstack-project-athletix\\backend\\logs\\log-19-05-2025.log",
+            "hash": "2c3a4ac8c3dd4e561ccbce408768730b2d05f6c95d4208dbf942a7973e7170b3"
+        },
+        {
+            "date": 1747725856448,
+            "name": "C:\\Users\\1234d\\OneDrive\\מסמכים\\GitHub\\fullstack-project-athletix\\backend\\logs\\log-20-05-2025.log",
+            "hash": "4b93a594d3afd41efd61dba20f42cc650acb7be3d60e889dd8875a254d8fcf9a"
         }
     ],
     "hashType": "sha256"

@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const morgan = require("morgan");
+const path = require("path");
 require("dotenv").config();
 
 morgan.token("time", () => {
@@ -14,9 +15,17 @@ const app = express();
 app.use(cors());
 app.use(morgan(format));
 app.use(express.json());
-app.use("/athletix/users", require("./routes/userRoutes"));
-app.use("/athletix/auth", require("./routes/authRoutes"));
-app.use("/athletix/users/admin", require("./routes/adminUserRoutes"));
+app.use("/athletix/users", require("./routes/user/userRoutes"));
+app.use("/athletix/auth", require("./routes/auth/authRoutes"));
+app.use("/athletix/users/admin", require("./routes/admin/adminUserRoutes"));
+app.use(
+  "/athletix/users/trainers",
+  require("./routes/trainer/trainerUserRoutes")
+);
+
+app.use((req, res) => {
+  res.status(404).sendFile(path.join(__dirname, "public", "404.html"));
+});
 
 mongoose
   .connect(process.env.MONGO_ATLAS_URI)

@@ -1,8 +1,9 @@
 @local = http://localhost:3000
-@userToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODI5ZjhiZTY1YzQ2ZDI5NWJhZTY4OWQiLCJyb2xlIjoidXNlciIsImlhdCI6MTc0NzU4MTI0M30.UEqN5p5L9mDkLU5Sy81ThH-drrBB0ubtAVwd_5IPDuk
+@userToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODI5ZjA2YjhhMGIyZWFmNDFiNWY2ZDEiLCJpYXQiOjE3NDc2ODE4MTR9.HtutLwt6QGoEDQAj6_INWhuHwc88S7vmE_Ska9VgkeE
 @adminToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODI5ZjhiZTY1YzQ2ZDI5NWJhZTY4OWQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NDc2MDcyNDd9.2MbM43hO4bLmqzPzO4Vt1-0me30LtDmK7Qd1yneC6bs
 @trainerToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODJhNTYxMDg4YTM5NzI5ZTk2ZDVmNTgiLCJyb2xlIjoidHJhaW5lciIsImlhdCI6MTc0NzYwODk2OX0.JN0JIx6rh5RByaFZs_nnRNaRxbevgdVA60k6V_cpyLs
-POST {{local}}/athletix/auth/register
+
+@trainerToken2 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODJjZTFjZTg4NjM2MzZkZmI1NWI5ZWIiLCJpYXQiOjE3NDc3NzE4NTh9.P7iSO_lhermugB5im2Twiy26GWWyfOjEulEVcK7V-yI
 Content-Type: application/json
 
 {
@@ -23,8 +24,9 @@ POST {{local}}/athletix/auth/login
 Content-Type: application/json
 
 {
-     "email": "123d@asd.com",
-  "password": "cAds!1244"
+     "password":"Add@trainer1234",
+     "email": "trainer25@asdd.com"
+
 }
 
 ###
@@ -48,8 +50,55 @@ GET {{local}}/athletix/users/admin
 x-auth-token:{{adminToken}}
 
 ###
-PUT {{local}}/athletix/users/admin/682a561088a39729e96d5f58/assign-trainer
+PUT {{local}}/athletix/users/trainers/682a561088a39729e96d5f58/assign-trainer
 x-auth-token:{{trainerToken}}
 Content-Type: application/json
 
+{
+  "trainerId":"682a561088a39729e96d5f58"
+}
+
+
+
+### get trainer clients
+ GET {{local}}/athletix/users/trainers/my-clients
+x-auth-token: {{trainerToken}}
+
+
+
+###
+ GET {{local}}/athletix/users/admin
+x-auth-token: {{adminToken}}
+
+### 
+POST {{local}}/athletix/users/admin
+x-auth-token: {{adminToken}}
+Content-Type: application/json
+
+{
+    "image": {
+      "url": "https://static.vecteezy.com/system/resources/previews/000/595/510/non_2x/vector-object-and-icons-for-sport-label-gym-badge-fitness-logo-design.jpg",
+      "alt": "Profile"
+    },
+    "firstName": "Ad",
+    "lastName": "dd",
+    "email": "trainer25@asdd.com",
+    "age": 18,
+    "gender": "male",
+    "password":"Add@trainer1234"
+  }
+
+  
+### delete a trainer by admin
+DELETE  {{local}}/athletix/users/admin/trainer/682ce1ce8863636dfb55b9eb
+x-auth-token:{{adminToken}}
+Content-Type: application/json
+
+{
+  "status":"reject"
+}
+
+### get delete requests
+GET {{local}}/athletix/users/admin/delete-request
+x-auth-token: {{adminToken}}
 

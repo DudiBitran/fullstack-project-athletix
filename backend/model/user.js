@@ -142,9 +142,32 @@ const updateValidation = Joi.object(
   _.pick(validation, ["firstName", "lastName", "image", "email"])
 );
 
+const trainerValidation = Joi.object(
+  _.pick(validation, [
+    "firstName",
+    "lastName",
+    "image",
+    "email",
+    "gender",
+    "age",
+    "password",
+  ])
+);
+
+const AssignTrainerValidation = Joi.object({
+  trainerId: Joi.string().length(24).hex().required().messages({
+    "string.base": "Trainer ID must be a string.",
+    "string.length": "Trainer ID must be exactly 24 characters long.",
+    "string.hex": "Trainer ID must be a valid hexadecimal.",
+    "any.required": `"trainerId" is required.`,
+  }),
+});
+
 module.exports = {
   userValidation,
   loginValidation,
   updateValidation,
+  AssignTrainerValidation,
+  trainerValidation,
   User,
 };

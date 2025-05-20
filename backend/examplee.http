@@ -1,0 +1,15 @@
+ @local = http://localhost:3000
+@userToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODI5ZjA2YjhhMGIyZWFmNDFiNWY2ZDEiLCJpYXQiOjE3NDc2ODE4MTR9.HtutLwt6QGoEDQAj6_INWhuHwc88S7vmE_Ska9VgkeE
+@adminToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODI5ZjhiZTY1YzQ2ZDI5NWJhZTY4OWQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NDc2MDcyNDd9.2MbM43hO4bLmqzPzO4Vt1-0me30LtDmK7Qd1yneC6bs
+@trainerToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODJjY2YwNjVkYTliY2I5NGJiMTk4NzUiLCJpYXQiOjE3NDc3NjcwNjd9.jGn3qcnO0eQuwc3FgbSHNZqHdDWL14aGjslTN0zCYq8
+ 
+@trainerToken2 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODJjZTFjZTg4NjM2MzZkZmI1NWI5ZWIiLCJpYXQiOjE3NDc3NzE4NTh9.P7iSO_lhermugB5im2Twiy26GWWyfOjEulEVcK7V-yI
+
+###
+POST {{local}}/athletix/users/trainers/me/delete-request
+x-auth-token:{{trainerToken2}}
+Content-Type: application/json
+
+{
+  "role":"trainer"
+}

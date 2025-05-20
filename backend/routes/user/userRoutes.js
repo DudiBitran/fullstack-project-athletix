@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { User, updateValidation } = require("../model/user");
-const logger = require("../fileLogger/fileLogger");
+const { User, updateValidation } = require("../../model/user");
+const logger = require("../../fileLogger/fileLogger");
 const _ = require("lodash");
-const { permitRoles } = require("../middleware/role");
-const authMw = require("../middleware/auth");
+const { permitRoles } = require("../../middleware/role");
+const authMw = require("../../middleware/auth");
 
 router.get(
   "/me",
@@ -73,29 +73,24 @@ router.put(
   }
 );
 
-router.delete(
-  "/me",
-  authMw,
-  permitRoles("admin", "trainer", "user"),
-  async (req, res) => {
-    try {
-      const deletedUser = await User.findByIdAndDelete(req.user._id);
-      if (!deletedUser) {
-        res.status(400).send("User not found.");
-        logger.error(
-          `status: ${res.statusCode} | Message: Failed to delete, User not found.`
-        );
-        return;
-      }
-      res.send(deletedUser);
-      logger.info(
-        `status: ${res.statusCode} | Message: User deleted successfully.`
+router.delete("/me", authMw, permitRoles("user"), async (req, res) => {
+  try {
+    const deletedUser = await User.findByIdAndDelete(req.user._id);
+    if (!deletedUser) {
+      res.status(400).send("User not found.");
+      logger.error(
+        `status: ${res.statusCode} | Message: Failed to delete, User not found.`
       );
-    } catch (err) {
-      res.status(500).send("Internal server error.");
-      logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
+      return;
     }
+    res.send(deletedUser);
+    logger.info(
+      `status: ${res.statusCode} | Message: User deleted successfully.`
+    );
+  } catch (err) {
+    res.status(500).send("Internal server error.");
+    logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
   }
-);
+});
 
 module.exports = router;
