@@ -5,8 +5,11 @@ const logger = require("../../fileLogger/fileLogger");
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { permitRoles } = require("../../middleware/role");
+const authMw = require("../../middleware/auth");
+const upload = require("../../middleware/upload");
 
-router.post("/register", async (req, res) => {
+router.post("/register", upload.single("image"), async (req, res) => {
   // input validation
   const { error } = userValidation.validate(req.body);
   if (error) {
@@ -25,10 +28,19 @@ router.post("/register", async (req, res) => {
   }
   // system validation
   try {
+    if (!req.file) {
+      res.status(400).send("No image file uploaded.");
+      logger.error(
+        `status: ${res.statusCode} | Message: No image file uploaded.`
+      );
+      return;
+    }
+    const { path: image } = req.file;
     // proccess
     const user = await new User({
       ...req.body,
       password: await bcrypt.hash(req.body.password, 14),
+      image: image.replace("\\", "/"),
     }).save();
 
     // response
@@ -73,33 +85,60 @@ router.post("/login", async (req, res) => {
     );
     return;
   }
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      res.status(400).send("Invalid email.");
+      logger.error(
+        `status: ${res.statusCode} | Message: failed to login, User not found.`
+      );
+      return;
+    }
 
-  const user = await User.findOne({ email: req.body.email });
-  if (!user) {
-    res.status(400).send("Invalid email.");
-    logger.error(
-      `status: ${res.statusCode} | Message: failed to login, User not found.`
+    const isValidPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
     );
-    return;
+
+    if (!isValidPassword) {
+      res.status(400).send("Invalid password.");
+      logger.error(
+        `status: ${res.statusCode} | Message: failed to login, password not matching.`
+      );
+      return;
+    }
+
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_KEY);
+
+    res.send({ token });
+    logger.info(`status: ${res.statusCode} | Message: Token provided.`);
+  } catch (err) {
+    res.status(500).send("Internal server error.");
+    logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
   }
-
-  const isValidPassword = await bcrypt.compare(
-    req.body.password,
-    user.password
-  );
-
-  if (!isValidPassword) {
-    res.status(400).send("Invalid password.");
-    logger.error(
-      `status: ${res.statusCode} | Message: failed to login, password not matching.`
-    );
-    return;
-  }
-
-  const token = jwt.sign({ _id: user._id }, process.env.JWT_KEY);
-
-  res.send({ token });
-  logger.info(`status: ${res.statusCode} | Message: Token provided.`);
 });
+
+router.get(
+  "/role",
+  authMw,
+  permitRoles("admin", "trainer", "user"),
+  async (req, res) => {
+    try {
+      const user = await User.findById(req.user._id);
+      if (!user) {
+        res.status(400).send("User not found.");
+        logger.error(
+          `status: ${res.statusCode} | Message: failed get role, user not found.`
+        );
+        return;
+      }
+      const role = user.role;
+      res.send(role);
+    } catch (err) {
+      res.status(500).send("Internal server error.");
+      logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
+    }
+  }
+);
 
 module.exports = router;

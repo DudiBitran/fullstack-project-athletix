@@ -94,9 +94,7 @@ router.post("/", authMw, permitRoles("admin"), async (req, res) => {
   }
 });
 
-//PUT
-
-// Delete trainer by admin
+// Admin choose what to do with the delete request
 router.delete(
   "/trainer/:id",
   authMw,
@@ -183,7 +181,7 @@ router.delete(
   }
 );
 
-// Admin choose what to do with the delete request
+// Get all delete request (Admin)
 
 router.get(
   "/delete-request",

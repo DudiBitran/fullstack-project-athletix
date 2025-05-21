@@ -23,6 +23,7 @@
     "lodash": "^4.17.21",
     "mongoose": "^8.15.0",
     "morgan": "^1.10.0",
+    "multer": "^2.0.0",
     "winston": "^3.17.0",
     "winston-daily-rotate-file": "^5.0.0"
   }

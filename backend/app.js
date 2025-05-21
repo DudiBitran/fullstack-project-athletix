@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const morgan = require("morgan");
 const path = require("path");
+const upload = require("./middleware/upload");
 require("dotenv").config();
 
 morgan.token("time", () => {
@@ -23,6 +24,7 @@ app.use(
   require("./routes/trainer/trainerUserRoutes")
 );
 
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use((req, res) => {
   res.status(404).sendFile(path.join(__dirname, "public", "404.html"));
 });

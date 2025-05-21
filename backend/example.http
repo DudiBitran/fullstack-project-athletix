@@ -4,6 +4,9 @@
 @trainerToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODJhNTYxMDg4YTM5NzI5ZTk2ZDVmNTgiLCJyb2xlIjoidHJhaW5lciIsImlhdCI6MTc0NzYwODk2OX0.JN0JIx6rh5RByaFZs_nnRNaRxbevgdVA60k6V_cpyLs
 
 @trainerToken2 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODJjZTFjZTg4NjM2MzZkZmI1NWI5ZWIiLCJpYXQiOjE3NDc3NzE4NTh9.P7iSO_lhermugB5im2Twiy26GWWyfOjEulEVcK7V-yI
+
+@userToken2 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODJlM2E3NjdlOThhNGRiY2M1YTMzNzYiLCJpYXQiOjE3NDc4NjAxNTd9.GT10T1nuHIgt41pWfP7OOtjf3ERvz_JucwAB-w5GRN8
+
 Content-Type: application/json
 
 {
@@ -24,8 +27,8 @@ POST {{local}}/athletix/auth/login
 Content-Type: application/json
 
 {
-     "password":"Add@trainer1234",
-     "email": "trainer25@asdd.com"
+     "email":"dodi@gmail.com",
+     "password": "Dd!dd1234"
 
 }
 
@@ -102,3 +105,6 @@ Content-Type: application/json
 GET {{local}}/athletix/users/admin/delete-request
 x-auth-token: {{adminToken}}
 
+###
+GET {{local}}/athletix/auth/role
+x-auth-token:{{adminToken}}

@@ -30,19 +30,11 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   image: {
-    url: {
-      type: String,
-      maxlength: 1024,
-      default:
-        "https://static.vecteezy.com/system/resources/previews/000/595/510/non_2x/vector-object-and-icons-for-sport-label-gym-badge-fitness-logo-design.jpg",
-      set: (v) => (v === "" ? undefined : v),
-    },
-    alt: {
-      type: String,
-      maxlength: 1024,
-      default: "Profile",
-      set: (v) => (v === "" ? undefined : v),
-    },
+    type: String,
+    maxlength: 1024,
+    default:
+      "https://static.vecteezy.com/system/resources/previews/000/595/510/non_2x/vector-object-and-icons-for-sport-label-gym-badge-fitness-logo-design.jpg",
+    set: (v) => (v === "" ? undefined : v),
   },
   role: {
     type: String,
@@ -116,21 +108,6 @@ const validation = {
     "number.min": "You must be at least 18 years old to register",
   }),
   gender: Joi.string().valid("male", "female", "other").required(),
-  image: Joi.object({
-    url: Joi.string()
-      .uri({ scheme: [/https?/] })
-      .min(11)
-      .max(1024)
-      .default("https://cdn-icons-png.flaticon.com/512/3135/3135715.png")
-      .allow("")
-      .label("URL"),
-    alt: Joi.string()
-      .min(2)
-      .max(1024)
-      .default("Profile")
-      .allow("")
-      .label("Alt image"),
-  }).optional(),
 };
 
 const userValidation = Joi.object(validation).required();
