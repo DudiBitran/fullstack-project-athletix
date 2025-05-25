@@ -7,9 +7,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { permitRoles } = require("../../middleware/role");
 const authMw = require("../../middleware/auth");
-const upload = require("../../middleware/upload");
+const imageUpload = require("../../middleware/imageUpload");
 
-router.post("/register", upload.single("image"), async (req, res) => {
+router.post("/register", imageUpload.single("image"), async (req, res) => {
   // input validation
   const { error } = userValidation.validate(req.body);
   if (error) {
@@ -28,21 +28,17 @@ router.post("/register", upload.single("image"), async (req, res) => {
   }
   // system validation
   try {
-    if (!req.file) {
-      res.status(400).send("No image file uploaded.");
-      logger.error(
-        `status: ${res.statusCode} | Message: No image file uploaded.`
-      );
-      return;
-    }
-    const { path: image } = req.file;
     // proccess
     const user = await new User({
       ...req.body,
       password: await bcrypt.hash(req.body.password, 14),
-      image: image.replace("\\", "/"),
     }).save();
 
+    if (req.file) {
+      const path = req.file.path.replace("\\", "/");
+      user.image = path;
+    }
+    await user.save();
     // response
     res.send(
       _.pick(user, ["firstName", "lastName", "email", "_id", "createdAt"])

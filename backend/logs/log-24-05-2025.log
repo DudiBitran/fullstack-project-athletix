@@ -1,0 +1,16 @@
+24-05-2025 13:03:38 | ERROR: status: 500 | Message: Program validation failed: title: Path `title` is required.
+24-05-2025 13:06:27 | ERROR: status: 500 | Message: Program validation failed: title: Path `title` is required.
+24-05-2025 13:06:44 | ERROR: status: 500 | Message: Program validation failed: title: Path `title` is required.
+24-05-2025 13:07:14 | ERROR: status: 500 | Message: Program validation failed: title: Path `title` is required.
+24-05-2025 13:07:30 | ERROR: status: 500 | Message: Program validation failed: title: Path `title` is required.
+24-05-2025 13:24:00 | ERROR: status: 500 | Message: Program validation failed: title: Path `title` is required.
+24-05-2025 13:25:10 | ERROR: status: 400 | Message: "value" is required
+24-05-2025 13:25:24 | ERROR: status: 500 | Message: Program validation failed: title: Path `title` is required.
+24-05-2025 13:27:53 | INFO: status: 200 | Message: Program created successfully.
+24-05-2025 14:02:21 | ERROR: status: 500 | Message: Program validation failed: title: Path `title` is required.
+24-05-2025 14:02:39 | ERROR: status: 500 | Message: Program validation failed: title: Path `title` is required.
+24-05-2025 14:02:51 | ERROR: status: 500 | Message: Program validation failed: title: Path `title` is required.
+24-05-2025 14:05:37 | ERROR: status: 500 | Message: Program validation failed: title: Path `title` is required.
+24-05-2025 14:12:00 | ERROR: status: 400 | Message: createdBy is required.
+24-05-2025 14:12:42 | ERROR: status: 400 | Message: File not uploaded.
+24-05-2025 14:13:23 | ERROR: status: 500 | Message: file.replace is not a function

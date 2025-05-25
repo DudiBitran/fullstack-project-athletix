@@ -1,11 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const { User, trainerValidation } = require("../../model/user");
+const { User, userValidation } = require("../../model/user");
+const { trainerValidation, Trainer } = require("../../model/trainer");
 const logger = require("../../fileLogger/fileLogger");
 const _ = require("lodash");
 const { permitRoles } = require("../../middleware/role");
 const authMw = require("../../middleware/auth");
 const bcrypt = require("bcrypt");
+const uploadImage = require("../../middleware/imageUpload");
 const {
   DeleteRequest,
   deleteRequestValidation,
@@ -49,50 +51,77 @@ router.get("/", authMw, permitRoles("admin"), async (req, res) => {
 });
 
 // Admin create a new trainer user
-router.post("/", authMw, permitRoles("admin"), async (req, res) => {
-  const { error } = trainerValidation.validate(req.body);
-  if (error) {
-    res.status(400).send({
-      message: "Input validation error.",
-      details: error.details.map((e) => e.message),
-    });
-    logger.error(
-      `status: ${res.statusCode} | Message: ${error.details.map(
-        (e) => e.message
-      )}`
-    );
-    return;
-  }
+router.post(
+  "/trainer",
+  authMw,
+  uploadImage.single("image"),
+  permitRoles("admin"),
+  async (req, res) => {
+    try {
+      const trainerData = req.body.trainer ? JSON.parse(req.body.trainer) : {};
+      const userData = { ...req.body };
+      delete userData.trainer;
 
-  try {
-    const newTrainer = await new User({
-      ...req.body,
-      role: "trainer",
-      password: await bcrypt.hash(req.body.password, 14),
-    }).save();
+      const { error: userError } = userValidation.validate(userData);
+      if (userError) {
+        return res.status(400).send({
+          message: "Input validation error.",
+          details: userError.details.map((e) => e.message),
+        });
+      }
 
-    res.send(newTrainer);
-    logger.info(
-      `status: ${res.statusCode} | Message: A new trainer user created successfully.`
-    );
-  } catch (err) {
-    if (err.code === 11000) {
-      const field = Object.keys(err.keyPattern)[0];
-      const value = err.keyValue[field];
-      res
-        .status(400)
-        .send(
-          `The input field "${field}", with the value "${value}", already exist.`
-        );
-      logger.error(
-        `status: ${res.statusCode} | Message: Message: Failed to register the trainer, ${field} already in use.`
+      const { error: trainerError } = trainerValidation.validate(trainerData);
+      if (trainerError) {
+        return res.status(400).send({
+          message: "Input validation error.",
+          details: trainerError.details.map((e) => e.message),
+        });
+      }
+
+      const newUser = new User({
+        ...userData,
+        password: await bcrypt.hash(userData.password, 14),
+        role: "trainer",
+      });
+
+      console.log(newUser);
+
+      if (req.file) {
+        const path = req.file.path.replace("\\", "/");
+        newUser.image = path;
+      }
+
+      await newUser.save();
+
+      const newTrainer = new Trainer({
+        ...trainerData,
+        userId: newUser._id,
+      });
+
+      await newTrainer.save();
+
+      res.send(newTrainer);
+      logger.info(
+        `status: ${res.statusCode} | Message: A new trainer user created successfully.`
       );
-      return;
+    } catch (err) {
+      console.log(err);
+
+      if (err.code === 11000) {
+        const field = Object.keys(err.keyPattern)[0];
+        const value = err.keyValue[field];
+        return res
+          .status(400)
+          .send(
+            `The input field "${field}", with the value "${value}", already exists.`
+          );
+      }
+
+      res.status(500).send("Internal server error.");
+      logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
     }
-    res.status(500).send("Internal server error.");
-    logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
   }
-});
+);
 
 // Admin choose what to do with the delete request
 router.delete(

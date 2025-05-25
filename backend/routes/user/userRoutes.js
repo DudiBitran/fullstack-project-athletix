@@ -5,7 +5,7 @@ const logger = require("../../fileLogger/fileLogger");
 const _ = require("lodash");
 const { permitRoles } = require("../../middleware/role");
 const authMw = require("../../middleware/auth");
-const upload = require("../../middleware/upload");
+const imageUpload = require("../../middleware/imageUpload");
 const path = require("path");
 const fs = require("fs");
 
@@ -104,7 +104,7 @@ router.put(
   "/me/image",
   authMw,
   permitRoles("admin", "trainer", "user"),
-  upload.single("image"),
+  imageUpload.single("image"),
   async (req, res) => {
     try {
       if (!req.file) {

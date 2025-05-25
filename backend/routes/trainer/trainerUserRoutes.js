@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { User, AssignTrainerValidation } = require("../../model/user");
+const { User } = require("../../model/user");
 const logger = require("../../fileLogger/fileLogger");
 const _ = require("lodash");
 const { permitRoles } = require("../../middleware/role");
@@ -9,87 +9,6 @@ const {
   sendDeleteRequestValidation,
   DeleteRequest,
 } = require("../../model/trainerDeleteRequest");
-
-// Admin / Trainer assign the trainer to the user
-router.put(
-  "/:id/assign-trainer",
-  authMw,
-  permitRoles("admin", "trainer"),
-  async (req, res) => {
-    const { error } = AssignTrainerValidation.validate(req.body);
-    if (error) {
-      res.status(400).send({
-        message: "Input validation error.",
-        details: error.details.map((e) => e.message),
-      });
-      logger.error(
-        `status: ${res.statusCode} | Message: ${error.details.map(
-          (e) => e.message
-        )}`
-      );
-      return;
-    }
-
-    try {
-      const { trainerId } = req.body;
-      const userId = req.params.id;
-
-      const user = await User.findById(userId);
-      if (!user) {
-        res.status(404).send("User not found.");
-        logger.error(`status: ${res.statusCode} | Message: User not found.`);
-        return;
-      }
-      if (user.role === "trainer") {
-        res.status(404).send("Trainer cannot assign a trainer");
-        logger.error(
-          `status: ${res.statusCode} | Message: Trainer cannot assign a trainer.`
-        );
-        return;
-      }
-      if (
-        req.user.role === "trainer" &&
-        req.user._id.toString() !== trainerId
-      ) {
-        res.status(403).send("Trainers can only assign themselves.");
-        logger.error(
-          `status: ${res.statusCode} | Message: Failed to assign, Trainers can only assign themselves.`
-        );
-        return;
-      }
-
-      const trainer = await User.findById(trainerId);
-      if (!trainerId || trainer.role !== "trainer") {
-        res.status(400).send("Invalid trainer ID.");
-        logger.error(
-          `status: ${res.statusCode} | Message: Failed to assign, Invalid trainer ID.`
-        );
-        return;
-      }
-      if (user.assignedTrainerId.toString() === trainerId) {
-        res.status(400).send("User already assigned to this trainer.");
-        logger.error(
-          `status: ${res.statusCode} | Message: Failed to assign, User already assigned to this trainer.`
-        );
-        return;
-      }
-      user.assignedTrainerId = trainerId;
-      await user.save();
-      logger.info(
-        `status: ${res.statusCode} | Message: User ${userId} assigned to trainer ${trainerId}`
-      );
-
-      res.send({
-        message: "Trainer assigned successfully.",
-        userId: user._id,
-        assignedTrainerId: trainerId,
-      });
-    } catch (err) {
-      res.status(500).send("Internal server error.");
-      logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
-    }
-  }
-);
 
 // trainer getting own client
 

@@ -8,3 +8,8 @@
 22-05-2025 00:23:15 | INFO: status: 200 | Message: User registered successfully
 22-05-2025 00:23:42 | INFO: status: 200 | Message: Token provided.
 22-05-2025 00:24:18 | INFO: status: 200 | Message: User image have been changes successfully.
+22-05-2025 16:02:27 | ERROR: status: 400 | Message: Access denied, No token provided.
+22-05-2025 16:02:47 | ERROR: status: 400 | Message: No file uploaded.
+22-05-2025 16:07:00 | ERROR: status: 400 | Message: No file uploaded.
+22-05-2025 16:35:41 | ERROR: status: 400 | Message: Trainer is required.
+22-05-2025 16:46:48 | INFO: status: 200 | Message: Program created successfully.

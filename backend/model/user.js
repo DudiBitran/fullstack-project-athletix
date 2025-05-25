@@ -32,8 +32,7 @@ const userSchema = new mongoose.Schema({
   image: {
     type: String,
     maxlength: 1024,
-    default:
-      "https://static.vecteezy.com/system/resources/previews/000/595/510/non_2x/vector-object-and-icons-for-sport-label-gym-badge-fitness-logo-design.jpg",
+    default: "/pablic/defaults/trainer-icon.jpg",
     set: (v) => (v === "" ? undefined : v),
   },
   role: {
@@ -56,6 +55,12 @@ const userSchema = new mongoose.Schema({
     ref: "User",
     default: null,
   },
+  programs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Program",
+    },
+  ],
   stats: {
     weight: Number,
     bodyFat: Number,
@@ -108,27 +113,16 @@ const validation = {
     "number.min": "You must be at least 18 years old to register",
   }),
   gender: Joi.string().valid("male", "female", "other").required(),
+  image: Joi.string().allow("").optional(),
 };
 
-const userValidation = Joi.object(validation).required();
+const userValidation = Joi.object(validation);
 const loginValidation = Joi.object(
   _.pick(validation, ["email", "password"])
 ).required();
 
 const updateValidation = Joi.object(
   _.pick(validation, ["firstName", "lastName", "image", "email"])
-);
-
-const trainerValidation = Joi.object(
-  _.pick(validation, [
-    "firstName",
-    "lastName",
-    "image",
-    "email",
-    "gender",
-    "age",
-    "password",
-  ])
 );
 
 const AssignTrainerValidation = Joi.object({
@@ -145,6 +139,5 @@ module.exports = {
   loginValidation,
   updateValidation,
   AssignTrainerValidation,
-  trainerValidation,
   User,
 };
