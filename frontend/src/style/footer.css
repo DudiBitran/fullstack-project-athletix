@@ -1,0 +1,79 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+footer {
+  background-color: #292727 !important;
+  border-top: 2px solid var(--primary-color);
+  color: #fff;
+}
+
+.text-body {
+  color: #fff !important;
+}
+
+.footer-logo {
+  height: 150px;
+  width: 140px;
+}
+
+.logo-text h6 {
+  font-family: var(--font-family-navbar);
+  font-size: 50px;
+  font-weight: 800;
+}
+
+.footer {
+  background-color: #929fba;
+  color: white;
+}
+
+.footer .btn-floating {
+  margin: 0.25rem;
+}
+
+.footer .facebook {
+  background-color: #3b5998;
+}
+
+.footer .twitter {
+  background-color: #55acee;
+}
+
+.footer .google {
+  background-color: #dd4b39;
+}
+
+.footer .instagram {
+  background-color: #ac2bac;
+}
+
+.footer .linkedin {
+  background-color: #0082ca;
+}
+
+.footer .github {
+  background-color: #333333;
+}
+
+.footer-bottom {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 1160px) {
+  .logo-text {
+    width: 30%;
+  }
+  .footer-logo {
+    height: 100px;
+    width: 90px;
+  }
+
+  .logo-text h6 {
+    font-family: var(--font-family-navbar);
+    font-size: 45px;
+    font-weight: 800;
+  }
+}

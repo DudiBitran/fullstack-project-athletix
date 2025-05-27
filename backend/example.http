@@ -108,3 +108,55 @@ x-auth-token: {{adminToken}}
 ###
 GET {{local}}/athletix/auth/role
 x-auth-token:{{adminToken}}
+
+###
+POST {{local}}/athletix/program
+x-auth-token:{{trainerToken2}}
+
+{
+  "name": "תכנית חיטוב למתחילים",
+  "description": "תכנית של 6 שבועות לחיטוב וחיזוק כללי",
+  "trainer": "60f1c2a4d5d5c2a4d5d5c2a4",
+  "durationWeeks": 6,
+  "difficulty": "beginner",
+  "days": [
+    {
+      "day": "Sunday",
+      "exercises": [
+        {
+          "name": "Squats",
+          "sets": 3,
+          "reps": 12,
+          "restSeconds": 60,
+          "notes": "שמור על גב ישר"
+        },
+        {
+          "name": "Push-ups",
+          "sets": 3,
+          "reps": 10
+        }
+      ]
+    },
+    {
+      "day": "Tuesday",
+      "exercises": [
+        {
+          "name": "Deadlifts",
+          "sets": 4,
+          "reps": 8,
+          "restSeconds": 90
+        }
+      ]
+    }
+  ],
+  "attachments": [
+    {
+      "filename": "program-guide.pdf",
+      "url": "https://example.com/files/program-guide.pdf",
+      "mimetype": "application/pdf",
+      "size": 102400
+    }
+  ]
+}
+
+
