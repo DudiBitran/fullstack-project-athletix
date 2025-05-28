@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+.main-background {
+  background-color: var(--dark-background-color);
+}
+
 .slider-image-container {
   position: relative;
   width: 100%;

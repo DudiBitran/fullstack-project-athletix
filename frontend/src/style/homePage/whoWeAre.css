@@ -1,0 +1,95 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.whoWeAre-container {
+  background-color: var(--dark-background-color);
+  font-family: var(--font-family-jumboText);
+  display: flex;
+  color: #fff;
+  position: relative;
+}
+
+.whoWeAre-container p {
+  font-size: 15px;
+}
+
+.whoWeAre-container .box1 {
+  border: 6px solid #313131;
+  display: flex;
+  width: 450px;
+  height: 150px;
+  padding: 15px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.whoWeAre-container h3 {
+  font-weight: 700;
+}
+.whoWeAre-container .box2 {
+  border: 6px solid #313131;
+
+  display: flex;
+  width: 450px;
+  height: 150px;
+  padding: 15px;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+.whoWeAre-container .box3 {
+  border: 6px solid #313131;
+  display: flex;
+  width: 450px;
+  height: 150px;
+  padding: 15px;
+  align-items: center;
+  justify-content: center;
+}
+
+.whoWeAre-container .box1 .icon {
+  color: var(--orange-color);
+  height: 100%;
+}
+
+.whoWeAre-container .box1 h3 {
+  height: 100%;
+}
+
+.whoWeAre-container .box3 .icon {
+  width: 30%;
+  color: var(--orange-color);
+}
+
+.whoWeAre-container .box2 .icon {
+  height: fit-content;
+}
+
+.whoWeAre-container .box2 .box-content {
+  width: 80%;
+}
+
+.whoWeAre-container .box2 .icon img {
+  background-color: var(--orange-color);
+  border-radius: 8px 8px;
+  width: 60px;
+  height: 60px;
+}
+
+.whoWeAre-container .box2 .box-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+}
+
+.whoWeAre-container .box3 .box-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+}

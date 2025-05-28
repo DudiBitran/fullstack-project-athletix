@@ -1,0 +1,52 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.couple-container {
+  width: 100%;
+  height: 900px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.fixed-bg-section {
+  height: 600px;
+  background-image: url("/images/couple3.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.overlay-text {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: var(--primary-color);
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+  font-family: var(--font-family-Rajdhani);
+}
+
+.overlay-text h1 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.overlay-text h2 {
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.overlay-text p {
+  color: #fff;
+  width: 500px;
+  font-size: 18px;
+}
