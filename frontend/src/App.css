@@ -1,15 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap");
 #root {
   /* colors */
   --primary-color: #fff300;
   --dark-background-color: #1a1a1a;
+  --light-gray-color: #313131;
   --orange-color: #ffa600;
 
   /* fonts */
   --font-family-navbar: "Montserrat", sans-serif;
   --font-family-jumboText: "inter", sans-serif;
   --font-family-Rajdhani: "Rajdhani", sans-serif;
+  --font-family-Source-Sans-3: "Source Sans 3", sans-serif;
 }

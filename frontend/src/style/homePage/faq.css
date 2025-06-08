@@ -1,0 +1,84 @@
+.faq-section {
+  padding: 8% 0;
+  font-family: var(--font-family-Rajdhani);
+  font-size: 17px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3rem;
+}
+
+.faq-section .faq-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.faq-section .faq-content h1 {
+  color: var(--dark-background-color);
+  font-size: 120px;
+  font-weight: 900;
+  -webkit-text-stroke: 2px #ffa6004d;
+}
+
+.faq-section .faq-content > div > h2 {
+  color: #fff;
+  width: 700px;
+  font-weight: 900;
+  font-size: 70px;
+  transform: translateY(-100px) translateX(110px);
+}
+
+.accordion {
+  width: 700px;
+}
+
+.accordion-item {
+  background-color: var(--dark-background-color) !important;
+  color: #fff !important;
+  border: none;
+}
+
+.accordion-button {
+  background-color: transparent !important;
+  color: #fff !important;
+  font-size: 19px !important;
+  font-weight: 600;
+  box-shadow: none !important;
+}
+
+.accordion-button:not(.collapsed) {
+  color: var(--primary-color) !important;
+}
+
+.accordion-button::after {
+  content: "+" !important;
+  font-size: 1.6rem;
+  color: var(--primary-color) !important;
+  background-image: none !important;
+  transform: none !important;
+  transition: none;
+  font-weight: 700;
+}
+
+.accordion-button:not(.collapsed)::after {
+  content: "−" !important;
+  color: #fff !important;
+}
+
+.accordion-body {
+  color: #ddd;
+  font-size: 16px;
+}
+
+.faq-img {
+  position: relative;
+  height: 600px;
+  width: 700px;
+  mask-image: url(/images/Ripped-Paper.png);
+  -webkit-mask-image: url(/images/Ripped-Paper.png);
+  mask-size: 121%;
+  mask-repeat: no-repeat;
+  mask-position: center center;
+  -webkit-mask-size: cover;
+  -webkit-mask-repeat: no-repeat;
+}

@@ -6,34 +6,19 @@
     "auditLog": "C:\\Users\\1234d\\OneDrive\\מסמכים\\GitHub\\fullstack-project-athletix\\backend\\logs\\.695e06b4c4ea8276e2708f7a51f7cb4e6fd7e378-audit.json",
     "files": [
         {
-            "date": 1747610660677,
-            "name": "C:\\Users\\1234d\\OneDrive\\מסמכים\\GitHub\\fullstack-project-athletix\\backend\\logs\\log-19-05-2025.log",
-            "hash": "2c3a4ac8c3dd4e561ccbce408768730b2d05f6c95d4208dbf942a7973e7170b3"
+            "date": 1748701168918,
+            "name": "C:\\Users\\1234d\\OneDrive\\מסמכים\\GitHub\\fullstack-project-athletix\\backend\\logs\\log-31-05-2025.log",
+            "hash": "88a3119def12f8581a545af58fd8f24c3679890408e5cb66d50785900c13c48c"
         },
         {
-            "date": 1747725856448,
-            "name": "C:\\Users\\1234d\\OneDrive\\מסמכים\\GitHub\\fullstack-project-athletix\\backend\\logs\\log-20-05-2025.log",
-            "hash": "4b93a594d3afd41efd61dba20f42cc650acb7be3d60e889dd8875a254d8fcf9a"
+            "date": 1748878762807,
+            "name": "C:\\Users\\1234d\\OneDrive\\מסמכים\\GitHub\\fullstack-project-athletix\\backend\\logs\\log-02-06-2025.log",
+            "hash": "1887b7f06b7f1d6b213e470f6a2cc1c9f50046e3a06fa0178c345b2c055ab293"
         },
         {
-            "date": 1747852301170,
-            "name": "C:\\Users\\1234d\\OneDrive\\מסמכים\\GitHub\\fullstack-project-athletix\\backend\\logs\\log-21-05-2025.log",
-            "hash": "cc5db7ecac0fa058d1d500d0a2204ec0dd58e840b62c983b419084ab6e218bd4"
-        },
-        {
-            "date": 1747861308056,
-            "name": "C:\\Users\\1234d\\OneDrive\\מסמכים\\GitHub\\fullstack-project-athletix\\backend\\logs\\log-22-05-2025.log",
-            "hash": "2acbae5384fdfb7b9fbc43098566c0b0172f1e6bf08f40a9945a0ac1f7ff2b59"
-        },
-        {
-            "date": 1748079935100,
-            "name": "C:\\Users\\1234d\\OneDrive\\מסמכים\\GitHub\\fullstack-project-athletix\\backend\\logs\\log-24-05-2025.log",
-            "hash": "73d55edaf1869caeb4bc9139b072048f300eb16c583a4dfc6a738275864237fa"
-        },
-        {
-            "date": 1748152971647,
-            "name": "C:\\Users\\1234d\\OneDrive\\מסמכים\\GitHub\\fullstack-project-athletix\\backend\\logs\\log-25-05-2025.log",
-            "hash": "2e8d098e4b27add18af1c4fe63561a1562d0f53b096209f0d6920482f3fb8ce5"
+            "date": 1749402006736,
+            "name": "C:\\Users\\1234d\\OneDrive\\מסמכים\\GitHub\\fullstack-project-athletix\\backend\\logs\\log-08-06-2025.log",
+            "hash": "92361c2f2b8bbac719f44961426e3c32bdeee8d08958c568cb066fa0b6d895aa"
         }
     ],
     "hashType": "sha256"

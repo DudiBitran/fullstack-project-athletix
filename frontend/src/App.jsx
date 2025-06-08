@@ -3,6 +3,8 @@ import "./App.css";
 import CustomNavbar from "./components/navbar";
 import HomePage from "./pages/homePage";
 import Footer from "./components/footer";
+import Login from "./pages/login";
+import Register from "./pages/register";
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
 
       <main>
         <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/" element={<HomePage />} />
         </Routes>
       </main>

@@ -1,7 +1,10 @@
-import Slider from "react-slick";
 import "../style/homePage/banner.css";
 import "../style/homePage/whoWeAre.css";
 import "../style/homePage/fixed-section.css";
+import "../style/homePage/ourProcess.css";
+import "../style/homePage/faq.css";
+import Slider from "react-slick";
+import { Accordion } from "react-bootstrap";
 import { FaDumbbell, FaExternalLinkAlt } from "react-icons/fa";
 import { Link } from "react-router";
 const images = [
@@ -22,6 +25,30 @@ const HomePage = () => {
     arrows: false,
     pauseOnHover: false,
   };
+
+  const faqItems = [
+    {
+      question: "Would I need to commit to a long-term program?",
+      answer:
+        "No, it depends on your goals. The only thing you need to commit to is the process.",
+    },
+    {
+      question: "What kinds of workouts are best for losing weight?",
+      answer:
+        "Incorporating both aerobic activities (like jogging, biking, or swimming) and resistance training works well for shedding pounds. Aim to burn more calories than you consume by following a well-rounded exercise plan alongside nutritious eating habits.",
+    },
+    {
+      question:
+        "How soon can I expect to see results from regular gym workouts?",
+      answer:
+        "The time frame varies based on factors such as dedication, consistency, and individual differences. Typically, you might begin to notice increased strength and better energy levels within several weeks. However, visible changes in your physique often take longer, usually around 8 to 12 weeks or more.",
+    },
+    {
+      question: "How do I stay motivated to go to the gym?",
+      answer:
+        "Staying motivated can be challenging, but having support makes a big difference. Our coaching Escort in AthletiX is designed to keep you accountable and inspired throughout your fitness journey. With personalized guidance, progress tracking, and regular encouragement, Escort helps you stay on track and reach your goals — making the gym feel less like a chore and more like a positive habit.",
+    },
+  ];
 
   return (
     <main className="main-background">
@@ -51,6 +78,7 @@ const HomePage = () => {
           </Slider>
         </div>
       </section>
+
       <section className="whoWeAre-container container">
         <div className="box1">
           <div className="box-content">
@@ -81,18 +109,90 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+
+      <section className="our-process-container">
+        <div className="process-content">
+          <h1></h1>
+          <h2></h2>
+          <h3></h3>
+        </div>
+      </section>
+
       <section className="couple-container">
         <div className="fixed-bg-section">
           <div className="overlay-text">
             <h1>JOIN WITH YOUR FRIENDS</h1>
             <h2>GET 1 + 1 DISCOUNT</h2>
             <p>
-              Join with your friends and get a 1 + 1 discount! Bring someone
-              along and enjoy double the value for the same price. Don't miss
-              out on this special offer – it's the perfect time to share the
-              experience and save together.
+              Join with your friends and get a 1+1 discount — double the value
+              for the same price! Bring someone along and enjoy this
+              limited-time offer together — don’t miss out!
             </p>
           </div>
+        </div>
+      </section>
+
+      <section className="faq-section container">
+        <div className="faq-content">
+          <div>
+            <h1>FAQS</h1>
+            <h2>Your Path to Fitness Achievement</h2>
+          </div>
+          <Accordion defaultActiveKey="0" className="accordion">
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>
+                Would I need to commit to a long-term program?
+              </Accordion.Header>
+              <Accordion.Body>
+                No, it depends on your goals. The only thing you need to commit
+                to is the process.
+              </Accordion.Body>
+            </Accordion.Item>
+
+            <Accordion.Item eventKey="1">
+              <Accordion.Header>
+                What kinds of workouts are best for losing weight?
+              </Accordion.Header>
+              <Accordion.Body>
+                Incorporating both aerobic activities (like jogging, biking, or
+                swimming) and resistance training works well for shedding
+                pounds. Aim to burn more calories than you consume by following
+                a well-rounded exercise plan alongside nutritious eating habits.
+              </Accordion.Body>
+            </Accordion.Item>
+
+            <Accordion.Item eventKey="2">
+              <Accordion.Header>
+                How soon can I expect to see results from regular gym workouts?
+              </Accordion.Header>
+              <Accordion.Body>
+                The time frame varies based on factors such as dedication,
+                consistency, and individual differences. Typically, you might
+                begin to notice increased strength and better energy levels
+                within several weeks. However, visible changes in your physique
+                often take longer, usually around 8 to 12 weeks or more.
+              </Accordion.Body>
+            </Accordion.Item>
+
+            <Accordion.Item eventKey="3">
+              <Accordion.Header>
+                How do I stay motivated to go to the gym?
+              </Accordion.Header>
+              <Accordion.Body>
+                Staying motivated can be challenging, but having support makes a
+                big difference. Our coaching Escort in AthletiX is designed to
+                keep you accountable and inspired throughout your fitness
+                journey. With personalized guidance, progress tracking, and
+                regular encouragement, Escort helps you stay on track and reach
+                your goals — making the gym feel less like a chore and more like
+                a positive habit.
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
+        </div>
+
+        <div className="img-container">
+          <img src="/images/banner2.jpg" alt="" className="faq-img" />
         </div>
       </section>
     </main>

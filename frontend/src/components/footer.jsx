@@ -1,5 +1,5 @@
 import "../style/footer.css";
-import Logo from "./logo";
+import Logo from "./common/logo";
 import {
   FaFacebookF,
   FaTwitter,
