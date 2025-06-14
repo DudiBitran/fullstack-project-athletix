@@ -7,6 +7,7 @@ import Slider from "react-slick";
 import { Accordion } from "react-bootstrap";
 import { FaDumbbell, FaExternalLinkAlt } from "react-icons/fa";
 import { Link } from "react-router";
+import { useAuth } from "../context/auth.context";
 const images = [
   "/images/banner4.jpg",
   "/images/lifter-banner.jpg",
@@ -25,6 +26,10 @@ const HomePage = () => {
     arrows: false,
     pauseOnHover: false,
   };
+
+  const {user} = useAuth()
+  console.log(user);
+  
 
   const faqItems = [
     {

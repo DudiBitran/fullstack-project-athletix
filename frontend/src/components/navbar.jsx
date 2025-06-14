@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import "../style/navbar.css";
 import Logo from "./common/logo";
 import { Link, NavLink } from "react-router";
+import { useAuth } from "../context/auth.context";
 function CustomNavbar() {
   const [scrolled, setScrolled] = useState(false);
-
+  const {logout} = useAuth()
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
@@ -55,7 +56,7 @@ function CustomNavbar() {
                 <NavDropdown.Item>My Profile</NavDropdown.Item>
                 <NavDropdown.Item>Settings</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item>Logout</NavDropdown.Item>
+                <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
               </NavDropdown>
             </Nav>
 

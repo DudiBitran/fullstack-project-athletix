@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "D:\\Old PC\\GitHub\\fullstack-project-athletix\\backend\\logs\\.39294f48a221b189373c675d546d9b9b080558f6-audit.json",
+    "files": [
+        {
+            "date": 1749909199523,
+            "name": "D:\\Old PC\\GitHub\\fullstack-project-athletix\\backend\\logs\\log-14-06-2025.log",
+            "hash": "ec2cfe8cee1ab82e88e21510e33da898be5e93d78cf28375a1c3cda2fa24585d"
+        }
+    ],
+    "hashType": "sha256"
+}

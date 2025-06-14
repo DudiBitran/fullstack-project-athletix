@@ -5,22 +5,27 @@ const AuthContext = createContext();
 AuthContext.displayName = "Auth";
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(undefined);
-  const [userToken, setUserToken] = useState(undefined);
+  const [user, setUser] = useState(null);
+  const [userToken, setUserToken] = useState(userService.getJwt());
 
-  /*   const loadUser = async () => {
-    try {
-      const response = await userService.getMe();
-      setUser(response.data);
-    } catch (err) {
-      setUser(null);
-      console.error("Failed to fetch user:", err.message);
+    
+  useEffect(()=>{
+    if(!userToken){
+      return;
     }
-  };
+    const getUser = async () =>{
+      try{
+        const response = await userService.getMe();
+        setUser(response.data);
+        return;
+      }catch(err){
+        setUser(null);
+        throw new Error(err)
+      }
+    }
+    getUser();
+  },[userToken])
 
-  useEffect(() => {
-    loadUser();
-  }, []); */
 
   const refreshUser = () => {
     setUserToken(userService.getJwt());
@@ -40,6 +45,8 @@ export function AuthProvider({ children }) {
 
   const logout = () => {
     userService.logout();
+    setUser(null);
+    setUserToken(null);
     refreshUser();
   };
 
