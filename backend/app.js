@@ -25,8 +25,15 @@ app.use(
   require("./routes/trainer/trainerAssignRoute")
 );
 app.use("/athletix/program", require("./routes/program/programRoute"));
+app.use(
+  "/athletix/admin/program",
+  require("./routes/admin/adminProgramRoutes")
+);
 app.use("/athletix/exercise/", require("./routes/exercise/exerciseRoute"));
-
+app.use(
+  "/athletix/workout-status/",
+  require("./routes/workoutStatus/workoutStatusRoutes")
+);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/public", express.static(path.join(__dirname, "public")));
 app.use("/file-upload", express.static(path.join(__dirname, "file-upload")));

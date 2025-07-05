@@ -10,6 +10,16 @@ const authMw = require("../../middleware/auth");
 const imageUpload = require("../../middleware/imageUpload");
 
 router.post("/register", imageUpload.single("image"), async (req, res) => {
+  if (typeof req.body.stats === "string") {
+    try {
+      req.body.stats = JSON.parse(req.body.stats);
+    } catch (err) {
+      return res.status(400).send({
+        message: "Invalid stats format – must be a valid JSON object",
+      });
+    }
+  }
+
   // input validation
   const { error } = userValidation.validate(req.body);
   if (error) {
@@ -50,11 +60,7 @@ router.post("/register", imageUpload.single("image"), async (req, res) => {
     if (err.code === 11000) {
       const field = Object.keys(err.keyPattern)[0];
       const value = err.keyValue[field];
-      res
-        .status(400)
-        .send(
-          `The input field "${field}", with the value "${value}", already exist.`
-        );
+      res.status(400).send(`The ${field}: "${value}", already in use.`);
       logger.error(
         `status: ${res.statusCode} | Message: User failed to register, ${field} already in use.`
       );

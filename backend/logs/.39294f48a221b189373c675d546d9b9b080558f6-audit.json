@@ -6,9 +6,29 @@
     "auditLog": "D:\\Old PC\\GitHub\\fullstack-project-athletix\\backend\\logs\\.39294f48a221b189373c675d546d9b9b080558f6-audit.json",
     "files": [
         {
-            "date": 1749909199523,
-            "name": "D:\\Old PC\\GitHub\\fullstack-project-athletix\\backend\\logs\\log-14-06-2025.log",
-            "hash": "ec2cfe8cee1ab82e88e21510e33da898be5e93d78cf28375a1c3cda2fa24585d"
+            "date": 1750519688951,
+            "name": "D:\\Old PC\\GitHub\\fullstack-project-athletix\\backend\\logs\\log-21-06-2025.log",
+            "hash": "2bc5bf8443cc5497a790e25c828a8c3c73e5302112f712b09745c04e0879d1fa"
+        },
+        {
+            "date": 1751216854360,
+            "name": "D:\\Old PC\\GitHub\\fullstack-project-athletix\\backend\\logs\\log-29-06-2025.log",
+            "hash": "56d621db033d86afd6ba8c40a719abfbdc2dc56e90fe4bfb099cd87c8645ea2f"
+        },
+        {
+            "date": 1751562891859,
+            "name": "D:\\Old PC\\GitHub\\fullstack-project-athletix\\backend\\logs\\log-03-07-2025.log",
+            "hash": "11bd14205d3e890851c1126acfd3798b077715454e785920f2be110a2103961b"
+        },
+        {
+            "date": 1751625307010,
+            "name": "D:\\Old PC\\GitHub\\fullstack-project-athletix\\backend\\logs\\log-04-07-2025.log",
+            "hash": "e4a9d41c8e3a834617107190596be4c89cfe2575c7145ed5ed99f736f685964c"
+        },
+        {
+            "date": 1751702434891,
+            "name": "D:\\Old PC\\GitHub\\fullstack-project-athletix\\backend\\logs\\log-05-07-2025.log",
+            "hash": "6b41d3aee10522b25d4b7864d33f4bd52f89fe74cccd284e24dd2e97cfb0d299"
         }
     ],
     "hashType": "sha256"

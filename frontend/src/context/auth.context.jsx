@@ -7,30 +7,38 @@ AuthContext.displayName = "Auth";
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [userToken, setUserToken] = useState(userService.getJwt());
+  const [profileImage, setProfileImage] = useState(undefined);
 
-    
-  useEffect(()=>{
-    if(!userToken){
+  useEffect(() => {
+    if (!userToken) {
       return;
     }
-    const getUser = async () =>{
-      try{
+    const getUser = async () => {
+      try {
         const response = await userService.getMe();
         setUser(response.data);
+        setProfileImage(response.data?.image);
         return;
-      }catch(err){
+      } catch (err) {
         setUser(null);
-        throw new Error(err)
+        throw new Error(err);
       }
-    }
+    };
     getUser();
-  },[userToken])
-
+  }, [userToken]);
 
   const refreshUser = () => {
     setUserToken(userService.getJwt());
-    console.log(user);
     return;
+  };
+
+  const createUser = async (credentials) => {
+    try {
+      const response = await userService.createUser(credentials);
+      return response;
+    } catch (err) {
+      throw err;
+    }
   };
 
   const login = async (credentials) => {
@@ -51,7 +59,9 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ login, logout, user }}>
+    <AuthContext.Provider
+      value={{ login, logout, createUser, user, profileImage }}
+    >
       {children}
     </AuthContext.Provider>
   );

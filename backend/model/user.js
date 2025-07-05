@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
   image: {
     type: String,
     maxlength: 1024,
-    default: "/pablic/defaults/trainer-icon.jpg",
+    default: "/public/defaults/trainer-icon.jpg",
     set: (v) => (v === "" ? undefined : v),
   },
   role: {
@@ -105,10 +105,11 @@ const validation = {
   }),
   role: Joi.string().valid("admin", "trainer", "user").optional(),
   stats: Joi.object({
-    weight: Joi.number().min(30).max(300).optional(),
-    bodyFat: Joi.number().min(3).max(60).optional(),
-    height: Joi.number().min(100).max(250).optional(),
+    weight: Joi.number().min(30).max(300).optional().allow(null, ""),
+    bodyFat: Joi.number().min(3).max(60).optional().allow(null, ""),
+    height: Joi.number().min(100).max(250).optional().allow(null, ""),
   }).optional(),
+
   age: Joi.number().min(18).required().messages({
     "number.min": "You must be at least 18 years old to register",
   }),

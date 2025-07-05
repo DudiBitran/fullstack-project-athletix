@@ -27,7 +27,7 @@ POST {{local}}/athletix/auth/login
 Content-Type: application/json
 
 {
-     "email":"dodi@gmail.com",
+     "email":"t3@trainer.com",
      "password": "Dd!dd1234"
 
 }

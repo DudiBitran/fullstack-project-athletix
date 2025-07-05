@@ -1,0 +1,52 @@
+@local = http://localhost:3000
+
+###
+GET {{local}}/athletix/program/details/6866ca5796c385b516596366
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODUwMWFmNDBjMGI1OWExYmQxMTg2NWMiLCJpYXQiOjE3NTE2NDMwNDF9.BF4uxe_v-g3GhFRjv3H1ucIVeUz-kyS0Sm388a0Ba8Q
+
+###
+DELETE  {{local}}/athletix/program/6866ca5796c385b516596366
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODJjZTFjZTg4NjM2MzZkZmI1NWI5ZWIiLCJpYXQiOjE3NDc3NzE4NTh9.P7iSO_lhermugB5im2Twiy26GWWyfOjEulEVcK7V-yI
+
+###
+PUT {{local}}/athletix/program/6866cabb96c385b51659636b
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODUwMWFmNDBjMGI1OWExYmQxMTg2NWMiLCJpYXQiOjE3NTE2NDMwNDF9.BF4uxe_v-g3GhFRjv3H1ucIVeUz-kyS0Sm388a0Ba8Q
+Content-Type: application/json
+
+{
+  "title": "Updated Hypertrophy Plan",
+  "description": "Updated version with more leg focus",
+  "durationWeeks": 10,
+  "difficulty": "intermediate",
+  "days": [
+    {
+      "day": "Sunday",
+      "exercises": [
+        "60b8e7ac9d7a3b1f44e9c123",
+        "60b8e7ac9d7a3b1f44e9c456"
+      ]
+    },
+    {
+      "day": "Wednesday",
+      "exercises": [
+        "60b8e7ac9d7a3b1f44e9c789"
+      ]
+    }
+  ]
+}
+
+
+###
+GET {{local}}/athletix/admin/program
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODMzMjIzZTNlNmYxMzAzOTFjYTJiMWYiLCJpYXQiOjE3NTE3MDkyNjB9.qXpZKu8le8yz4Xnwwpjm5lCNvGIdS6JmIU7-QR8QNXM
+
+###
+POST {{local}}/athletix/workout-status/
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODUwMTk5ODBjMGI1OWExYmQxMTg2NTkiLCJpYXQiOjE3NTE3MTIwNjh9.rTO2ZQGFqcny1gwenNLtzWOrUaV-knHU2JVF_gyHRQc
+Content-Type: application/json
+
+{
+  "programId": "665b7a7f6aa1234567890aaa",
+  "day": "Wednesday",
+  "completed": false
+}

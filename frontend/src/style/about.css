@@ -1,0 +1,137 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.about-container {
+  min-height: 100vh;
+  background-color: var(--dark-background-color);
+  font-family: var(--font-family-Rajdhani);
+  padding-bottom: 70px;
+}
+
+.about-container .about {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.about-container .fixed-bg-section {
+  height: 400px;
+  background-image: url("/images/about-us-crew.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.overlay-text {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: var(--primary-color);
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+  font-family: var(--font-family-Rajdhani);
+}
+
+.overlay-text h1 {
+  font-size: 80px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.our-story-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  padding: 10px;
+  margin-top: 50px;
+  gap: 100px;
+}
+
+.our-story-container h1 {
+  font-size: var(--font-family-jumboText);
+  color: var(--primary-color);
+  font-size: 55px;
+  font-weight: 700;
+  font-style: italic;
+  text-align: center;
+  position: relative;
+}
+
+.our-story-container h1::before {
+  content: "";
+  position: absolute;
+  max-width: 70px;
+  width: 100%;
+  display: block;
+  height: 2px;
+  background: #8d8d8d;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  top: 100%;
+}
+
+.our-story-container p {
+  width: 50%;
+  font-size: 19px;
+}
+
+.our-story-container .box1 h2,
+.our-story-container .box2 h2,
+.our-story-container .box3 h2 {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.our-story-container .box1,
+.our-story-container .box2,
+.our-story-container .box3 {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  height: fit-content;
+  width: 100%;
+}
+
+.our-story-container .about-icon {
+  width: 10%;
+}
+
+.our-story-container .box1 img {
+  width: 60px;
+  height: 60px;
+}
+.our-story-container .box2 img {
+  width: 60px;
+  height: 60px;
+}
+.our-story-container .box3 img {
+  width: 60px;
+  height: 60px;
+}
+
+.our-story-container .box1-context {
+  width: 100%;
+}
+.our-story-container .box2-context {
+  width: 100%;
+}
+.our-story-container .box3-context {
+  width: 100%;
+}
+
+.our-story .bigger-p {
+  font-size: 24px;
+  font-weight: 500;
+}

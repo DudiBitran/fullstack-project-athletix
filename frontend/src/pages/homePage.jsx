@@ -7,7 +7,6 @@ import Slider from "react-slick";
 import { Accordion } from "react-bootstrap";
 import { FaDumbbell, FaExternalLinkAlt } from "react-icons/fa";
 import { Link } from "react-router";
-import { useAuth } from "../context/auth.context";
 const images = [
   "/images/banner4.jpg",
   "/images/lifter-banner.jpg",
@@ -26,10 +25,6 @@ const HomePage = () => {
     arrows: false,
     pauseOnHover: false,
   };
-
-  const {user} = useAuth()
-  console.log(user);
-  
 
   const faqItems = [
     {
@@ -67,7 +62,9 @@ const HomePage = () => {
             just starting out or pushing past plateaus, our certified coaches
             are here to support you every step of the way."
           </p>
-          <button className="join-btn">Join Now!</button>
+          <Link to="/register">
+            <button className="join-btn">Join Now!</button>
+          </Link>
         </div>
         <div style={{ width: "100%", maxHeight: "950px", overflow: "hidden" }}>
           <Slider {...settings}>
@@ -89,7 +86,7 @@ const HomePage = () => {
           <div className="box-content">
             <h3>Join Membership Now!</h3>
           </div>
-          <Link>
+          <Link to="/register">
             <div className="icon">
               <FaExternalLinkAlt size={24} />
             </div>

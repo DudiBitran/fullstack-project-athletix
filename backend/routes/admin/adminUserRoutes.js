@@ -112,9 +112,7 @@ router.post(
         const value = err.keyValue[field];
         return res
           .status(400)
-          .send(
-            `The input field "${field}", with the value "${value}", already exists.`
-          );
+          .send(`The ${field}: "${value}", already in use.`);
       }
 
       res.status(500).send("Internal server error.");

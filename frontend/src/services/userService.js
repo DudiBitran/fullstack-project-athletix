@@ -1,10 +1,11 @@
-import { useState } from "react";
 import httpService from "./httpService";
-import { jwtDecode } from "jwt-decode";
-
-
 
 const TOKEN_KEY = "token";
+
+const createUser = async (credentials) => {
+  const response = await httpService.post("/auth/register", credentials);
+  return response;
+};
 
 const getJwt = () => {
   return localStorage.getItem(TOKEN_KEY);
@@ -36,7 +37,6 @@ const logout = () => {
   setToken(undefined);
 };
 
-
 const getMe = async () => {
   try {
     const response = await httpService.get("/users/me");
@@ -49,6 +49,7 @@ const getMe = async () => {
 const userService = {
   login,
   logout,
+  createUser,
   getMe,
   getJwt,
 };

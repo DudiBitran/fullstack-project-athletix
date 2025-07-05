@@ -2,14 +2,14 @@ import "../style/login.css";
 import Input from "../components/common/input";
 import { useState } from "react";
 import { FaUser, FaLock } from "react-icons/fa";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, Navigate } from "react-router";
 import { useFormik } from "formik";
 import Joi from "joi";
 import { useAuth } from "../context/auth.context";
 
 function Login() {
   const [serverError, setServerError] = useState("");
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const navigate = useNavigate();
   const generatePostObj = (json) => {
     let postObj = {};
@@ -66,6 +66,10 @@ function Login() {
       }
     },
   });
+
+  if (user) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <section className="login-wrapper">

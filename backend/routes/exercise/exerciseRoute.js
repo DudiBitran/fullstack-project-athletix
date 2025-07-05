@@ -66,13 +66,13 @@ router.get("/", authMw, permitRoles("trainer", "admin"), async (req, res) => {
   try {
     const exercises = await Exercise.find();
     if (exercises.length === 0) {
-      res.status(400).send("Exersice not found.");
-      logger.error(`status: ${res.statusCode} | Message: Exersice not found.`);
+      res.status(400).send("Exercise not found.");
+      logger.error(`status: ${res.statusCode} | Message: Exercise not found.`);
       return;
     }
     res.send(exercises);
     logger.info(
-      `status: ${res.statusCode} | Message: Exersice have been sent successfully.`
+      `status: ${res.statusCode} | Message: Exercise have been sent successfully.`
     );
   } catch (err) {
     res.status(500).send("Internal server error.");
@@ -89,15 +89,15 @@ router.get(
     try {
       const exercise = await Exercise.findById(req.params.id);
       if (!exercise) {
-        res.status(400).send("Exersice not found.");
+        res.status(400).send("Exercise not found.");
         logger.error(
-          `status: ${res.statusCode} | Message: Exersice not found.`
+          `status: ${res.statusCode} | Message: Exercise not found.`
         );
         return;
       }
       res.send(exercise);
       logger.info(
-        `status: ${res.statusCode} | Message: Exersice have been sent successfully.`
+        `status: ${res.statusCode} | Message: Exercise have been sent successfully.`
       );
     } catch (err) {
       res.status(500).send("Internal server error.");
@@ -136,9 +136,9 @@ router.put(
       }
       const exercise = await Exercise.findById(req.params.id);
       if (!exercise) {
-        res.status(400).send("Exersice not found.");
+        res.status(400).send("Exercise not found.");
         logger.error(
-          `status: ${res.statusCode} | Message: Exersice not found.`
+          `status: ${res.statusCode} | Message: Exercise not found.`
         );
         return;
       }
@@ -164,7 +164,7 @@ router.put(
       await exercise.save();
       res.send(exercise);
       logger.info(
-        `status: ${res.statusCode} | Message: Exersice have been updated successfully.`
+        `status: ${res.statusCode} | Message: Exercise have been updated successfully.`
       );
     } catch (err) {
       res.status(500).send("Internal server error.");
@@ -182,9 +182,9 @@ router.delete(
     try {
       const exercise = await Exercise.findById(req.params.id);
       if (!exercise) {
-        res.status(400).send("Exersice not found.");
+        res.status(400).send("Exercise not found.");
         logger.error(
-          `status: ${res.statusCode} | Message: Exersice not found.`
+          `status: ${res.statusCode} | Message: Exercise not found.`
         );
         return;
       }
