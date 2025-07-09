@@ -77,6 +77,15 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const programDeleteById = async (programId) => {
+    try {
+      const response = await trainerService.programDeleteById(programId);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -87,6 +96,7 @@ export function AuthProvider({ children }) {
         profileImage,
         createProgram,
         getMyProgramsById,
+        programDeleteById,
       }}
     >
       {children}

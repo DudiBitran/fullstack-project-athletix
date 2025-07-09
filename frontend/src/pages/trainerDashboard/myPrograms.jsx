@@ -6,13 +6,16 @@ import { FaCubes } from "react-icons/fa";
 import ProgramCard from "../../components/common/programCard";
 import ProgramTable from "../../components/common/programTable";
 import { Navigate } from "react-router";
+import ConfirmationModal from "../../components/common/ConfiramtionModal";
 
 function MyPrograms() {
   const [programs, setPrograms] = useState([]);
   const [viewMode, setViewMode] = useState("grid");
-  const { user, getMyProgramsById } = useAuth();
+  const [showModal, setShowModal] = useState(false);
+  const [programToDelete, setProgramToDelete] = useState(null);
+  const { user, getMyProgramsById, programDeleteById } = useAuth();
 
-  if (user.role !== "trainer") return <Navigate to="/" />;
+  if (user?.role !== "trainer") return <Navigate to="/" />;
 
   useEffect(() => {
     if (!user?._id) return;
@@ -26,6 +29,29 @@ function MyPrograms() {
     };
     getMyPrograms(user._id);
   }, [user]);
+
+  const handleDeleteClick = (programId) => {
+    setProgramToDelete(programId);
+    setShowModal(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      await programDeleteById(programToDelete);
+      setPrograms((prev) =>
+        prev.filter((program) => program._id !== programToDelete)
+      );
+      setShowModal(false);
+      setProgramToDelete(null);
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setShowModal(false);
+    setProgramToDelete(null);
+  };
 
   return (
     <main className="myPrograms-container">
@@ -56,10 +82,19 @@ function MyPrograms() {
       {programs.length === 0 ? (
         <p>No programs found.</p>
       ) : viewMode === "grid" ? (
-        <ProgramCard programs={programs} />
+        <ProgramCard programs={programs} onDeleteClick={handleDeleteClick} />
       ) : (
-        <ProgramTable programs={programs} />
+        <ProgramTable programs={programs} onDeleteClick={handleDeleteClick} />
       )}
+
+      <ConfirmationModal
+        show={showModal}
+        title="Delete Program"
+        message="Are you sure you want to delete this program?"
+        onCancel={handleCancelDelete}
+        onConfirm={handleConfirmDelete}
+        icon="bi bi-exclamation-triangle"
+      />
     </main>
   );
 }

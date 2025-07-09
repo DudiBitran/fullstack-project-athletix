@@ -19,9 +19,20 @@ const getMyProgramsById = async (trainerId) => {
   }
 };
 
+// delete own program by id
+const programDeleteById = async (programId) => {
+  try {
+    const response = await httpService.delete(`/program/${programId}`);
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const trainerService = {
   createProgram,
   getMyProgramsById,
+  programDeleteById,
 };
 
 export default trainerService;
