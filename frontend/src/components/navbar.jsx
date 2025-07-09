@@ -71,6 +71,11 @@ function CustomNavbar() {
                   id="profile-dropdown"
                   align="end"
                 >
+                  {user?.role === "trainer" && (
+                    <NavDropdown.Item as={NavLink} to="/trainer/create-program">
+                      create a program
+                    </NavDropdown.Item>
+                  )}
                   <NavDropdown.Item>My Profile</NavDropdown.Item>
                   <NavDropdown.Item>Settings</NavDropdown.Item>
                   <NavDropdown.Divider />
@@ -82,18 +87,20 @@ function CustomNavbar() {
             </Nav>
 
             <Nav className="order-2 order-lg-2 mx-auto nav-links-underlined">
-              <Nav.Link as={NavLink} to="/">
-                Home
-              </Nav.Link>
+              {!user && (
+                <Nav.Link as={NavLink} to="/">
+                  Home
+                </Nav.Link>
+              )}
               <Nav.Link as={NavLink} to="/about">
                 About
               </Nav.Link>
               <Nav.Link as={NavLink} to="/contact">
                 Contact
               </Nav.Link>
-              {!user && (
-                <Nav.Link as={NavLink} to="/programs">
-                  Programs
+              {user?.role === "trainer" && (
+                <Nav.Link as={NavLink} to="/trainer/my-programs">
+                  My Programs
                 </Nav.Link>
               )}
             </Nav>

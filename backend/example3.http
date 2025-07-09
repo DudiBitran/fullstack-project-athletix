@@ -50,3 +50,16 @@ Content-Type: application/json
   "day": "Wednesday",
   "completed": false
 }
+
+
+###
+PATCH http://localhost:3000/athletix/workout-status/
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODUwMTk5ODBjMGI1OWExYmQxMTg2NTkiLCJpYXQiOjE3NTE3MTIwNjh9.rTO2ZQGFqcny1gwenNLtzWOrUaV-knHU2JVF_gyHRQc
+Content-Type: application/json
+
+{
+  "programId": "665ff6c328f8bcefd6a275f1",
+  "date": "2025-07-07",
+  "completed": true
+}
+

@@ -26,6 +26,11 @@ const ProgramSchema = new mongoose.Schema(
         ],
       },
     ],
+    assignedTo: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      default: null,
+    },
   },
   { timestamps: true }
 );
@@ -48,6 +53,11 @@ const validation = {
       })
     )
     .optional(),
+
+  assignedTo: Joi.string().length(24).hex().allow(null).optional().messages({
+    "string.length": `"assignedTo" must be 24 characters`,
+    "string.hex": `"assignedTo" must be a valid hex string`,
+  }),
 };
 
 const programValidation = Joi.object(validation);

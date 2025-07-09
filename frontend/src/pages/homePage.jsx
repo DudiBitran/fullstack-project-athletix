@@ -26,30 +26,6 @@ const HomePage = () => {
     pauseOnHover: false,
   };
 
-  const faqItems = [
-    {
-      question: "Would I need to commit to a long-term program?",
-      answer:
-        "No, it depends on your goals. The only thing you need to commit to is the process.",
-    },
-    {
-      question: "What kinds of workouts are best for losing weight?",
-      answer:
-        "Incorporating both aerobic activities (like jogging, biking, or swimming) and resistance training works well for shedding pounds. Aim to burn more calories than you consume by following a well-rounded exercise plan alongside nutritious eating habits.",
-    },
-    {
-      question:
-        "How soon can I expect to see results from regular gym workouts?",
-      answer:
-        "The time frame varies based on factors such as dedication, consistency, and individual differences. Typically, you might begin to notice increased strength and better energy levels within several weeks. However, visible changes in your physique often take longer, usually around 8 to 12 weeks or more.",
-    },
-    {
-      question: "How do I stay motivated to go to the gym?",
-      answer:
-        "Staying motivated can be challenging, but having support makes a big difference. Our coaching Escort in AthletiX is designed to keep you accountable and inspired throughout your fitness journey. With personalized guidance, progress tracking, and regular encouragement, Escort helps you stay on track and reach your goals — making the gym feel less like a chore and more like a positive habit.",
-    },
-  ];
-
   return (
     <main className="main-background">
       <section className="banner-container">

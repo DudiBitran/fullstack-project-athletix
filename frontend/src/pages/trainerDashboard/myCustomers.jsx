@@ -1,4 +1,4 @@
-function UserMainDash() {
+function MyCustomers() {
   return (
     <main>
       <section></section>
@@ -6,4 +6,4 @@ function UserMainDash() {
   );
 }
 
-export default UserMainDash;
+export default MyCustomers;

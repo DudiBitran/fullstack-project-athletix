@@ -8,6 +8,9 @@ import Register from "./pages/register";
 import Contact from "./pages/contact";
 import About from "./pages/about";
 import UserMainDash from "./pages/userDashboard/userMainDash";
+import CreateProgram from "./pages/trainerDashboard/createProgram";
+import MyCustomers from "./pages/trainerDashboard/myCustomers";
+import MyPrograms from "./pages/trainerDashboard/myPrograms";
 function App() {
   return (
     <div className="app-layout">
@@ -23,6 +26,9 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/dashboard" element={<UserMainDash />} />
+          <Route path="/trainer/create-program" element={<CreateProgram />} />
+          <Route path="/trainer/my-customers" element={<MyCustomers />} />
+          <Route path="/trainer/my-programs" element={<MyPrograms />} />
         </Routes>
       </main>
 

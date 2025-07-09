@@ -1,0 +1,109 @@
+.myPrograms-container {
+  min-height: 100vh;
+  width: 100%;
+  padding: 120px 15px 0 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--dark-background-color);
+  font-family: var(--font-family-Rajdhani);
+  color: #eee;
+}
+
+.myPrograms-container > div.d-flex {
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 20px;
+  color: #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.row.row-cols-1.row-cols-md-2.row-cols-lg-3.g-4 {
+  width: 100%;
+}
+
+.table {
+  max-width: 100%;
+  background-color: #222;
+  color: #eee;
+  border-color: #444;
+}
+
+.table thead {
+  background-color: #333;
+  color: #fff;
+}
+
+.table tbody tr {
+  cursor: pointer;
+  border-bottom: 1px solid #444;
+}
+
+.table tbody tr:hover {
+  background-color: #444;
+}
+
+.myPrograms-container h2 {
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+  width: 100%;
+  color: #eee;
+}
+
+.btn-outline-dark {
+  color: #eee;
+  border-color: #eee;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  font-size: 1.4rem;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-outline-dark:not(:last-child) {
+  margin-right: 10px;
+}
+
+.btn-outline-dark.active,
+.btn-outline-dark:hover {
+  color: #000;
+}
+
+.btn-outline-dark svg {
+  pointer-events: none;
+  display: block;
+  font-size: 22px;
+  color: #fff;
+}
+
+.card.border-warning {
+  border-color: #ffe600 !important;
+}
+
+.card.h-100 {
+  min-height: 250px;
+}
+
+.card.bg-light {
+  background-color: #333 !important;
+  color: #eee !important;
+}
+
+.card .card-text,
+.card ul.list-group li {
+  color: #eee;
+  background-color: var(--dark-background-color);
+}
+
+.list-group-item {
+  background-color: #444;
+  color: #eee;
+  border-color: #555;
+}

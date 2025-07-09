@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import userService from "../services/userService";
+import trainerService from "../services/trainerService";
 
 const AuthContext = createContext();
 AuthContext.displayName = "Auth";
@@ -58,9 +59,35 @@ export function AuthProvider({ children }) {
     refreshUser();
   };
 
+  const createProgram = async (credentials) => {
+    try {
+      const response = await trainerService.createProgram(credentials);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const getMyProgramsById = async (trainerId) => {
+    try {
+      const response = await trainerService.getMyProgramsById(trainerId);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
   return (
     <AuthContext.Provider
-      value={{ login, logout, createUser, user, profileImage }}
+      value={{
+        login,
+        logout,
+        createUser,
+        user,
+        profileImage,
+        createProgram,
+        getMyProgramsById,
+      }}
     >
       {children}
     </AuthContext.Provider>
