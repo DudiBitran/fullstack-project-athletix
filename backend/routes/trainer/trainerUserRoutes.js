@@ -111,7 +111,7 @@ router.get(
         return;
       }
       const filteredClients = clients.map((client) =>
-        _.pick(client, ["_id", "firstName", "lastName", "email"])
+        _.pick(client, ["_id", "firstName", "lastName", "email", "age"])
       );
       res.send(filteredClients);
       logger.info(

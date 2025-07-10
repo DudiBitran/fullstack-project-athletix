@@ -6,7 +6,8 @@ import "../style/homePage/faq.css";
 import Slider from "react-slick";
 import { Accordion } from "react-bootstrap";
 import { FaDumbbell, FaExternalLinkAlt } from "react-icons/fa";
-import { Link } from "react-router";
+import { Link, Navigate } from "react-router";
+import { useAuth } from "../context/auth.context";
 const images = [
   "/images/banner4.jpg",
   "/images/lifter-banner.jpg",
@@ -14,7 +15,9 @@ const images = [
   /* "/images/couple.jpg", */
 ];
 
-const HomePage = () => {
+function HomePage() {
+  const { user } = useAuth();
+
   const settings = {
     dots: true,
     infinite: true,
@@ -26,6 +29,7 @@ const HomePage = () => {
     pauseOnHover: false,
   };
 
+  if (user) return <Navigate to="/trainer/my-programs" />;
   return (
     <main className="main-background">
       <section className="banner-container">
@@ -175,6 +179,6 @@ const HomePage = () => {
       </section>
     </main>
   );
-};
+}
 
 export default HomePage;

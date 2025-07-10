@@ -50,12 +50,25 @@ const getAvailableClients = async () => {
   }
 };
 
+// assign client to trainer
+const assignClientToTrainer = async (clientId) => {
+  try {
+    const response = await httpService.put(
+      `/users/trainers/${clientId}/assign-trainer`
+    );
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const trainerService = {
   createProgram,
   getMyProgramsById,
   programDeleteById,
   getMyClients,
   getAvailableClients,
+  assignClientToTrainer,
 };
 
 export default trainerService;

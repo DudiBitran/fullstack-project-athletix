@@ -104,6 +104,15 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const assignClient = async (clientId) => {
+    try {
+      const response = await trainerService.assignClientToTrainer(clientId);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -117,6 +126,7 @@ export function AuthProvider({ children }) {
         programDeleteById,
         getMyOwnClients,
         getAllAvailableClients,
+        assignClient,
       }}
     >
       {children}

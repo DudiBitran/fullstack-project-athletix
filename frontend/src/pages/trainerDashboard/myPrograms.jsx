@@ -7,9 +7,9 @@ import { MdList } from "react-icons/md";
 import { FaCubes } from "react-icons/fa";
 import ProgramCard from "../../components/common/programCard";
 import ProgramTable from "../../components/common/programTable";
-import { Navigate } from "react-router";
+import { Navigate, Link } from "react-router";
 import ConfirmationModal from "../../components/common/ConfiramtionModal";
-
+import AvailableClientsTableBody from "./availableClientsTableBody";
 function MyPrograms() {
   const [programs, setPrograms] = useState([]);
   const [viewMode, setViewMode] = useState("grid");
@@ -23,6 +23,7 @@ function MyPrograms() {
     programDeleteById,
     getMyOwnClients,
     getAllAvailableClients,
+    assignClient,
   } = useAuth();
 
   if (user?.role !== "trainer") return <Navigate to="/" />;
@@ -89,6 +90,20 @@ function MyPrograms() {
     setProgramToDelete(null);
   };
 
+  const handleAssignClient = async (clientId) => {
+    try {
+      await assignClient(clientId);
+      setAvailableClients((prev) =>
+        prev.filter((client) => client._id !== clientId)
+      );
+
+      const response = await getMyOwnClients();
+      setAssignedUsers(response.data);
+    } catch (err) {
+      throw err;
+    }
+  };
+
   return (
     <main className="myPrograms-container">
       {/* Header */}
@@ -116,18 +131,28 @@ function MyPrograms() {
         </div>
       </div>
 
-      {/* Main Layout: Sidebar + Programs */}
       <div className="programs-layout">
-        {/* Sidebar with assigned clients */}
         <section className="sidebar-users">
           <h3>My Clients: {assignedUsers.length}</h3>
           <ul>
             {assignedUsers.length === 0 ? (
               <li>No users assigned</li>
             ) : (
-              assignedUsers.map((user) => <li key={user._id}>{user.name}</li>)
+              assignedUsers.map((user) => (
+                <li key={user._id}>
+                  {user.firstName} {user.lastName}
+                </li>
+              ))
             )}
           </ul>
+          <Link to="/trainer/my-customers">
+            <button
+              style={{ fontSize: "1.1rem", fontWeight: "600" }}
+              className="btn btn-warning"
+            >
+              Go to my clients ➔
+            </button>
+          </Link>
         </section>
 
         {/* Programs section */}
@@ -151,15 +176,26 @@ function MyPrograms() {
       {/* Available Clients Section (Below) */}
       <section className="available-users">
         <h3>Available Clients for Assignment: {availableClients.length}</h3>
-        <ul>
-          {availableClients.length === 0 ? (
-            <li>No available clients found.</li>
-          ) : (
-            availableClients.map((client) => (
-              <li key={client._id}>{client.firstName}</li>
-            ))
-          )}
-        </ul>
+        {availableClients.length === 0 ? (
+          <p>No available clients found.</p>
+        ) : (
+          <table className="table table-dark table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Age</th>
+                <th>Assign</th>
+              </tr>
+            </thead>
+            <tbody>
+              <AvailableClientsTableBody
+                clients={availableClients}
+                onAssign={handleAssignClient}
+              />
+            </tbody>
+          </table>
+        )}
       </section>
 
       {/* Delete confirmation modal */}
