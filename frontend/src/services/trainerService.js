@@ -29,10 +29,33 @@ const programDeleteById = async (programId) => {
   }
 };
 
+// get my own clients
+const getMyClients = async () => {
+  try {
+    const response = await httpService.get("/users/trainers/my-clients");
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
+// get all available clients
+
+const getAvailableClients = async () => {
+  try {
+    const response = await httpService.get("/users/trainers/available-clients");
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const trainerService = {
   createProgram,
   getMyProgramsById,
   programDeleteById,
+  getMyClients,
+  getAvailableClients,
 };
 
 export default trainerService;

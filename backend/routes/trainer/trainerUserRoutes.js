@@ -15,8 +15,8 @@ const {
 router.get("/my-clients", authMw, permitRoles("trainer"), async (req, res) => {
   try {
     const clients = await User.find({ assignedTrainerId: req.user._id });
-    if (!clients) {
-      res.status(400).send("User not found.");
+    if (clients.length === 0) {
+      res.send([]);
       logger.error(
         `status: ${res.statusCode} | Message: Failed to get own clients, User not found.`
       );
@@ -83,6 +83,39 @@ router.post(
       res.send(newDeleteRequest);
       logger.info(
         `status: ${res.statusCode} | Message: The request to delete the account have been sent successfully. `
+      );
+    } catch (err) {
+      res.status(500).send("Internal server error.");
+      logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
+    }
+  }
+);
+
+// get available clients list
+
+router.get(
+  "/available-clients",
+  authMw,
+  permitRoles("trainer"),
+  async (req, res) => {
+    try {
+      const clients = await User.find({
+        assignedTrainerId: null,
+        role: "user",
+      });
+      if (clients.length === 0) {
+        res.send(clients);
+        logger.info(
+          `status: ${res.statusCode} | Message: No available client found. `
+        );
+        return;
+      }
+      const filteredClients = clients.map((client) =>
+        _.pick(client, ["_id", "firstName", "lastName", "email"])
+      );
+      res.send(filteredClients);
+      logger.info(
+        `status: ${res.statusCode} | Message: Available clients have been sent successfully. `
       );
     } catch (err) {
       res.status(500).send("Internal server error.");

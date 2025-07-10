@@ -27,3 +27,112 @@
 10-07-2025 02:04:26 | INFO: status: 200 | Message: Program sent successfully.
 10-07-2025 02:04:26 | INFO: status: 200 | Message: Program sent successfully.
 10-07-2025 02:08:12 | INFO: status: 200 | Message: Program deleted successfully.
+10-07-2025 02:11:21 | INFO: status: 200 | Message: Program sent successfully.
+10-07-2025 02:11:21 | INFO: status: 200 | Message: Program sent successfully.
+10-07-2025 18:49:37 | INFO: status: 304 | Message: User sent successfully.
+10-07-2025 18:49:37 | INFO: status: 200 | Message: User sent successfully.
+10-07-2025 18:49:40 | INFO: status: 304 | Message: Program sent successfully.
+10-07-2025 18:49:40 | INFO: status: 304 | Message: Program sent successfully.
+10-07-2025 19:04:29 | INFO: status: 304 | Message: User sent successfully.
+10-07-2025 19:04:29 | INFO: status: 304 | Message: User sent successfully.
+10-07-2025 19:05:23 | INFO: status: 304 | Message: User sent successfully.
+10-07-2025 19:05:23 | INFO: status: 304 | Message: User sent successfully.
+10-07-2025 19:05:26 | INFO: status: 304 | Message: Program sent successfully.
+10-07-2025 19:05:27 | INFO: status: 304 | Message: Program sent successfully.
+10-07-2025 19:08:53 | INFO: status: 304 | Message: Program sent successfully.
+10-07-2025 19:11:37 | INFO: status: 200 | Message: User sent successfully.
+10-07-2025 19:11:37 | INFO: status: 304 | Message: User sent successfully.
+10-07-2025 19:11:39 | INFO: status: 304 | Message: Program sent successfully.
+10-07-2025 19:11:39 | INFO: status: 200 | Message: Program sent successfully.
+10-07-2025 19:16:25 | INFO: status: 200 | Message: User sent successfully.
+10-07-2025 19:16:25 | INFO: status: 304 | Message: User sent successfully.
+10-07-2025 19:17:38 | INFO: status: 304 | Message: User sent successfully.
+10-07-2025 19:17:38 | INFO: status: 200 | Message: User sent successfully.
+10-07-2025 19:17:49 | INFO: status: 304 | Message: User sent successfully.
+10-07-2025 19:17:49 | INFO: status: 200 | Message: User sent successfully.
+10-07-2025 19:19:54 | INFO: status: 304 | Message: Program sent successfully.
+10-07-2025 19:19:54 | INFO: status: 200 | Message: Program sent successfully.
+10-07-2025 19:20:25 | INFO: status: 200 | Message: User sent successfully.
+10-07-2025 19:20:25 | INFO: status: 304 | Message: User sent successfully.
+10-07-2025 19:20:26 | INFO: status: 304 | Message: Program sent successfully.
+10-07-2025 19:20:26 | INFO: status: 200 | Message: Program sent successfully.
+10-07-2025 19:21:43 | INFO: status: 200 | Message: Clients has been sent successfully.
+10-07-2025 19:21:43 | INFO: status: 304 | Message: Program sent successfully.
+10-07-2025 19:21:45 | INFO: status: 200 | Message: User sent successfully.
+10-07-2025 19:21:45 | INFO: status: 304 | Message: User sent successfully.
+10-07-2025 19:21:46 | INFO: status: 304 | Message: Clients has been sent successfully.
+10-07-2025 19:21:46 | INFO: status: 200 | Message: Clients has been sent successfully.
+10-07-2025 19:21:46 | INFO: status: 304 | Message: Program sent successfully.
+10-07-2025 19:21:46 | INFO: status: 200 | Message: Program sent successfully.
+10-07-2025 19:23:35 | INFO: status: 304 | Message: User sent successfully.
+10-07-2025 19:23:35 | INFO: status: 200 | Message: User sent successfully.
+10-07-2025 19:23:37 | INFO: status: 200 | Message: Clients has been sent successfully.
+10-07-2025 19:23:37 | INFO: status: 304 | Message: Clients has been sent successfully.
+10-07-2025 19:23:37 | INFO: status: 200 | Message: Program sent successfully.
+10-07-2025 19:23:37 | INFO: status: 304 | Message: Program sent successfully.
+10-07-2025 19:25:01 | INFO: status: 304 | Message: User sent successfully.
+10-07-2025 19:25:01 | INFO: status: 200 | Message: User sent successfully.
+10-07-2025 19:25:04 | ERROR: status: 400 | Message: Failed to get own clients, User not found.
+10-07-2025 19:25:04 | ERROR: status: 400 | Message: Failed to get own clients, User not found.
+10-07-2025 19:25:04 | INFO: status: 200 | Message: Program sent successfully.
+10-07-2025 19:25:04 | INFO: status: 304 | Message: Program sent successfully.
+10-07-2025 19:26:38 | INFO: status: 304 | Message: User sent successfully.
+10-07-2025 19:26:38 | INFO: status: 200 | Message: User sent successfully.
+10-07-2025 19:26:40 | ERROR: status: 200 | Message: Failed to get own clients, User not found.
+10-07-2025 19:26:40 | INFO: status: 200 | Message: Program sent successfully.
+10-07-2025 19:26:40 | INFO: status: 304 | Message: Program sent successfully.
+10-07-2025 19:26:41 | ERROR: status: 200 | Message: Failed to get own clients, User not found.
+10-07-2025 19:40:39 | ERROR: status: 304 | Message: Failed to get own clients, User not found.
+10-07-2025 19:40:39 | INFO: status: 304 | Message: Program sent successfully.
+10-07-2025 19:42:01 | INFO: status: 200 | Message: User sent successfully.
+10-07-2025 19:42:01 | INFO: status: 304 | Message: User sent successfully.
+10-07-2025 19:42:05 | INFO: status: 304 | Message: User sent successfully.
+10-07-2025 19:42:05 | INFO: status: 200 | Message: User sent successfully.
+10-07-2025 19:42:46 | INFO: status: 200 | Message: User sent successfully.
+10-07-2025 19:42:46 | INFO: status: 304 | Message: User sent successfully.
+10-07-2025 19:45:16 | ERROR: status: 403 | Message: Access denied.
+10-07-2025 19:45:16 | ERROR: status: 200 | Message: Failed to get own clients, User not found.
+10-07-2025 19:45:16 | INFO: status: 200 | Message: Program sent successfully.
+10-07-2025 19:45:16 | INFO: status: 304 | Message: Program sent successfully.
+10-07-2025 19:45:17 | ERROR: status: 403 | Message: Access denied.
+10-07-2025 19:45:17 | ERROR: status: 304 | Message: Failed to get own clients, User not found.
+10-07-2025 19:45:37 | INFO: status: 304 | Message: User sent successfully.
+10-07-2025 19:45:37 | INFO: status: 200 | Message: User sent successfully.
+10-07-2025 19:45:39 | ERROR: status: 304 | Message: Failed to get own clients, User not found.
+10-07-2025 19:45:39 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+10-07-2025 19:45:39 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+10-07-2025 19:45:39 | INFO: status: 304 | Message: Program sent successfully.
+10-07-2025 19:45:39 | ERROR: status: 200 | Message: Failed to get own clients, User not found.
+10-07-2025 19:45:39 | INFO: status: 200 | Message: Program sent successfully.
+10-07-2025 19:48:19 | INFO: status: 200 | Message: User sent successfully.
+10-07-2025 19:48:19 | INFO: status: 304 | Message: User sent successfully.
+10-07-2025 19:48:29 | ERROR: status: 304 | Message: Failed to get own clients, User not found.
+10-07-2025 19:48:29 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+10-07-2025 19:48:29 | INFO: status: 304 | Message: Program sent successfully.
+10-07-2025 19:48:29 | INFO: status: 200 | Message: Program sent successfully.
+10-07-2025 19:48:29 | ERROR: status: 200 | Message: Failed to get own clients, User not found.
+10-07-2025 19:48:29 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+10-07-2025 19:48:58 | INFO: status: 200 | Message: User sent successfully.
+10-07-2025 19:48:58 | INFO: status: 304 | Message: User sent successfully.
+10-07-2025 19:48:59 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+10-07-2025 19:48:59 | ERROR: status: 304 | Message: Failed to get own clients, User not found.
+10-07-2025 19:48:59 | INFO: status: 304 | Message: Program sent successfully.
+10-07-2025 19:48:59 | INFO: status: 200 | Message: Program sent successfully.
+10-07-2025 19:49:00 | ERROR: status: 200 | Message: Failed to get own clients, User not found.
+10-07-2025 19:49:00 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+10-07-2025 19:50:30 | INFO: status: 304 | Message: User sent successfully.
+10-07-2025 19:50:30 | INFO: status: 304 | Message: User sent successfully.
+10-07-2025 19:50:31 | ERROR: status: 304 | Message: Failed to get own clients, User not found.
+10-07-2025 19:50:31 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+10-07-2025 19:50:31 | INFO: status: 304 | Message: Program sent successfully.
+10-07-2025 19:50:31 | INFO: status: 200 | Message: Program sent successfully.
+10-07-2025 19:50:32 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+10-07-2025 19:50:32 | ERROR: status: 200 | Message: Failed to get own clients, User not found.
+10-07-2025 20:06:17 | INFO: status: 304 | Message: User sent successfully.
+10-07-2025 20:06:17 | INFO: status: 200 | Message: User sent successfully.
+10-07-2025 20:06:18 | ERROR: status: 304 | Message: Failed to get own clients, User not found.
+10-07-2025 20:06:18 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+10-07-2025 20:06:18 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+10-07-2025 20:06:18 | ERROR: status: 200 | Message: Failed to get own clients, User not found.
+10-07-2025 20:06:18 | INFO: status: 200 | Message: Program sent successfully.
+10-07-2025 20:06:18 | INFO: status: 304 | Message: Program sent successfully.

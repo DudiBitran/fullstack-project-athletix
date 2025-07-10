@@ -86,6 +86,24 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const getMyOwnClients = async () => {
+    try {
+      const response = await trainerService.getMyClients();
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const getAllAvailableClients = async () => {
+    try {
+      const response = await trainerService.getAvailableClients();
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -97,6 +115,8 @@ export function AuthProvider({ children }) {
         createProgram,
         getMyProgramsById,
         programDeleteById,
+        getMyOwnClients,
+        getAllAvailableClients,
       }}
     >
       {children}

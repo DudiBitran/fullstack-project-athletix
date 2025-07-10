@@ -38,11 +38,17 @@
 
 .table tbody tr {
   cursor: pointer;
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid var(--primary-color);
 }
 
 .table tbody tr:hover {
   background-color: #444;
+}
+
+.table td {
+  background-color: #353535 !important;
+  color: #eee !important;
+  border-color: var(--primary-color);
 }
 
 .myPrograms-container h2 {
