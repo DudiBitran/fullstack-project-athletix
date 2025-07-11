@@ -1,31 +1,46 @@
+import { Link } from "react-router";
+
 function ExerciseCardList({ exercises }) {
+  const baseUrl = "http://localhost:3000";
   return (
     <div className="exercise-card-grid">
       {exercises.map((ex) => (
         <div className="exercise-card" key={ex._id}>
-          <h4>{ex.name}</h4>
-          <p>
-            <strong>Sets:</strong> {ex.sets}
-          </p>
-          <p>
-            <strong>Reps:</strong> {ex.reps}
-          </p>
-          <p>
-            <strong>Rest:</strong> {ex.restSeconds} sec
-          </p>
-          {ex.notes && (
-            <p>
-              <strong>Notes:</strong> {ex.notes}
-            </p>
-          )}
-          {ex.attachment?.url && (
-            <a
-              href={ex.attachment.url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View Attachment
-            </a>
+          <div className="exercise-name">{ex.name}</div>
+
+          <div className="exercise-info">
+            <span>Sets: {ex.sets}</span>
+          </div>
+
+          <div className="exercise-info">
+            <span>Reps: {ex.reps}</span>
+          </div>
+
+          <div className="exercise-info">
+            <span>Rest: {ex.restSeconds}s</span>
+            <span>
+              Created:{" "}
+              {new Date(ex.createdAt).toLocaleDateString("he-IL", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+              })}
+            </span>
+          </div>
+
+          {ex.notes && <div className="exercise-notes">"{ex.notes}"</div>}
+
+          {ex?.attachment && (
+            <div className="exercise-attachment">
+              📎{" "}
+              {ex.attachment?.url && (
+                <Link
+                  to={`${baseUrl}/${ex.attachment.url.replace(/^\/+/, "")}`}
+                >
+                  View Attachment
+                </Link>
+              )}
+            </div>
           )}
         </div>
       ))}

@@ -29,8 +29,8 @@ function MyExercises() {
 
   return (
     <main className="myExercises-container">
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2>My Exercises</h2>
+      <h2>My Exercises</h2>
+      <div className="d-flex justify-content-between align-items-center mb-4 container">
         <div className="btn-group" role="group">
           <button
             className={`btn btn-outline-light ${
@@ -51,7 +51,7 @@ function MyExercises() {
         </div>
       </div>
 
-      <section>
+      <section className="w-100 px-3 px-lg-0 container-lg">
         {viewMode === "grid" ? (
           <ExerciseCardList exercises={exercises} />
         ) : (
