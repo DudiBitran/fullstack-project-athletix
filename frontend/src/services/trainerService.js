@@ -62,6 +62,38 @@ const assignClientToTrainer = async (clientId) => {
   }
 };
 
+// unassign client from trainer
+const unAssignClientToTrainer = async (clientId) => {
+  try {
+    const response = await httpService.delete(
+      `/users/trainers/${clientId}/unassign-trainer`
+    );
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
+// create exercise
+const createExercise = async (credentials) => {
+  try {
+    const response = await httpService.post("/exercise", credentials);
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
+//get my exercise
+const getMyExercises = async () => {
+  try {
+    const response = await httpService.get("/exercise/my-exercises");
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const trainerService = {
   createProgram,
   getMyProgramsById,
@@ -69,6 +101,9 @@ const trainerService = {
   getMyClients,
   getAvailableClients,
   assignClientToTrainer,
+  unAssignClientToTrainer,
+  createExercise,
+  getMyExercises,
 };
 
 export default trainerService;

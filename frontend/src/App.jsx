@@ -9,8 +9,10 @@ import Contact from "./pages/contact";
 import About from "./pages/about";
 import UserMainDash from "./pages/userDashboard/userMainDash";
 import CreateProgram from "./pages/trainerDashboard/createProgram";
-import MyCustomers from "./pages/trainerDashboard/myCustomers";
+import MyClients from "./pages/trainerDashboard/myClients";
 import MyPrograms from "./pages/trainerDashboard/myPrograms";
+import CreateExercise from "./pages/trainerDashboard/createExercise";
+import MyExercises from "./pages/trainerDashboard/myExercises";
 function App() {
   return (
     <div className="app-layout">
@@ -27,8 +29,10 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/dashboard" element={<UserMainDash />} />
           <Route path="/trainer/create-program" element={<CreateProgram />} />
-          <Route path="/trainer/my-customers" element={<MyCustomers />} />
+          <Route path="/trainer/my-customers" element={<MyClients />} />
           <Route path="/trainer/my-programs" element={<MyPrograms />} />
+          <Route path="/trainer/create-exercise" element={<CreateExercise />} />
+          <Route path="/trainer/my-exercises" element={<MyExercises />} />
         </Routes>
       </main>
 

@@ -8,12 +8,12 @@ const { Program } = require("../../model/program");
 const { User } = require("../../model/user");
 
 router.patch(
-  "/:programId/assign-user",
+  "/:programId/:userId/assign-user",
   authMw,
   permitRoles("trainer"),
   async (req, res) => {
     const { programId } = req.params;
-    const { userId } = req.body;
+    const { userId } = req.params;
 
     try {
       const program = await Program.findById(programId);

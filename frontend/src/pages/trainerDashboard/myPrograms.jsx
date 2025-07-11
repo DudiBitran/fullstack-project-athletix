@@ -8,12 +8,15 @@ import { FaCubes } from "react-icons/fa";
 import ProgramCard from "../../components/common/programCard";
 import ProgramTable from "../../components/common/programTable";
 import { Navigate, Link } from "react-router";
-import ConfirmationModal from "../../components/common/ConfiramtionModal";
-import AvailableClientsTableBody from "./availableClientsTableBody";
+import ConfirmationModal from "../../components/common/confirmationModal";
+import AvailableClientsTableBody from "../../components/common/availableClientsTableBody";
 function MyPrograms() {
   const [programs, setPrograms] = useState([]);
   const [viewMode, setViewMode] = useState("grid");
   const [showModal, setShowModal] = useState(false);
+  const [showAssignModal, setShowAssignModal] = useState(false);
+  const [selectedClientIdToAssign, setSelectedClientIdToAssign] =
+    useState(null);
   const [programToDelete, setProgramToDelete] = useState(null);
   const [assignedUsers, setAssignedUsers] = useState([]);
   const [availableClients, setAvailableClients] = useState([]);
@@ -90,18 +93,28 @@ function MyPrograms() {
     setProgramToDelete(null);
   };
 
-  const handleAssignClient = async (clientId) => {
-    try {
-      await assignClient(clientId);
-      setAvailableClients((prev) =>
-        prev.filter((client) => client._id !== clientId)
-      );
+  const handleAskAssign = (clientId) => {
+    setSelectedClientIdToAssign(clientId);
+    setShowAssignModal(true);
+  };
 
-      const response = await getMyOwnClients();
-      setAssignedUsers(response.data);
+  const handleConfirmAssign = async () => {
+    try {
+      await assignClient(selectedClientIdToAssign);
+      setAvailableClients((prev) =>
+        prev.filter((client) => client._id !== selectedClientIdToAssign)
+      );
     } catch (err) {
-      throw err;
+      console.error(err);
+    } finally {
+      setShowAssignModal(false);
+      setSelectedClientIdToAssign(null);
     }
+  };
+
+  const handleCancelAssign = () => {
+    setShowAssignModal(false);
+    setSelectedClientIdToAssign(null);
   };
 
   return (
@@ -150,7 +163,7 @@ function MyPrograms() {
               style={{ fontSize: "1.1rem", fontWeight: "600" }}
               className="btn btn-warning"
             >
-              Go to my clients ➔
+              View clients details ➔
             </button>
           </Link>
         </section>
@@ -191,7 +204,7 @@ function MyPrograms() {
             <tbody>
               <AvailableClientsTableBody
                 clients={availableClients}
-                onAssign={handleAssignClient}
+                onAssign={handleAskAssign}
               />
             </tbody>
           </table>
@@ -206,6 +219,15 @@ function MyPrograms() {
         onCancel={handleCancelDelete}
         onConfirm={handleConfirmDelete}
         icon="bi bi-exclamation-triangle"
+      />
+      {/* assign confirmation modal */}
+      <ConfirmationModal
+        show={showAssignModal}
+        title="Assign Client"
+        message="Are you sure you want to assign this client to your clients list?"
+        onCancel={handleCancelAssign}
+        onConfirm={handleConfirmAssign}
+        icon="bi bi-check-circle"
       />
     </main>
   );

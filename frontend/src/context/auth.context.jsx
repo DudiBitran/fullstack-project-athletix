@@ -113,6 +113,33 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const unAssignClient = async (clientId) => {
+    try {
+      const response = await trainerService.unAssignClientToTrainer(clientId);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const createExercise = async (credentials) => {
+    try {
+      const response = await trainerService.createExercise(credentials);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const getMyExercises = async () => {
+    try {
+      const response = await trainerService.getMyExercises();
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -127,6 +154,9 @@ export function AuthProvider({ children }) {
         getMyOwnClients,
         getAllAvailableClients,
         assignClient,
+        unAssignClient,
+        createExercise,
+        getMyExercises,
       }}
     >
       {children}

@@ -22,7 +22,20 @@ router.get("/my-clients", authMw, permitRoles("trainer"), async (req, res) => {
       );
       return;
     }
-    res.send(clients);
+
+    const filteredClients = clients.map((client) =>
+      _.pick(client, [
+        "_id",
+        "firstName",
+        "lastName",
+        "email",
+        "age",
+        "stats",
+        "image",
+        "gender",
+      ])
+    );
+    res.send(filteredClients);
     logger.info(
       `status: ${res.statusCode} | Message: Clients has been sent successfully.`
     );

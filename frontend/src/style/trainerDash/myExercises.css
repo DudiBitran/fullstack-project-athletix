@@ -1,0 +1,126 @@
+.myExercises-container {
+  background-color: var(--dark-background-color);
+  min-height: 100vh;
+  padding: 120px 20px 50px 20px;
+  font-family: var(--font-family-Source-Sans-3);
+  color: #fff;
+}
+
+.myExercises-container h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+}
+
+.btn-group button {
+  margin-left: 0.5rem;
+}
+
+.btn-group .btn {
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 1.2rem;
+  color: #fff;
+  border: 1px solid #888;
+  background-color: transparent;
+  transition: all 0.2s ease;
+}
+
+.btn-group .btn.active,
+.btn-group .btn:hover {
+  background-color: var(--primary-color);
+  color: #000;
+  border-color: var(--primary-color);
+}
+
+/* ============ Card Grid View ============ */
+.exercise-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+.exercise-card {
+  background-color: #2e2e2e;
+  border-radius: 1rem;
+  padding: 1.2rem;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.exercise-card:hover {
+  transform: translateY(-4px);
+}
+
+.exercise-card h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.6rem;
+  font-weight: bold;
+}
+
+.exercise-card .exercise-details {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #ddd;
+}
+
+/* ============ Table View ============ */
+.table-responsive {
+  margin-top: 1.5rem;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+  text-align: left;
+}
+
+.table th {
+  background-color: #333;
+  color: #fff;
+}
+
+.table tbody tr:hover {
+  background-color: #2e2e2e;
+}
+
+/* Attachment thumbnail in table */
+.table td img {
+  max-width: 80px;
+  max-height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid #444;
+}
+
+/* ============ Responsive Design ============ */
+@media (max-width: 768px) {
+  .myExercises-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .btn-group .btn {
+    font-size: 1rem;
+    padding: 6px 10px;
+  }
+
+  .exercise-card {
+    padding: 1rem;
+  }
+
+  .exercise-card h4 {
+    font-size: 1.1rem;
+  }
+
+  .exercise-card .exercise-details {
+    font-size: 0.9rem;
+  }
+
+  .table th,
+  .table td {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+}

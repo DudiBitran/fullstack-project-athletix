@@ -1,0 +1,73 @@
+.myClients-container {
+  min-height: 100vh;
+  width: 100%;
+  padding: 120px 15px 50px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--dark-background-color);
+  font-family: var(--font-family-Rajdhani);
+  color: #eee;
+}
+
+.myClients-container h2 {
+  font-size: 42px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 5%;
+}
+
+.my-clients-table {
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.my-clients-table table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #222;
+  color: #eee;
+  font-family: var(--font-family-Rajdhani);
+}
+
+.my-clients-table thead {
+  background-color: #333;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.my-clients-table th,
+.my-clients-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #444;
+  text-align: left;
+}
+
+.my-clients-table tbody tr:hover {
+  background-color: #2e2e2e;
+  transition: background-color 0.3s ease;
+}
+
+.my-clients-table button.btn-danger {
+  font-size: 0.9rem;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: #dc3545;
+  border: none;
+  color: white;
+  transition: background-color 0.2s ease;
+}
+
+.my-clients-table button.btn-danger:hover {
+  background-color: #b02a37;
+  cursor: pointer;
+}
+
+.my-clients-table tbody tr td[colspan] {
+  text-align: center;
+  color: #999;
+  font-style: italic;
+  padding: 20px;
+}

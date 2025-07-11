@@ -11,6 +11,7 @@ const {
 const logger = require("../../fileLogger/fileLogger");
 const fs = require("fs");
 const { User } = require("../../model/user");
+const { log } = require("console");
 
 // create a new exercise
 router.post(
@@ -50,11 +51,14 @@ router.post(
           mimetype: file.mimetype,
           size: file.size / 1024 / 1024,
         },
+        updatedBy: req.user._id,
         createdBy: req.user._id,
       }).save();
 
       res.send(newExercise);
     } catch (err) {
+      console.log(err);
+
       res.status(500).send("Internal server error.");
       logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
     }
@@ -79,6 +83,32 @@ router.get("/", authMw, permitRoles("trainer", "admin"), async (req, res) => {
     logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
   }
 });
+
+// get my exercises
+router.get(
+  "/my-exercises",
+  authMw,
+  permitRoles("trainer"),
+  async (req, res) => {
+    try {
+      const exercises = await Exercise.find({ createdBy: req.user._id });
+      if (exercises.length === 0) {
+        res.status(400).send("Exercise not found.");
+        logger.error(
+          `status: ${res.statusCode} | Message: Exercise not found.`
+        );
+        return;
+      }
+      res.send(exercises);
+      logger.info(
+        `status: ${res.statusCode} | Message: Exercise have been sent successfully.`
+      );
+    } catch (err) {
+      res.status(500).send("Internal server error.");
+      logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
+    }
+  }
+);
 
 // get the exercise by id
 router.get(
@@ -139,6 +169,18 @@ router.put(
         res.status(400).send("Exercise not found.");
         logger.error(
           `status: ${res.statusCode} | Message: Exercise not found.`
+        );
+        return;
+      }
+      const user = User.findById(req.user._id);
+
+      if (
+        exercise.createdBy.toString() !== req.user._id &&
+        user.role !== "admin"
+      ) {
+        res.status(400).send("Access denied, trainer is not the owner.");
+        logger.error(
+          `status: ${res.statusCode} | Message: Access denied, trainer is not the owner.`
         );
         return;
       }
