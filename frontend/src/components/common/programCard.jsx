@@ -1,4 +1,6 @@
-function ProgramCard({ programs, onDeleteClick }) {
+import { FaLink } from "react-icons/fa";
+import { Link } from "react-router";
+function ProgramCard({ programs, onDeleteClick, onAssignClick }) {
   return (
     <div className="container">
       <div className="row g-4">
@@ -20,16 +22,30 @@ function ProgramCard({ programs, onDeleteClick }) {
                 </ul>
               </div>
 
-              <div className="card-footer bg-transparent d-flex justify-content-between">
-                <button className="btn btn-sm btn-outline-warning">
+              <div className="card-footer bg-transparent d-flex flex-wrap justify-content-between gap-2">
+                <button className="btn btn-sm btn-outline-warning flex-fill">
                   ✏️ Edit
                 </button>
+                {!program.assignedTo && (
+                  <button
+                    onClick={() => onAssignClick(program._id)}
+                    className="btn btn-sm btn-outline-success"
+                  >
+                    <FaLink /> Assign
+                  </button>
+                )}
                 <button
                   onClick={() => onDeleteClick(program._id)}
-                  className="btn btn-sm btn-outline-danger"
+                  className="btn btn-sm btn-outline-danger flex-fill"
                 >
                   🗑️ Delete
                 </button>
+                <Link
+                  to={`/trainer/program/${program._id}`}
+                  className="btn btn-sm btn-outline-info flex-fill"
+                >
+                  View Details
+                </Link>
               </div>
             </div>
           </div>

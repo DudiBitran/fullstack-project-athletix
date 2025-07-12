@@ -94,6 +94,28 @@ const getMyExercises = async () => {
   }
 };
 
+// get program by id
+const getProgramById = async (programId) => {
+  try {
+    const response = await httpService.get(`/program/details/${programId}`);
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
+// assign client to program
+const assignClientToProgram = async (programId, userId) => {
+  try {
+    const response = await httpService.patch(
+      `/program/${programId}/${userId}/assign-user`
+    );
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const trainerService = {
   createProgram,
   getMyProgramsById,
@@ -104,6 +126,8 @@ const trainerService = {
   unAssignClientToTrainer,
   createExercise,
   getMyExercises,
+  getProgramById,
+  assignClientToProgram,
 };
 
 export default trainerService;

@@ -10,6 +10,7 @@ import ProgramTable from "../../components/common/programTable";
 import { Navigate, Link } from "react-router";
 import ConfirmationModal from "../../components/common/confirmationModal";
 import AvailableClientsTableBody from "../../components/common/availableClientsTableBody";
+import AssignProgramModal from "../../components/common/assignProgramModal";
 function MyPrograms() {
   const [programs, setPrograms] = useState([]);
   const [viewMode, setViewMode] = useState("grid");
@@ -20,6 +21,9 @@ function MyPrograms() {
   const [programToDelete, setProgramToDelete] = useState(null);
   const [assignedUsers, setAssignedUsers] = useState([]);
   const [availableClients, setAvailableClients] = useState([]);
+  const [selectedProgramId, setSelectedProgramId] = useState(null);
+  const [selectedClientId, setSelectedClientId] = useState(null);
+  const [showAssignProgramModal, setShowAssignProgramModal] = useState(false);
   const {
     user,
     getMyProgramsById,
@@ -27,6 +31,7 @@ function MyPrograms() {
     getMyOwnClients,
     getAllAvailableClients,
     assignClient,
+    assignClientToProgram,
   } = useAuth();
 
   if (user?.role !== "trainer") return <Navigate to="/" />;
@@ -101,11 +106,13 @@ function MyPrograms() {
   const handleConfirmAssign = async () => {
     try {
       await assignClient(selectedClientIdToAssign);
+      const response = await getMyOwnClients();
+      setAssignedUsers(response.data);
       setAvailableClients((prev) =>
         prev.filter((client) => client._id !== selectedClientIdToAssign)
       );
     } catch (err) {
-      console.error(err);
+      throw err;
     } finally {
       setShowAssignModal(false);
       setSelectedClientIdToAssign(null);
@@ -117,6 +124,23 @@ function MyPrograms() {
     setSelectedClientIdToAssign(null);
   };
 
+  const handleAssignToProgramClick = (programId) => {
+    setSelectedProgramId(programId);
+    setShowAssignProgramModal(true);
+  };
+
+  const handleAssignToProgram = async (programId, clientId) => {
+    try {
+      await assignClientToProgram(programId, clientId);
+      const response = await getMyProgramsById(user._id);
+      setPrograms(response.data);
+      setAvailableClients((prev) => prev.filter((c) => c._id !== clientId));
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setShowAssignProgramModal(false);
+    }
+  };
   return (
     <main className="myPrograms-container">
       {/* Header */}
@@ -169,18 +193,20 @@ function MyPrograms() {
         </section>
 
         {/* Programs section */}
-        <section style={{ flex: 1 }}>
+        <section className="myProgram-content" style={{ flex: 1 }}>
           {programs.length === 0 ? (
             <p>No programs found.</p>
           ) : viewMode === "grid" ? (
             <ProgramCard
               programs={programs}
               onDeleteClick={handleDeleteClick}
+              onAssignClick={handleAssignToProgramClick}
             />
           ) : (
             <ProgramTable
               programs={programs}
               onDeleteClick={handleDeleteClick}
+              onAssignClick={handleAssignToProgramClick}
             />
           )}
         </section>
@@ -228,6 +254,12 @@ function MyPrograms() {
         onCancel={handleCancelAssign}
         onConfirm={handleConfirmAssign}
         icon="bi bi-check-circle"
+      />
+      <AssignProgramModal
+        show={showAssignProgramModal}
+        onClose={() => setShowAssignProgramModal(false)}
+        onAssign={handleAssignToProgram}
+        programId={selectedProgramId}
       />
     </main>
   );

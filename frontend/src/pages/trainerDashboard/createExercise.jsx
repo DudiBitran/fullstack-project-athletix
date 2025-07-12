@@ -68,7 +68,7 @@ function CreateExercise() {
         }
 
         await createExercise(formData);
-        navigate("/trainer/my-exercise");
+        navigate("/trainer/my-exercises");
       } catch (err) {
         if (err.response?.status >= 400) {
           const response = err.response.data;

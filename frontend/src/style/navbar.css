@@ -55,7 +55,7 @@ nav .order-2 .nav-link {
 }
 
 .dropdown-menu {
-  background-color: rgba(153, 153, 153, 0.384) !important;
+  background-color: rgb(109, 109, 109) !important;
   border: none !important;
 }
 
@@ -64,7 +64,7 @@ nav .order-2 .nav-link {
 }
 
 .navbar .dropdown-item:hover {
-  background-color: #666;
+  background-color: #9e9e9e;
 }
 
 .navbar-collapse > div {

@@ -140,6 +140,27 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const getProgramById = async (programId) => {
+    try {
+      const response = await trainerService.getProgramById(programId);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const assignClientToProgram = async (programId, userId) => {
+    try {
+      const response = await trainerService.assignClientToProgram(
+        programId,
+        userId
+      );
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -157,6 +178,8 @@ export function AuthProvider({ children }) {
         unAssignClient,
         createExercise,
         getMyExercises,
+        getProgramById,
+        assignClientToProgram,
       }}
     >
       {children}

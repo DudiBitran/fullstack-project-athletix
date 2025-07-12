@@ -129,6 +129,14 @@
   border: 1px solid #444;
 }
 
+.myExercises-container .attachment-btn {
+  color: #66d9ef;
+}
+
+.myExercises-container .attachment-btn:hover {
+  color: #a5ff7b;
+}
+
 /* ============ Responsive Design ============ */
 @media (max-width: 768px) {
   .myExercises-container h2 {

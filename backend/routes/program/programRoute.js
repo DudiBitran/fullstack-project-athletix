@@ -221,4 +221,43 @@ router.put(
   }
 );
 
+// add exercises to program
+router.post("/:programId/days/:day/exercises", async (req, res) => {
+  const { programId, day } = req.params;
+  const { exerciseIds } = req.body;
+
+  if (!Array.isArray(exerciseIds) || exerciseIds.length === 0) {
+    return res.status(400).send("exerciseIds must be a non-empty array");
+  }
+
+  for (const id of exerciseIds) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).send(`Invalid exerciseId: ${id}`);
+    }
+  }
+
+  try {
+    const program = await Program.findById(programId);
+    if (!program) return res.status(404).send("Program not found");
+
+    let dayObj = program.days.find((d) => d.day === day);
+
+    if (!dayObj) {
+      program.days.push({ day, exercises: exerciseIds });
+    } else {
+      for (const id of exerciseIds) {
+        if (!dayObj.exercises.includes(id)) {
+          dayObj.exercises.push(id);
+        }
+      }
+    }
+
+    await program.save();
+    res.send(program);
+  } catch (err) {
+    res.status(500).send("Internal server error.");
+    logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
+  }
+});
+
 module.exports = router;

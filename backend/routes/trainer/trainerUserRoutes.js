@@ -10,7 +10,7 @@ const {
   DeleteRequest,
 } = require("../../model/trainerDeleteRequest");
 
-// trainer getting own client
+// trainer getting own clients
 
 router.get("/my-clients", authMw, permitRoles("trainer"), async (req, res) => {
   try {
@@ -33,6 +33,7 @@ router.get("/my-clients", authMw, permitRoles("trainer"), async (req, res) => {
         "stats",
         "image",
         "gender",
+        "programs",
       ])
     );
     res.send(filteredClients);

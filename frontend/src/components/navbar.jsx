@@ -73,7 +73,7 @@ function CustomNavbar() {
                 >
                   {user?.role === "trainer" && (
                     <NavDropdown.Item as={NavLink} to="/trainer/create-program">
-                      create a program
+                      Create a program
                     </NavDropdown.Item>
                   )}
                   {user?.role === "trainer" && (
@@ -81,7 +81,7 @@ function CustomNavbar() {
                       as={NavLink}
                       to="/trainer/create-exercise"
                     >
-                      create a exercise
+                      Create a exercise
                     </NavDropdown.Item>
                   )}
                   <NavDropdown.Item>My Profile</NavDropdown.Item>

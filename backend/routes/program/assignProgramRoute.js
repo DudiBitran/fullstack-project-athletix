@@ -22,7 +22,7 @@ router.patch(
       const user = await User.findById(userId);
       if (!user) return res.status(404).send("User not found");
 
-      if (user.programs)
+      if (user.programs.length !== 0)
         return res.status(400).send("User already has an assigned program.");
 
       if (req.user._id.toString() !== program.trainer.toString()) {

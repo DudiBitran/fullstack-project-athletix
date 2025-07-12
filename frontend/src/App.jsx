@@ -13,6 +13,8 @@ import MyClients from "./pages/trainerDashboard/myClients";
 import MyPrograms from "./pages/trainerDashboard/myPrograms";
 import CreateExercise from "./pages/trainerDashboard/createExercise";
 import MyExercises from "./pages/trainerDashboard/myExercises";
+import AddExercisesToDay from "./components/common/addExerciseToDay";
+import ProgramViewPage from "./pages/trainerDashboard/programView";
 function App() {
   return (
     <div className="app-layout">
@@ -33,6 +35,11 @@ function App() {
           <Route path="/trainer/my-programs" element={<MyPrograms />} />
           <Route path="/trainer/create-exercise" element={<CreateExercise />} />
           <Route path="/trainer/my-exercises" element={<MyExercises />} />
+          <Route path="/trainer/add-exercise" element={<AddExercisesToDay />} />
+          <Route
+            path="/trainer/program/:programId"
+            element={<ProgramViewPage />}
+          />
         </Routes>
       </main>
 

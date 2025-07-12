@@ -1,0 +1,119 @@
+.programDetails-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--dark-background-color);
+}
+
+.program-details-container {
+  max-width: 800px;
+  padding: 20px 25px;
+  background-color: #222;
+  color: #eee;
+  border-radius: 8px;
+  font-family: var(--font-family-Source-Sans-3);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.program-title {
+  font-size: 2.5rem;
+  color: #ffd600;
+  margin-bottom: 10px;
+}
+
+.program-description {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+  color: #ccc;
+}
+
+.program-meta {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 30px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.program-days {
+  border-top: 1px solid #444;
+  padding-top: 20px;
+}
+
+.program-days h2 {
+  margin-bottom: 15px;
+  color: #ffd600;
+}
+
+.days-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.day-item {
+  margin-bottom: 25px;
+}
+
+.day-name {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #555;
+  padding-bottom: 5px;
+}
+
+.exercises-list {
+  list-style: none;
+  padding-left: 15px;
+}
+
+.exercise-item {
+  margin-bottom: 10px;
+  padding-left: 10px;
+  border-left: 3px solid #ffd600;
+}
+
+.exercise-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #eee;
+}
+
+.exercise-details {
+  font-size: 0.9rem;
+  color: #bbb;
+}
+
+.program-footer {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.program-footer .btn {
+  margin-top: 20px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: #222;
+  color: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  min-width: 300px;
+  max-width: 90%;
+}

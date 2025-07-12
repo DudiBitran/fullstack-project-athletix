@@ -1,4 +1,7 @@
+import { Link } from "react-router";
+
 function ExerciseTableBody({ exercises }) {
+  const baseUrl = "http://localhost:3000";
   return (
     <>
       {exercises.map((ex) => (
@@ -10,9 +13,12 @@ function ExerciseTableBody({ exercises }) {
           <td>{ex.notes || "–"}</td>
           <td>
             {ex.attachment?.url ? (
-              <a href={ex.attachment.url} target="_blank" rel="noreferrer">
-                View
-              </a>
+              <Link
+                className="attachment-btn"
+                to={`${baseUrl}/${ex.attachment.url.replace(/^\/+/, "")}`}
+              >
+                View Attachment
+              </Link>
             ) : (
               "No file"
             )}
