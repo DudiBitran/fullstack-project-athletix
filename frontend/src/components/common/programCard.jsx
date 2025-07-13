@@ -1,6 +1,11 @@
 import { FaLink } from "react-icons/fa";
 import { Link } from "react-router";
-function ProgramCard({ programs, onDeleteClick, onAssignClick }) {
+function ProgramCard({
+  programs,
+  onDeleteClick,
+  onAssignClick,
+  onUnAssignClick,
+}) {
   return (
     <div className="container">
       <div className="row g-4">
@@ -26,12 +31,21 @@ function ProgramCard({ programs, onDeleteClick, onAssignClick }) {
                 <button className="btn btn-sm btn-outline-warning flex-fill">
                   ✏️ Edit
                 </button>
-                {!program.assignedTo && (
+                {!program.assignedTo ? (
                   <button
                     onClick={() => onAssignClick(program._id)}
                     className="btn btn-sm btn-outline-success"
                   >
                     <FaLink /> Assign
+                  </button>
+                ) : (
+                  <button
+                    onClick={() =>
+                      onUnAssignClick(program._id, program.assignedTo)
+                    }
+                    className="btn btn-sm btn-outline-danger"
+                  >
+                    <FaLink /> UnAssign
                   </button>
                 )}
                 <button

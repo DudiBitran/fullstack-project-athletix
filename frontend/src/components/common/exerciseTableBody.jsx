@@ -14,6 +14,7 @@ function ExerciseTableBody({ exercises }) {
           <td>
             {ex.attachment?.url ? (
               <Link
+                target="_blank"
                 className="attachment-btn"
                 to={`${baseUrl}/${ex.attachment.url.replace(/^\/+/, "")}`}
               >

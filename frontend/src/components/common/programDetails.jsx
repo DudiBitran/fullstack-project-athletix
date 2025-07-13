@@ -2,13 +2,19 @@ import { useState, useEffect } from "react";
 import "../../style/trainerDash/programDetails.css";
 import { useAuth } from "../../context/auth.context";
 import AssignProgramModal from "./assignProgramModal";
+import ConfirmationModal from "../common/confirmationModal";
 
 function ProgramDetails({ program, setProgram }) {
   const [showAssignModal, setShowAssignModal] = useState(false);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [availableClients, setAvailableClients] = useState([]);
   const [selectedClientId, setSelectedClientId] = useState("");
-  const { getAllAvailableClients, assignClientToProgram } = useAuth();
-  const { getProgramById } = useAuth();
+  const {
+    getAllAvailableClients,
+    assignClientToProgram,
+    unassignClientToProgram,
+    getProgramById,
+  } = useAuth();
   useEffect(() => {
     if (showAssignModal) {
       const getClients = async () => {
@@ -33,6 +39,19 @@ function ProgramDetails({ program, setProgram }) {
       setProgram(response.data);
       setShowAssignModal(false);
       setSelectedClientId("");
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const handleUnAssignProgram = async () => {
+    try {
+      const programId = program._id;
+      const clientId = program.assignedTo;
+      await unassignClientToProgram(programId, clientId);
+      const response = await getProgramById(programId);
+      setProgram(response.data);
+      setShowConfirmationModal(false);
     } catch (err) {
       throw err;
     }
@@ -105,11 +124,23 @@ function ProgramDetails({ program, setProgram }) {
           >
             Assign Program to Client
           </button>
+          <button
+            className="btn btn-danger"
+            onClick={() => setShowConfirmationModal(true)}
+            disabled={!program.assignedTo}
+          >
+            UnAssign Program to Client
+          </button>
           <AssignProgramModal
             show={showAssignModal}
             onClose={() => setShowAssignModal(false)}
             onAssign={handleAssignProgram}
             programId={program._id}
+          />
+          <ConfirmationModal
+            show={showConfirmationModal}
+            onCancel={() => setShowConfirmationModal(false)}
+            onConfirm={handleUnAssignProgram}
           />
         </footer>
       </div>

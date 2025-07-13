@@ -1,6 +1,12 @@
 import { FaLink } from "react-icons/fa";
 import { Link } from "react-router";
-function ProgramTable({ programs, onEditClick, onDeleteClick, onAssignClick }) {
+function ProgramTable({
+  programs,
+  onEditClick,
+  onDeleteClick,
+  onAssignClick,
+  onUnAssignClick,
+}) {
   return (
     <div className="program-table-wrapper">
       <table className="table table-hover table-bordered">
@@ -28,12 +34,21 @@ function ProgramTable({ programs, onEditClick, onDeleteClick, onAssignClick }) {
                   >
                     ✏️ Edit
                   </button>
-                  {!program.assignedTo && (
+                  {!program.assignedTo ? (
                     <button
                       onClick={() => onAssignClick(program._id)}
                       className="btn btn-sm btn-outline-success"
                     >
                       <FaLink /> Assign
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() =>
+                        onUnAssignClick(program._id, program.assignedTo)
+                      }
+                      className="btn btn-sm btn-outline-danger"
+                    >
+                      <FaLink /> UnAssign
                     </button>
                   )}
                   <button

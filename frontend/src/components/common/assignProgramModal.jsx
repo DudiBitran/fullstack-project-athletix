@@ -37,7 +37,7 @@ function AssignProgramModal({ show, onClose, onAssign, programId }) {
         <Modal.Title>Assign Program to Client</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {clients.length === 0 ? (
+        {clients?.length === 0 ? (
           <p>No available clients without a program.</p>
         ) : (
           <Form.Group controlId="clientSelect">

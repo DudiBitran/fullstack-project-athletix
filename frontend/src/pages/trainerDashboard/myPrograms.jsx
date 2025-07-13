@@ -24,6 +24,8 @@ function MyPrograms() {
   const [selectedProgramId, setSelectedProgramId] = useState(null);
   const [selectedClientId, setSelectedClientId] = useState(null);
   const [showAssignProgramModal, setShowAssignProgramModal] = useState(false);
+  const [showUnAssignProgramModal, setShowUnAssignProgramModal] =
+    useState(false);
   const {
     user,
     getMyProgramsById,
@@ -32,6 +34,7 @@ function MyPrograms() {
     getAllAvailableClients,
     assignClient,
     assignClientToProgram,
+    unassignClientToProgram,
   } = useAuth();
 
   if (user?.role !== "trainer") return <Navigate to="/" />;
@@ -141,6 +144,30 @@ function MyPrograms() {
       setShowAssignProgramModal(false);
     }
   };
+
+  const handleUnAssignProgram = async () => {
+    try {
+      const programId = selectedProgramId;
+      const clientId = selectedClientId;
+      await unassignClientToProgram(selectedProgramId, clientId);
+      const response = await getMyProgramsById(user._id);
+      setPrograms(response.data);
+      setAvailableClients((prev) => prev.filter((c) => c._id !== clientId));
+    } catch (err) {
+      throw err;
+    } finally {
+      setShowUnAssignProgramModal(false);
+      setSelectedProgramId(null);
+      setSelectedClientId(null);
+    }
+  };
+
+  const handleUnAssignClick = (programId, clientId) => {
+    setSelectedProgramId(programId);
+    setSelectedClientId(clientId);
+    setShowUnAssignProgramModal(true);
+  };
+
   return (
     <main className="myPrograms-container">
       {/* Header */}
@@ -201,12 +228,14 @@ function MyPrograms() {
               programs={programs}
               onDeleteClick={handleDeleteClick}
               onAssignClick={handleAssignToProgramClick}
+              onUnAssignClick={handleUnAssignClick}
             />
           ) : (
             <ProgramTable
               programs={programs}
               onDeleteClick={handleDeleteClick}
               onAssignClick={handleAssignToProgramClick}
+              onUnAssignClick={handleUnAssignClick}
             />
           )}
         </section>
@@ -253,6 +282,14 @@ function MyPrograms() {
         message="Are you sure you want to assign this client to your clients list?"
         onCancel={handleCancelAssign}
         onConfirm={handleConfirmAssign}
+        icon="bi bi-check-circle"
+      />
+      <ConfirmationModal
+        show={showUnAssignProgramModal}
+        title="UnAssign Client"
+        message="Are you sure you want to Un-assign this client from your Program?"
+        onCancel={() => setShowUnAssignProgramModal(false)}
+        onConfirm={handleUnAssignProgram}
         icon="bi bi-check-circle"
       />
       <AssignProgramModal

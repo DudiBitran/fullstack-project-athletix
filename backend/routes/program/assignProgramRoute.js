@@ -51,6 +51,7 @@ router.patch(
   permitRoles("trainer", "admin"),
   async (req, res) => {
     const { programId, userId } = req.params;
+
     try {
       const user = await User.findById(userId);
 
@@ -63,13 +64,15 @@ router.patch(
         return res.status(400).send("User is not assigned to this program.");
       }
 
-      user.programs = null;
+      user.programs = [];
       await user.save();
 
       program.assignedTo = null;
       await program.save();
       res.send("User unassigned successfully.");
     } catch (err) {
+      console.log(err);
+
       res.status(500).send("Internal server error.");
       logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
     }

@@ -88,8 +88,11 @@
 }
 
 .program-footer {
+  display: flex;
+  justify-content: space-between;
   margin-top: 50px;
   text-align: center;
+  gap: 10px;
 }
 
 .program-footer .btn {

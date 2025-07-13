@@ -116,6 +116,18 @@ const assignClientToProgram = async (programId, userId) => {
   }
 };
 
+//unAssign Client To Program
+const unAssignClientToProgram = async (programId, userId) => {
+  try {
+    const response = await httpService.patch(
+      `/program/${programId}/${userId}/unassign-user`
+    );
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const trainerService = {
   createProgram,
   getMyProgramsById,
@@ -128,6 +140,7 @@ const trainerService = {
   getMyExercises,
   getProgramById,
   assignClientToProgram,
+  unAssignClientToProgram,
 };
 
 export default trainerService;

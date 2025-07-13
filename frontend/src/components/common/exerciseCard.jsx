@@ -35,6 +35,7 @@ function ExerciseCardList({ exercises }) {
               📎{" "}
               {ex.attachment?.url && (
                 <Link
+                  target="_blank"
                   to={`${baseUrl}/${ex.attachment.url.replace(/^\/+/, "")}`}
                 >
                   View Attachment
