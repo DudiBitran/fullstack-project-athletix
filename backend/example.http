@@ -7,13 +7,14 @@
 
 @userToken2 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODJlM2E3NjdlOThhNGRiY2M1YTMzNzYiLCJpYXQiOjE3NDc4NjAxNTd9.GT10T1nuHIgt41pWfP7OOtjf3ERvz_JucwAB-w5GRN8
 
+POST {{local}}/athletix/auth/register
 Content-Type: application/json
 
 {
   "firstName": "Ad",
   "lastName": "dd",
-  "email": "123dddr@asdd.com",
-  "password": "cAds!1244",
+  "email": "t14@trainer.com",
+  "password": "Dd!dd1234",
   "stats": {
     "weight": 40,
     "height": 220

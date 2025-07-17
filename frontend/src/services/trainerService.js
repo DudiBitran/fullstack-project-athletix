@@ -128,6 +128,18 @@ const unAssignClientToProgram = async (programId, userId) => {
   }
 };
 
+// get client details by id
+const getClientById = async (clientId) => {
+  try {
+    const response = await httpService.get(
+      `/users/trainers/client-details/${clientId}`
+    );
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const trainerService = {
   createProgram,
   getMyProgramsById,
@@ -141,6 +153,7 @@ const trainerService = {
   getProgramById,
   assignClientToProgram,
   unAssignClientToProgram,
+  getClientById,
 };
 
 export default trainerService;

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import ProgramDetails from "../../components/common/programDetails";
 import { useAuth } from "../../context/auth.context";
+import { Navigate } from "react-router";
 
 function ProgramViewPage() {
   const { programId } = useParams();
@@ -9,6 +10,7 @@ function ProgramViewPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { user, getProgramById } = useAuth();
+
   useEffect(() => {
     const getProgramDetails = async () => {
       try {

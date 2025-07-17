@@ -3,7 +3,7 @@ import "../../style/trainerDash/programDetails.css";
 import { useAuth } from "../../context/auth.context";
 import AssignProgramModal from "./assignProgramModal";
 import ConfirmationModal from "../common/confirmationModal";
-
+import { Navigate } from "react-router";
 function ProgramDetails({ program, setProgram }) {
   const [showAssignModal, setShowAssignModal] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
@@ -14,6 +14,8 @@ function ProgramDetails({ program, setProgram }) {
     assignClientToProgram,
     unassignClientToProgram,
     getProgramById,
+    getClientById,
+    user,
   } = useAuth();
   useEffect(() => {
     if (showAssignModal) {
@@ -31,6 +33,16 @@ function ProgramDetails({ program, setProgram }) {
       getClients();
     }
   }, [showAssignModal]);
+
+  useEffect(() => {
+    if (!program || !program.assignedTo) return;
+    const getClientDetails = async () => {
+      const response = await getClientById(program.assignedTo);
+      setSelectedClientId(response.data);
+      console.log(response.data);
+    };
+    getClientDetails();
+  }, [program]);
 
   const handleAssignProgram = async (programId, clientId) => {
     try {
@@ -61,6 +73,11 @@ function ProgramDetails({ program, setProgram }) {
     return <p>Loading program details...</p>;
   }
 
+  if (!user) return <Navigate to="/" />;
+
+  if (user?.role !== "trainer" || program?.trainer !== user?._id)
+    return <Navigate to="/trainer/my-programs" />;
+
   return (
     <main className="programDetails-wrapper">
       <div className="program-details-container">
@@ -80,7 +97,7 @@ function ProgramDetails({ program, setProgram }) {
           <div>
             <strong>Assigned To:</strong>{" "}
             {program.assignedTo
-              ? `${program.assignedTo.firstName} ${program.assignedTo.lastName}`
+              ? `${selectedClientId?.firstName} ${selectedClientId?.lastName}`
               : "Not assigned"}
           </div>
         </div>

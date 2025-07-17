@@ -138,4 +138,36 @@ router.get(
   }
 );
 
+// get client details by id
+router.get(
+  "/client-details/:clientId",
+  authMw,
+  permitRoles("trainer"),
+  async (req, res) => {
+    const { clientId } = req.params;
+    try {
+      const client = await User.findOne({
+        _id: clientId,
+        assignedTrainerId: req.user._id,
+      });
+      if (!client) {
+        res.status(400).send("Client not found.");
+        logger.error(`status: ${res.statusCode} | Message: Client not found.`);
+        return;
+      }
+      res.send(
+        _.pick(client, ["firstName", "lastName", "email", "age", "gender"])
+      );
+      logger.info(
+        `status: ${res.statusCode} | Message: Available clients have been sent successfully. `
+      );
+    } catch (err) {
+      console.log(err);
+
+      res.status(500).send("Internal server error.");
+      logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
+    }
+  }
+);
+
 module.exports = router;
