@@ -127,6 +127,13 @@ router.delete(
         return;
       }
 
+      if (user.programs.length !== 0) {
+        res.status(403).send("User has programs assigned to them.");
+        logger.error(
+          `status: ${res.statusCode} | Message: User has programs assigned to them.`
+        );
+        return;
+      }
       const trainerId = user.assignedTrainerId;
       const trainerUser = await User.findById(trainerId);
 

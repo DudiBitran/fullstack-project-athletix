@@ -6,11 +6,12 @@ import { MdList } from "react-icons/md";
 import { useAuth } from "../../context/auth.context";
 import "../../style/trainerDash/myExercises.css";
 import { Navigate } from "react-router";
+import { toast } from "react-toastify";
 
 function MyExercises() {
   const [exercises, setExercises] = useState([]);
   const [viewMode, setViewMode] = useState("grid");
-  const { user, getMyExercises } = useAuth();
+  const { user, getMyExercises, deleteExercise } = useAuth();
 
   if (user?.role !== "trainer") return <Navigate to="/" />;
 
@@ -21,11 +22,23 @@ function MyExercises() {
         setExercises(response.data);
         return response;
       } catch (err) {
+        toast.error(err.response?.data || "Failed to fetch exercises.");
         throw err;
       }
     };
     getExercises();
   }, []);
+
+  // Example delete handler (if you have deleteExercise implemented)
+  const handleDelete = async (exerciseId) => {
+    try {
+      await deleteExercise(exerciseId);
+      setExercises((prev) => prev.filter((ex) => ex._id !== exerciseId));
+      toast.success("Exercise deleted successfully!");
+    } catch (err) {
+      toast.error(err.response?.data || "Failed to delete exercise.");
+    }
+  };
 
   return (
     <main className="myExercises-container">
@@ -65,10 +78,20 @@ function MyExercises() {
                   <th>Rest</th>
                   <th>Notes</th>
                   <th>Attachment</th>
+                  {/* <th>Actions</th> */}
                 </tr>
               </thead>
               <tbody>
                 <ExerciseTableBody exercises={exercises} />
+                {/* Example usage:
+                {exercises.map((ex) => (
+                  <tr key={ex._id}>
+                    ...
+                    <td>
+                      <button onClick={() => handleDelete(ex._id)}>Delete</button>
+                    </td>
+                  </tr>
+                ))} */}
               </tbody>
             </table>
           </div>

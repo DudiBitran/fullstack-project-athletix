@@ -22,3 +22,35 @@
   padding: 8px 12px;
   border-bottom: 1px solid #444;
 }
+
+@media (max-width: 400px) {
+  /* Do NOT hide the email column */
+  .available-users th:last-child,
+  .available-users td:last-child {
+    display: table-cell !important;
+    width: 60px !important;
+    min-width: 50px !important;
+    max-width: 80px !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+    background: #222 !important;
+  }
+  .available-users td:last-child button {
+    width: 100% !important;
+    min-width: 0 !important;
+    font-size: 0.85rem !important;
+    padding: 6px 2px !important;
+    display: block !important;
+  }
+  .available-users th,
+  .available-users td {
+    padding: 4px 2px !important;
+    font-size: 0.8rem !important;
+    word-break: break-word !important;
+  }
+  .available-users table {
+    min-width: 0 !important;
+    width: 100% !important;
+    table-layout: auto !important;
+  }
+}

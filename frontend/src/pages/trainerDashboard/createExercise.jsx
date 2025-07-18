@@ -5,6 +5,8 @@ import Joi from "joi";
 import { useState } from "react";
 import { useAuth } from "../../context/auth.context";
 import { useNavigate } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const schema = Joi.object({
   name: Joi.string().min(2).max(100).required().messages({
@@ -66,13 +68,14 @@ function CreateExercise() {
         if (values.attachment) {
           formData.append("attachment", values.attachment);
         }
-
         await createExercise(formData);
-        navigate("/trainer/my-exercises");
+        toast.success("Exercise created successfully!");
+        setTimeout(() => navigate("/trainer/my-exercises"), 1200);
       } catch (err) {
         if (err.response?.status >= 400) {
           const response = err.response.data;
           setServerError(response);
+          toast.error(typeof response === "string" ? response : "Failed to create exercise");
         }
       }
     },

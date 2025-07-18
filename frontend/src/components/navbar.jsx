@@ -1,5 +1,5 @@
 import { Navbar, Nav, NavDropdown, Container, Image } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "../style/navbar.css";
 import Logo from "./common/logo";
 import { Link, NavLink, useNavigate } from "react-router";
@@ -9,6 +9,7 @@ function CustomNavbar() {
   const { logout, user, profileImage } = useAuth();
   const navigate = useNavigate();
   const baseUrl = "http://localhost:3000";
+  const navbarRef = useRef();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,12 +26,21 @@ function CustomNavbar() {
     return;
   };
 
+  // Collapse navbar on link click (for mobile)
+  const handleNavLinkClick = () => {
+    const nav = document.getElementById("basic-navbar-nav");
+    if (nav && nav.classList.contains("show")) {
+      nav.classList.remove("show");
+    }
+  };
+
   return (
     <Navbar
       expand="lg"
       variant="dark"
       fixed="top"
       className={`custom-navbar ${scrolled ? "scrolled" : ""}`}
+      ref={navbarRef}
     >
       <Container>
         <Navbar.Brand className="d-flex align-items-center">
@@ -44,12 +54,12 @@ function CustomNavbar() {
           <div className="d-flex justify-content-between w-100 align-items-center flex-column flex-lg-row">
             <Nav className="order-3 order-lg-3 mt-3 mt-lg-0 gap-3">
               {!user && (
-                <Nav.Link as={Link} to="/login" className="navbar-login-btn">
+                <Nav.Link as={Link} to="/login" className="navbar-login-btn" onClick={handleNavLinkClick}>
                   Login
                 </Nav.Link>
               )}
               {!user && (
-                <Nav.Link as={Link} to="/register" className="btn">
+                <Nav.Link as={Link} to="/register" className="btn" onClick={handleNavLinkClick}>
                   Join Now!
                 </Nav.Link>
               )}
@@ -72,7 +82,7 @@ function CustomNavbar() {
                   align="end"
                 >
                   {user?.role === "trainer" && (
-                    <NavDropdown.Item as={NavLink} to="/trainer/create-program">
+                    <NavDropdown.Item as={NavLink} to="/trainer/create-program" onClick={handleNavLinkClick}>
                       Create a program
                     </NavDropdown.Item>
                   )}
@@ -80,14 +90,15 @@ function CustomNavbar() {
                     <NavDropdown.Item
                       as={NavLink}
                       to="/trainer/create-exercise"
+                      onClick={handleNavLinkClick}
                     >
                       Create a exercise
                     </NavDropdown.Item>
                   )}
-                  <NavDropdown.Item>My Profile</NavDropdown.Item>
-                  <NavDropdown.Item>Settings</NavDropdown.Item>
+                  <NavDropdown.Item onClick={handleNavLinkClick}>My Profile</NavDropdown.Item>
+                  <NavDropdown.Item onClick={handleNavLinkClick}>Settings</NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item onClick={logoutUser}>
+                  <NavDropdown.Item onClick={() => { handleNavLinkClick(); logoutUser(); }}>
                     Logout
                   </NavDropdown.Item>
                 </NavDropdown>
@@ -96,24 +107,31 @@ function CustomNavbar() {
 
             <Nav className="order-2 order-lg-2 mx-auto nav-links-underlined">
               {!user && (
-                <Nav.Link as={NavLink} to="/">
-                  Home
-                </Nav.Link>
+                <>
+                  <Nav.Link as={NavLink} to="/" onClick={handleNavLinkClick}>
+                    Home
+                  </Nav.Link>
+                  <Nav.Link as={NavLink} to="/about" onClick={handleNavLinkClick}>
+                    About
+                  </Nav.Link>
+                  <Nav.Link as={NavLink} to="/contact" onClick={handleNavLinkClick}>
+                    Contact
+                  </Nav.Link>
+                </>
               )}
-              <Nav.Link as={NavLink} to="/about">
-                About
-              </Nav.Link>
-              <Nav.Link as={NavLink} to="/contact">
-                Contact
-              </Nav.Link>
               {user?.role === "trainer" && (
-                <Nav.Link as={NavLink} to="/trainer/my-programs">
+                <Nav.Link as={NavLink} to="/trainer/my-programs" onClick={handleNavLinkClick}>
                   My Programs
                 </Nav.Link>
               )}
               {user?.role === "trainer" && (
-                <Nav.Link as={NavLink} to="/trainer/my-exercises">
+                <Nav.Link as={NavLink} to="/trainer/my-exercises" onClick={handleNavLinkClick}>
                   My exercises
+                </Nav.Link>
+              )}
+              {user?.role === "trainer" && (
+                <Nav.Link as={NavLink} to="/trainer/my-customers" onClick={handleNavLinkClick}>
+                  My clients
                 </Nav.Link>
               )}
             </Nav>

@@ -15,6 +15,9 @@ import CreateExercise from "./pages/trainerDashboard/createExercise";
 import MyExercises from "./pages/trainerDashboard/myExercises";
 import AddExercisesToDay from "./components/common/addExerciseToDay";
 import ProgramViewPage from "./pages/trainerDashboard/programView";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   return (
     <div className="app-layout">
@@ -44,6 +47,7 @@ function App() {
       </main>
 
       <Footer />
+      <ToastContainer position="top-center" autoClose={2000} />
     </div>
   );
 }

@@ -1,9 +1,11 @@
 .addExercise-container {
-  height: 100vh;
+  height: fit-content;
   background-color: var(--dark-background-color);
+  padding: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: var(--font-family-Source-Sans-3);
 }
 .add-exercises-container {
   max-width: 500px;
@@ -11,7 +13,6 @@
   color: #eee;
   border-radius: 8px;
   padding: 20px 30px;
-  font-family: Arial, sans-serif;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
@@ -83,4 +84,48 @@
 
 .success-message {
   color: #4caf50;
+}
+
+@media (max-width: 600px) {
+  .addExercise-container {
+    padding: 16px;
+    min-height: 100vh;
+  }
+  .add-exercises-container {
+    max-width: 98vw;
+    padding: 10px 6px;
+    border-radius: 6px;
+    font-size: 0.97rem;
+  }
+  .add-exercises-title {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+  .exercise-label {
+    font-size: 0.95rem;
+  }
+  .add-exercises-button {
+    font-size: 1rem;
+    padding: 8px 0;
+  }
+}
+@media (max-width: 400px) {
+  .addExercise-container{
+    padding: 30px 20px;
+    min-height: auto;
+  }
+  .add-exercises-container {
+    padding: 4px 2px;
+    font-size: 0.9rem;
+  }
+  .add-exercises-title {
+    font-size: 0.95rem;
+  }
+  .exercise-label {
+    font-size: 0.85rem;
+  }
+  .add-exercises-button {
+    font-size: 0.95rem;
+    padding: 6px 0;
+  }
 }

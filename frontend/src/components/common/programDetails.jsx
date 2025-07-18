@@ -4,11 +4,15 @@ import { useAuth } from "../../context/auth.context";
 import AssignProgramModal from "./assignProgramModal";
 import ConfirmationModal from "../common/confirmationModal";
 import { Navigate } from "react-router";
+import AddExercisesPage from "./addExerciseToDay";
+import { toast } from "react-toastify";
 function ProgramDetails({ program, setProgram }) {
   const [showAssignModal, setShowAssignModal] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [availableClients, setAvailableClients] = useState([]);
   const [selectedClientId, setSelectedClientId] = useState("");
+  const [showAddExerciseDay, setShowAddExerciseDay] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
   const {
     getAllAvailableClients,
     assignClientToProgram,
@@ -16,6 +20,7 @@ function ProgramDetails({ program, setProgram }) {
     getProgramById,
     getClientById,
     user,
+    deleteExerciseFromDay,
   } = useAuth();
   useEffect(() => {
     if (showAssignModal) {
@@ -51,7 +56,9 @@ function ProgramDetails({ program, setProgram }) {
       setProgram(response.data);
       setShowAssignModal(false);
       setSelectedClientId("");
+      toast.success("Client assigned to program!");
     } catch (err) {
+      toast.error(err.response?.data || "Failed to assign client to program.");
       throw err;
     }
   };
@@ -64,9 +71,36 @@ function ProgramDetails({ program, setProgram }) {
       const response = await getProgramById(programId);
       setProgram(response.data);
       setShowConfirmationModal(false);
+      toast.success("Client unassigned from program!");
     } catch (err) {
+      toast.error(err.response?.data || "Failed to unassign client from program.");
       throw err;
     }
+  };
+
+  // Helper: 7 days of the week
+  const weekDays = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
+
+  // Helper: get exercises for a day
+  const getExercisesForDay = (day) => {
+    return program.days?.find((d) => d.day === day)?.exercises || [];
+  };
+
+  // Refresh program after adding exercises
+  const handleExercisesAdded = async () => {
+    setRefreshing(true);
+    const response = await getProgramById(program._id);
+    setProgram(response.data);
+    setShowAddExerciseDay(null);
+    setRefreshing(false);
   };
 
   if (!program) {
@@ -104,32 +138,77 @@ function ProgramDetails({ program, setProgram }) {
 
         <section className="program-days">
           <h2>Workout Days</h2>
-          {program.days?.length > 0 ? (
-            <ul className="days-list">
-              {program.days.map(({ day, exercises }) => (
-                <li key={day} className="day-item">
+          <ul className="days-list">
+            {weekDays.map((day) => (
+              <li key={day} className="day-item">
+                <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',gap:'1rem'}}>
                   <h3 className="day-name">{day}</h3>
-                  {exercises?.length > 0 ? (
-                    <ul className="exercises-list">
-                      {exercises.map((ex) => (
-                        <li key={ex._id} className="exercise-item">
-                          <div className="exercise-name">{ex.name}</div>
-                          <div className="exercise-details">
-                            Sets: {ex.sets}, Reps: {ex.reps}, Rest:{" "}
-                            {ex.restSeconds}s
+                  <button
+                    className="btn btn-primary btn-sm"
+                    onClick={() => setShowAddExerciseDay(day)}
+                    disabled={refreshing}
+                  >
+                    Add Exercises
+                  </button>
+                </div>
+                {getExercisesForDay(day).length > 0 ? (
+                  <ul className="exercises-list">
+                    {getExercisesForDay(day).map((ex, idx) => {
+                      if (!ex || typeof ex !== "object" || !ex._id) {
+                        return (
+                          <li key={day + '-idx-' + idx} className="exercise-item" style={{ color: 'red' }}>
+                            Invalid exercise data
+                          </li>
+                        );
+                      }
+                      return (
+                        <li key={day + '-' + ex._id} className="exercise-item" style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                          <div>
+                            <div className="exercise-name">{ex.name}</div>
+                            <div className="exercise-details">
+                              Sets: {ex.sets}, Reps: {ex.reps}, Rest: {ex.restSeconds}s
+                            </div>
                           </div>
+                          <button
+                            className="btn btn-danger btn-sm"
+                            style={{marginLeft: '1rem'}}
+                            onClick={async () => {
+                              try {
+                                await deleteExerciseFromDay(program._id, day, [ex._id]);
+                                toast.success("Exercise deleted successfully!");
+                                handleExercisesAdded();
+                              } catch (err) {
+                                toast.error(err.response?.data || "Failed to delete exercise.");
+                              }
+                            }}
+                          >
+                            Delete
+                          </button>
                         </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p>No exercises for this day.</p>
-                  )}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No workout days defined.</p>
-          )}
+                      );
+                    })}
+                  </ul>
+                ) : (
+                  <p style={{marginLeft:'1rem',color:'#aaa'}}>No exercises for this day.</p>
+                )}
+                {showAddExerciseDay === day && (
+                  <div style={{marginTop:'1rem'}}>
+                    <AddExercisesPage
+                      programId={program._id}
+                      day={day}
+                      onSuccess={handleExercisesAdded}
+                    />
+                    <button
+                      className="btn btn-secondary btn-sm mt-2"
+                      onClick={() => setShowAddExerciseDay(null)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
         </section>
 
         {/* Footer with Assign button */}

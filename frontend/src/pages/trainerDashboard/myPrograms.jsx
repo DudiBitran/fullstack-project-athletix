@@ -11,6 +11,8 @@ import { Navigate, Link } from "react-router";
 import ConfirmationModal from "../../components/common/confirmationModal";
 import AvailableClientsTableBody from "../../components/common/availableClientsTableBody";
 import AssignProgramModal from "../../components/common/assignProgramModal";
+import { toast } from "react-toastify";
+
 function MyPrograms() {
   const [programs, setPrograms] = useState([]);
   const [viewMode, setViewMode] = useState("grid");
@@ -91,7 +93,9 @@ function MyPrograms() {
       );
       setShowModal(false);
       setProgramToDelete(null);
+      toast.success("Program deleted successfully!");
     } catch (err) {
+      toast.error(err.response?.data || "Failed to delete program.");
       throw err;
     }
   };
@@ -114,7 +118,9 @@ function MyPrograms() {
       setAvailableClients((prev) =>
         prev.filter((client) => client._id !== selectedClientIdToAssign)
       );
+      toast.success("Client assigned successfully!");
     } catch (err) {
+      toast.error(err.response?.data || "Failed to assign client.");
       throw err;
     } finally {
       setShowAssignModal(false);
@@ -138,7 +144,9 @@ function MyPrograms() {
       const response = await getMyProgramsById(user._id);
       setPrograms(response.data);
       setAvailableClients((prev) => prev.filter((c) => c._id !== clientId));
+      toast.success("Client assigned to program!");
     } catch (err) {
+      toast.error(err.response?.data || "Failed to assign client to program.");
       console.error(err);
     } finally {
       setShowAssignProgramModal(false);
@@ -153,7 +161,9 @@ function MyPrograms() {
       const response = await getMyProgramsById(user._id);
       setPrograms(response.data);
       setAvailableClients((prev) => prev.filter((c) => c._id !== clientId));
+      toast.success("Client unassigned from program!");
     } catch (err) {
+      toast.error(err.response?.data || "Failed to unassign client from program.");
       throw err;
     } finally {
       setShowUnAssignProgramModal(false);

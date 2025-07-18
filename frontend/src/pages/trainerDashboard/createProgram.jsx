@@ -5,6 +5,8 @@ import Joi from "joi";
 import { useState } from "react";
 import { useAuth } from "../../context/auth.context";
 import { useNavigate } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const schema = Joi.object({
   title: Joi.string().min(2).max(100).required().messages({
@@ -54,12 +56,14 @@ function CreateProgram() {
     onSubmit: async (values) => {
       try {
         const response = await createProgram(values);
-        navigate("/trainer/my-programs");
+        toast.success("Program created successfully!");
+        setTimeout(() => navigate("/trainer/my-programs"), 1200);
         return response;
       } catch (err) {
         if (err.response?.status >= 400) {
           const response = err.response.data;
           setServerError(response);
+          toast.error(typeof response === "string" ? response : "Failed to create program");
         }
       }
     },

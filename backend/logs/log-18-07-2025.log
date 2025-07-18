@@ -1,0 +1,509 @@
+18-07-2025 18:43:47 | INFO: status: 200 | Message: Token provided.
+18-07-2025 18:43:47 | INFO: status: 304 | Message: User sent successfully.
+18-07-2025 18:43:47 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 18:43:47 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 18:43:47 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:43:48 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 18:43:48 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 18:43:48 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:43:53 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 18:43:53 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 18:43:54 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 18:43:54 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 18:43:54 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 18:43:54 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:43:55 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 18:43:55 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 18:44:41 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 18:44:49 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:44:51 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:44:53 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:44:55 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:44:58 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:45:04 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:45:06 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 18:45:11 | INFO: status: 200 | Message: User assigned successfully.
+18-07-2025 18:45:11 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:45:13 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 18:45:13 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 18:45:18 | INFO: status: 200 | Message: User 6852c0a8ad7deeff3d9be485 unassigned from trainer 68703beef075a9f0f876bd19
+18-07-2025 18:45:21 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 18:45:21 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 18:45:21 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 18:45:21 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 18:45:21 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 18:45:21 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:45:31 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:53:09 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 18:53:12 | INFO: status: 200 | Message: User assigned successfully.
+18-07-2025 18:53:12 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:53:15 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 18:53:15 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 18:53:22 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 18:53:22 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 18:53:22 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 18:53:22 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:53:22 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 18:53:22 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 18:53:26 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:53:26 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:53:26 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 18:53:26 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 18:53:26 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 18:53:33 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:53:41 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 18:53:41 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 18:53:52 | INFO: status: 200 | Message: User assigned successfully.
+18-07-2025 18:53:53 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:53:53 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 18:53:57 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 18:53:57 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 18:53:57 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 18:53:57 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 18:53:57 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:53:57 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:56:03 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 18:56:03 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 18:56:06 | ERROR: status: 403 | Message: User has programs assigned to them.
+18-07-2025 18:57:16 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 18:57:19 | ERROR: status: 403 | Message: User has programs assigned to them.
+18-07-2025 18:58:05 | ERROR: status: 403 | Message: User has programs assigned to them.
+18-07-2025 18:58:47 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 18:58:47 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 18:58:47 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 18:58:47 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 18:58:47 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 18:58:47 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:58:50 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:58:52 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 18:58:52 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 18:58:53 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 18:58:53 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 18:58:53 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 18:58:53 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 18:58:53 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 18:58:53 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:58:54 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 18:58:54 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 18:58:56 | INFO: status: 200 | Message: User 685019980c0b59a1bd118659 unassigned from trainer 68703beef075a9f0f876bd19
+18-07-2025 18:59:11 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 18:59:11 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 18:59:11 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 18:59:11 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 18:59:11 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 18:59:11 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 18:59:14 | INFO: status: 200 | Message: User 685019980c0b59a1bd118659 assigned to trainer 68703beef075a9f0f876bd19
+18-07-2025 18:59:14 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 18:59:16 | INFO: status: 200 | Message: User 6852c0a8ad7deeff3d9be485 assigned to trainer 68703beef075a9f0f876bd19
+18-07-2025 18:59:16 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 19:00:06 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 19:00:06 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 19:03:00 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 19:03:00 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 19:03:00 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 19:03:00 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 19:03:00 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 19:03:01 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 19:23:07 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 19:23:07 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 19:25:31 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 19:25:31 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 19:25:31 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 19:25:31 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 19:25:31 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 19:25:31 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 20:46:50 | INFO: status: 200 | Message: Token provided.
+18-07-2025 20:46:50 | INFO: status: 304 | Message: User sent successfully.
+18-07-2025 20:46:51 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 20:46:51 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 20:46:51 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 20:46:51 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 20:46:51 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 20:46:51 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 20:46:58 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 20:46:58 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 20:47:00 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 20:47:00 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 20:47:00 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 20:47:00 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 20:47:00 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 20:47:01 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 20:47:05 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 20:47:05 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 20:47:12 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 20:47:12 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 20:47:12 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 20:47:12 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 20:47:12 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 20:47:12 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 20:47:24 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 20:48:25 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 20:48:25 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 20:48:59 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 20:48:59 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 20:48:59 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 20:48:59 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 20:48:59 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 20:48:59 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 20:49:36 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 20:49:36 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 20:49:37 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 20:49:37 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 20:49:37 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 20:49:37 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 20:49:37 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 20:49:37 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 20:49:40 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 20:49:40 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 20:49:47 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 20:49:47 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 20:50:02 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 20:50:02 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 20:50:02 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 20:50:02 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 20:50:03 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 20:50:03 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 20:51:07 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 20:51:07 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 20:55:18 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 20:55:18 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 20:55:18 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 20:55:18 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 20:55:18 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 20:55:18 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 20:55:20 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 20:55:20 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 20:57:10 | INFO: status: 304 | Message: User sent successfully.
+18-07-2025 20:57:10 | INFO: status: 200 | Message: User sent successfully.
+18-07-2025 20:57:10 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 20:57:10 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 20:57:10 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 20:57:10 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 20:57:10 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 20:57:10 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 20:57:10 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 20:57:10 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 20:57:12 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 20:57:12 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 20:57:52 | INFO: status: 200 | Message: User sent successfully.
+18-07-2025 20:57:52 | INFO: status: 304 | Message: User sent successfully.
+18-07-2025 20:57:52 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 20:57:52 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 20:57:52 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 20:57:52 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 20:57:52 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 20:57:52 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 20:57:52 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 20:57:52 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 20:58:19 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 20:58:19 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:09:20 | INFO: status: 200 | Message: User sent successfully.
+18-07-2025 21:09:20 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:09:20 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 21:09:20 | INFO: status: 304 | Message: User sent successfully.
+18-07-2025 21:10:03 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 21:10:03 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:10:03 | INFO: status: 200 | Message: User sent successfully.
+18-07-2025 21:10:03 | INFO: status: 304 | Message: User sent successfully.
+18-07-2025 21:10:03 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 21:10:03 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 21:10:03 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 21:10:03 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 21:10:03 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:10:03 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 21:11:54 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:11:54 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:11:59 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 21:11:59 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 21:12:37 | INFO: status: 304 | Message: User sent successfully.
+18-07-2025 21:12:37 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 21:12:37 | INFO: status: 200 | Message: User sent successfully.
+18-07-2025 21:12:37 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:12:46 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 21:12:46 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 21:14:25 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 21:14:25 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:14:25 | INFO: status: 200 | Message: User sent successfully.
+18-07-2025 21:14:25 | INFO: status: 304 | Message: User sent successfully.
+18-07-2025 21:14:26 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 21:14:26 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 21:14:26 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 21:14:26 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:14:26 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 21:14:26 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:14:26 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 21:14:26 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 21:14:27 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 21:14:27 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 21:14:29 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 21:14:29 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 21:14:32 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:15:20 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 21:15:20 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 21:15:22 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:16:24 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 21:16:24 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 21:16:27 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:16:51 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 21:16:51 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:16:51 | INFO: status: 200 | Message: User sent successfully.
+18-07-2025 21:16:51 | INFO: status: 304 | Message: User sent successfully.
+18-07-2025 21:16:51 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 21:16:51 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 21:16:51 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 21:16:51 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 21:16:51 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:16:51 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:16:51 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 21:16:51 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:16:52 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 21:16:52 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:16:55 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 21:16:55 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 21:16:57 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:17:26 | INFO: status: 304 | Message: User sent successfully.
+18-07-2025 21:17:26 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:17:26 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:17:26 | INFO: status: 200 | Message: User sent successfully.
+18-07-2025 21:17:36 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 21:17:36 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 21:17:49 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 21:17:52 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 21:17:52 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 21:17:54 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 21:18:10 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 21:18:10 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 21:18:16 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:19:19 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 21:19:19 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 21:20:05 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:20:29 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 21:20:29 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 21:26:33 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 21:26:33 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 21:26:37 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 21:26:37 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 21:26:40 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:26:49 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 21:26:49 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 21:26:49 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 21:26:49 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:26:50 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 21:26:50 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:26:53 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 21:26:53 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:34:43 | INFO: status: 200 | Message: User sent successfully.
+18-07-2025 21:34:43 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 21:34:43 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:34:43 | INFO: status: 304 | Message: User sent successfully.
+18-07-2025 21:35:02 | INFO: status: 304 | Message: User sent successfully.
+18-07-2025 21:35:02 | INFO: status: 200 | Message: User sent successfully.
+18-07-2025 21:35:02 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 21:35:02 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:35:13 | INFO: status: 304 | Message: User sent successfully.
+18-07-2025 21:35:13 | INFO: status: 200 | Message: User sent successfully.
+18-07-2025 21:35:13 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:35:13 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 21:35:51 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:35:54 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:35:55 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 21:35:55 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 21:35:57 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:36:52 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 21:36:52 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 21:41:21 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 21:41:34 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 21:41:34 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 21:41:34 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:41:34 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:41:35 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 21:41:35 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 21:43:17 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 21:43:17 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 21:43:20 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 21:43:20 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 21:43:20 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 21:43:20 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 21:43:20 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 21:43:20 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:43:26 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 21:43:26 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 21:47:45 | INFO: status: 304 | Message: User sent successfully.
+18-07-2025 21:47:45 | INFO: status: 200 | Message: User sent successfully.
+18-07-2025 21:50:27 | INFO: status: 200 | Message: Program created successfully.
+18-07-2025 21:50:29 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 21:50:29 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 21:50:29 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 21:50:29 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 21:50:29 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:50:29 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:53:04 | INFO: status: 200 | Message: Program created successfully.
+18-07-2025 21:53:06 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 21:53:06 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 21:53:06 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 21:53:06 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 21:53:06 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:53:06 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:56:31 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 21:56:35 | INFO: status: 200 | Message: User assigned successfully.
+18-07-2025 21:56:35 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:56:41 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 21:56:42 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 21:56:46 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 21:56:46 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 21:56:48 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:56:52 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:57:00 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 21:57:00 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 21:57:02 | INFO: status: 200 | Message: User assigned successfully.
+18-07-2025 21:57:03 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:57:03 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 21:58:11 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:58:14 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 21:58:14 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 21:58:17 | INFO: status: 200 | Message: User assigned successfully.
+18-07-2025 21:58:17 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:58:17 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 21:58:24 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:58:26 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 21:58:26 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 21:59:05 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 21:59:05 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 21:59:10 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 21:59:10 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 21:59:10 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 21:59:10 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 21:59:10 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:59:10 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:59:13 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 21:59:13 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:59:15 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 21:59:15 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 21:59:18 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:59:47 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 21:59:47 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 21:59:47 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 21:59:47 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 21:59:47 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:59:47 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 21:59:51 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 21:59:51 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 21:59:59 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 21:59:59 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 22:00:01 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 22:00:01 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 22:00:01 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 22:00:01 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 22:00:01 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 22:00:01 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 22:00:15 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 22:00:17 | INFO: status: 200 | Message: User assigned successfully.
+18-07-2025 22:00:17 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 22:00:26 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 22:00:26 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 22:00:29 | INFO: status: 200 | Message: User 685019980c0b59a1bd118659 unassigned from trainer 68703beef075a9f0f876bd19
+18-07-2025 22:00:59 | ERROR: status: 403 | Message: User has programs assigned to them.
+18-07-2025 22:01:21 | INFO: status: 200 | Message: User 68556d0cba58878e4bae5595 unassigned from trainer 68703beef075a9f0f876bd19
+18-07-2025 22:01:25 | ERROR: status: 403 | Message: User has programs assigned to them.
+18-07-2025 22:01:49 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 22:01:49 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 22:01:49 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 22:01:49 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 22:01:50 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 22:01:50 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 22:01:51 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 22:01:51 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 22:01:52 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 22:01:52 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 22:01:52 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 22:01:52 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 22:01:52 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 22:01:52 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 22:01:54 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 22:01:54 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 22:02:05 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 22:02:05 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 22:02:05 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 22:02:05 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 22:02:05 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 22:02:05 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 22:28:46 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 22:28:46 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 22:28:47 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 22:28:47 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 22:28:47 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 22:28:47 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 22:28:48 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 22:28:48 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 22:28:48 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 22:28:48 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 22:28:49 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 22:28:49 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 22:28:49 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 22:28:49 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 22:28:49 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 22:28:49 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 22:28:50 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 22:28:50 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 22:28:52 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 22:28:52 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 22:28:52 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 22:28:52 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 22:28:52 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 22:28:52 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 22:28:54 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 22:28:54 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 22:28:54 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 22:28:54 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 22:28:54 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 22:28:57 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 22:28:57 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 22:28:57 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 22:28:57 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 22:28:57 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 22:28:57 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 22:28:58 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 22:28:58 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 22:29:00 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 22:29:00 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 22:29:00 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 22:29:00 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 22:29:00 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 22:29:00 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 22:29:02 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 22:29:02 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 22:29:03 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 22:29:03 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 22:29:06 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 22:29:26 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 22:29:27 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 22:33:17 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 22:33:17 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 22:33:17 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 22:33:17 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 22:33:17 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 22:33:17 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 22:33:17 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 22:33:17 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 22:33:18 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 22:33:18 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 22:33:34 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 22:33:34 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 22:33:34 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 22:33:34 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 22:33:35 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 22:33:35 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 22:33:35 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 22:33:35 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 22:33:40 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 22:33:40 | INFO: status: 200 | Message: Exercise have been sent successfully.
+18-07-2025 22:33:42 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 22:33:42 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+18-07-2025 22:33:42 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 22:33:42 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+18-07-2025 22:33:42 | INFO: status: 304 | Message: Program sent successfully.
+18-07-2025 22:33:42 | INFO: status: 200 | Message: Program sent successfully.
+18-07-2025 22:34:33 | INFO: status: 304 | Message: Clients has been sent successfully.
+18-07-2025 22:34:33 | INFO: status: 200 | Message: Clients has been sent successfully.
+18-07-2025 22:34:34 | INFO: status: 304 | Message: Exercise have been sent successfully.
+18-07-2025 22:34:34 | INFO: status: 200 | Message: Exercise have been sent successfully.

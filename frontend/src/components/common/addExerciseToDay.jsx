@@ -1,14 +1,25 @@
-import { useState } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
 import "../../style/trainerDash/addExercise.css";
+import { useAuth } from "../../context/auth.context";
+import { toast } from "react-toastify";
 
-function AddExercisesPage({ programId, day }) {
+function AddExercisesPage({ programId, day, onSuccess }) {
   const [selectedExercises, setSelectedExercises] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
+  const { addExerciseToDay, getMyExercises  } = useAuth();
+  const [exercisesData, setExercisesData] = useState([]); 
 
-  const toggleExercise = (id) => {
+  useEffect(() => {
+    const fetchExercises = async () => {
+      const response = await getMyExercises();
+      setExercisesData(response.data || []);
+    };
+    fetchExercises();
+  }, []);
+
+    const toggleExercise = (id) => {
     setSelectedExercises((prev) =>
       prev.includes(id) ? prev.filter((eid) => eid !== id) : [...prev, id]
     );
@@ -19,21 +30,23 @@ function AddExercisesPage({ programId, day }) {
   const handleSubmit = async () => {
     if (selectedExercises.length === 0) {
       setError("Please select at least one exercise.");
+      toast.error("Please select at least one exercise.");
       return;
     }
     setLoading(true);
     setError(null);
     setSuccessMsg(null);
     try {
-      await axios.post(`/api/programs/${programId}/days/${day}/exercises`, {
-        exerciseIds: selectedExercises,
-      });
+      await addExerciseToDay(programId, day, selectedExercises);
       setLoading(false);
       setSuccessMsg("Exercises added successfully!");
+      toast.success("Exercises added successfully!");
       setSelectedExercises([]);
+      if (onSuccess) onSuccess();
     } catch (err) {
       setLoading(false);
       setError(err.response?.data || "Failed to add exercises.");
+      toast.error(err.response?.data || "Failed to add exercises.");
     }
   };
 

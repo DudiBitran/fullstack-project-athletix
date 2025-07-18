@@ -184,7 +184,26 @@ export function AuthProvider({ children }) {
     }
   };
 
-  return (
+  const addExerciseToDay = async (programId, day, exerciseIds) => {
+
+    try {
+      const response = await trainerService.addExerciseToDay(programId, day, exerciseIds);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const deleteExerciseFromDay = async (programId, day, exerciseIds) => {
+    try {
+      const response = await trainerService.deleteExerciseFromDay(programId, day, exerciseIds);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+    return (
     <AuthContext.Provider
       value={{
         login,
@@ -205,6 +224,8 @@ export function AuthProvider({ children }) {
         assignClientToProgram,
         unassignClientToProgram,
         getClientById,
+        addExerciseToDay,
+        deleteExerciseFromDay,
       }}
     >
       {children}

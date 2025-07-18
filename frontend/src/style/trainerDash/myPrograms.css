@@ -159,6 +159,10 @@
   margin-top: 20px;
 }
 
+.program-table-wrapper {
+  width: 100%;
+}
+
 @media (max-width: 768px) {
   .programs-layout {
     flex-direction: column;

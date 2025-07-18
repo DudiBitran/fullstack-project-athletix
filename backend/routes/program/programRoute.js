@@ -6,6 +6,7 @@ const { permitRoles } = require("../../middleware/role");
 const authMw = require("../../middleware/auth");
 const { Program, programValidation } = require("../../model/program");
 const { User } = require("../../model/user");
+const mongoose = require("mongoose");
 
 router.post("/", authMw, permitRoles("admin", "trainer"), async (req, res) => {
   try {
@@ -85,7 +86,7 @@ router.get(
   permitRoles("admin", "trainer"),
   async (req, res) => {
     const { programId } = req.params;
-    const program = await Program.findById(programId);
+    const program = await Program.findById(programId).populate('days.exercises');
 
     try {
       if (!program) {
@@ -256,6 +257,37 @@ router.post("/:programId/days/:day/exercises", async (req, res) => {
     res.send(program);
   } catch (err) {
     res.status(500).send("Internal server error.");
+    logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
+  }
+});
+
+// delete exercises from program day
+router.delete('/:programId/days/:day/exercises', async (req, res) => {
+  const { programId, day } = req.params;
+  const { exerciseIds } = req.body;
+
+  if (!Array.isArray(exerciseIds) || exerciseIds.length === 0) {
+    return res.status(400).send('exerciseIds must be a non-empty array');
+  }
+
+  try {
+    const program = await Program.findById(programId);
+    if (!program) return res.status(404).send('Program not found');
+
+    let dayObj = program.days.find((d) => d.day === day);
+    if (!dayObj) {
+      return res.status(404).send('Day not found in program');
+    }
+
+    // Remove the exercises
+    dayObj.exercises = dayObj.exercises.filter(
+      (exId) => !exerciseIds.includes(exId.toString())
+    );
+
+    await program.save();
+    res.send(program);
+  } catch (err) {
+    res.status(500).send('Internal server error.');
     logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
   }
 });

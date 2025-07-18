@@ -21,7 +21,7 @@
   width: 100%;
   margin-top: 20px;
   border-radius: 8px;
-  overflow: hidden;
+  overflow-x: auto; 
 }
 
 .my-clients-table table {
@@ -43,6 +43,7 @@
   padding: 12px 16px;
   border-bottom: 1px solid #444;
   text-align: left;
+  white-space: nowrap; /* Prevent text from wrapping for better scroll */
 }
 
 .my-clients-table tbody tr:hover {
@@ -70,4 +71,34 @@
   color: #999;
   font-style: italic;
   padding: 20px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .my-clients-table th:nth-child(3), /* Email header */
+  .my-clients-table td:nth-child(3)  /* Email cell */ {
+    display: none;
+  }
+  .myClients-container h2 {
+    font-size: 32px;
+  }
+  .my-clients-table th,
+  .my-clients-table td {
+    padding: 10px 8px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .myClients-container {
+    padding: 90px 2px 30px 2px;
+  }
+  .myClients-container h2 {
+    font-size: 22px;
+  }
+  .my-clients-table th,
+  .my-clients-table td {
+    font-size: 0.85rem;
+    padding: 7px 4px;
+  }
 }

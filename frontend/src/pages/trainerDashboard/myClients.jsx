@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 import "../../style/trainerDash/myClients.css";
 import { Navigate } from "react-router";
 import ConfirmationModal from "../../components/common/confirmationModal";
+import { toast } from "react-toastify";
 function MyClients() {
   const [myClients, setMyClients] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedClientId, setSelectedClientId] = useState(null);
   const { user, getMyOwnClients, unAssignClient } = useAuth();
+  const [serverError, setServerError] = useState(null);
 
   useEffect(() => {
     const getMyClients = async () => {
@@ -34,8 +36,11 @@ function MyClients() {
       setMyClients((prev) =>
         prev.filter((client) => client._id !== selectedClientId)
       );
+      toast.success("Client unassigned successfully!");
     } catch (err) {
-      console.error(err);
+      setServerError(err.response.data);
+      toast.error(err.response?.data || "Failed to unassign client.");
+      throw err;
     } finally {
       setShowModal(false);
       setSelectedClientId(null);
@@ -53,6 +58,11 @@ function MyClients() {
     <main className="myClients-container ">
       <section className="table-responsive my-clients-table container">
         <h2>My Clients</h2>
+        {serverError && (
+          <div className="alert alert-danger" role="alert">
+            {serverError}
+          </div>
+        )}
         <table className="table table-dark table-striped table-hover">
           <thead>
             <tr>

@@ -140,6 +140,29 @@ const getClientById = async (clientId) => {
   }
 };
 
+// add exercise to day
+const addExerciseToDay = async (programId, day, exerciseIds) => {
+  try {
+    const response = await httpService.post(`/program/${programId}/days/${day}/exercises`, { exerciseIds });
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
+// delete exercise(s) from a day in a program
+const deleteExerciseFromDay = async (programId, day, exerciseIds) => {
+  try {
+    const response = await httpService.delete(
+      `/program/${programId}/days/${day}/exercises`,
+      { data: { exerciseIds } }
+    );
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const trainerService = {
   createProgram,
   getMyProgramsById,
@@ -154,6 +177,8 @@ const trainerService = {
   assignClientToProgram,
   unAssignClientToProgram,
   getClientById,
+  addExerciseToDay,
+  deleteExerciseFromDay,
 };
 
 export default trainerService;

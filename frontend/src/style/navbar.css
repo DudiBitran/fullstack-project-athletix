@@ -159,19 +159,35 @@ nav .order-2 .nav-link {
     height: fit-content;
     width: fit-content;
     border: 2px solid #fff;
-    background-color: #fff;
+   /*  background-color: #fff; */
     color: #000;
     border-radius: 15px 15px;
     padding: 2%;
   }
 
   .navbar .btn {
-    color: #000;
+    color: #000 !important;
     background-color: var(--primary-color);
     padding: 2%;
   }
 
   .navbar {
     background-color: #000;
+  }
+
+  .nav-links-underlined .nav-link:hover::after {
+    width: fit-content;
+  }
+  
+  .nav-links-underlined .nav-dropdown {
+    position: static;
+  }
+  
+  .nav-links-underlined .nav-dropdown::after {
+    display: none !important;
+  }
+  
+  .nav-links-underlined .nav-link.active::after {
+    width: fit-content;
   }
 }
