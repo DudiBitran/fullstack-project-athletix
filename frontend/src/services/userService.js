@@ -42,7 +42,44 @@ const getMe = async () => {
     const response = await httpService.get("/users/me");
     return response;
   } catch (err) {
-    throw new Error(err);
+    throw err; // Don't wrap in new Error() to preserve Axios error structure
+  }
+};
+
+const updateUser = async (userData) => {
+  try {
+    const response = await httpService.put("/users/me", userData);
+    return response;
+  } catch (err) {
+    throw err; // Don't wrap in new Error() to preserve Axios error structure
+  }
+};
+
+const updateUserImage = async (imageFile) => {
+  try {
+    console.log("Creating FormData with image:", imageFile);
+    const formData = new FormData();
+    formData.append("image", imageFile);
+    
+    console.log("Sending image upload request...");
+    const response = await httpService.put("/users/me/image", formData);
+    console.log("Image upload response:", response);
+    return response;
+  } catch (err) {
+    console.error("Error in updateUserImage:", err);
+    throw err; // Don't wrap in new Error() to preserve Axios error structure
+  }
+};
+
+const removeUserImage = async () => {
+  try {
+    console.log("Removing user image...");
+    const response = await httpService.delete("/users/me/image");
+    console.log("Remove image response:", response);
+    return response;
+  } catch (err) {
+    console.error("Error in removeUserImage:", err);
+    throw err; // Don't wrap in new Error() to preserve Axios error structure
   }
 };
 
@@ -51,6 +88,9 @@ const userService = {
   logout,
   createUser,
   getMe,
+  updateUser,
+  updateUserImage,
+  removeUserImage,
   getJwt,
 };
 

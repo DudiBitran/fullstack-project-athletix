@@ -8,6 +8,7 @@ import Register from "./pages/register";
 import Contact from "./pages/contact";
 import About from "./pages/about";
 import UserMainDash from "./pages/userDashboard/userMainDash";
+import UserProfileSettings from "./pages/userDashboard/userProfileSettings";
 import CreateProgram from "./pages/trainerDashboard/createProgram";
 import MyClients from "./pages/trainerDashboard/myClients";
 import MyPrograms from "./pages/trainerDashboard/myPrograms";
@@ -33,6 +34,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/dashboard" element={<UserMainDash />} />
+          <Route path="/profile-settings" element={<UserProfileSettings />} />
           <Route path="/trainer/create-program" element={<CreateProgram />} />
           <Route path="/trainer/my-customers" element={<MyClients />} />
           <Route path="/trainer/my-programs" element={<MyPrograms />} />

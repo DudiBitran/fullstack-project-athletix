@@ -123,7 +123,7 @@ const loginValidation = Joi.object(
 ).required();
 
 const updateValidation = Joi.object(
-  _.pick(validation, ["firstName", "lastName", "image", "email"])
+  _.pick(validation, ["firstName", "lastName", "image", "email", "age", "gender", "stats"])
 );
 
 const AssignTrainerValidation = Joi.object({

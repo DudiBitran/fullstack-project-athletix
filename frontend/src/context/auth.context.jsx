@@ -33,6 +33,18 @@ export function AuthProvider({ children }) {
     return;
   };
 
+  const updateUserData = async () => {
+    try {
+      const response = await userService.getMe();
+      setUser(response.data);
+      setProfileImage(response.data?.image);
+      return response;
+    } catch (err) {
+      console.error("Failed to update user data:", err);
+      throw err;
+    }
+  };
+
   const createUser = async (credentials) => {
     try {
       const response = await userService.createUser(credentials);
@@ -211,6 +223,8 @@ export function AuthProvider({ children }) {
         createUser,
         user,
         profileImage,
+        refreshUser,
+        updateUserData,
         createProgram,
         getMyProgramsById,
         programDeleteById,

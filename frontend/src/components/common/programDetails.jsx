@@ -5,7 +5,6 @@ import AssignProgramModal from "./assignProgramModal";
 import ConfirmationModal from "../common/confirmationModal";
 import { Navigate } from "react-router";
 import AddExercisesPage from "./addExerciseToDay";
-import { toast } from "react-toastify";
 function ProgramDetails({ program, setProgram }) {
   const [showAssignModal, setShowAssignModal] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
@@ -56,9 +55,7 @@ function ProgramDetails({ program, setProgram }) {
       setProgram(response.data);
       setShowAssignModal(false);
       setSelectedClientId("");
-      toast.success("Client assigned to program!");
     } catch (err) {
-      toast.error(err.response?.data || "Failed to assign client to program.");
       throw err;
     }
   };
@@ -71,9 +68,7 @@ function ProgramDetails({ program, setProgram }) {
       const response = await getProgramById(programId);
       setProgram(response.data);
       setShowConfirmationModal(false);
-      toast.success("Client unassigned from program!");
     } catch (err) {
-      toast.error(err.response?.data || "Failed to unassign client from program.");
       throw err;
     }
   };
@@ -173,13 +168,8 @@ function ProgramDetails({ program, setProgram }) {
                             className="btn btn-danger btn-sm"
                             style={{marginLeft: '1rem'}}
                             onClick={async () => {
-                              try {
-                                await deleteExerciseFromDay(program._id, day, [ex._id]);
-                                toast.success("Exercise deleted successfully!");
-                                handleExercisesAdded();
-                              } catch (err) {
-                                toast.error(err.response?.data || "Failed to delete exercise.");
-                              }
+                              await deleteExerciseFromDay(program._id, day, [ex._id]);
+                              handleExercisesAdded();
                             }}
                           >
                             Delete

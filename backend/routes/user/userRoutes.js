@@ -70,6 +70,18 @@ router.put(
         `status: ${res.statusCode} | Message: User updated successfully.`
       );
     } catch (err) {
+      // Check for duplicate key error (MongoDB error code 11000)
+      if (err.code === 11000) {
+        res.status(400).send({
+          message: "This email is already registered. Please use a different email address.",
+          details: ["Email must be unique"]
+        });
+        logger.error(
+          `status: ${res.statusCode} | Message: Email duplicate error - ${err.message}`
+        );
+        return;
+      }
+      
       res.status(500).send("Internal server error.");
       logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
     }
@@ -123,7 +135,7 @@ router.put(
         );
         return;
       }
-      if (user.image) {
+      if (user.image && user.image !== "/public/defaults/trainer-icon.jpg") {
         const oldImagePath = path.join(__dirname, "..", "..", user.image);
         fs.unlink(oldImagePath, (err) => {
           if (err) {
@@ -134,13 +146,56 @@ router.put(
       }
       user.image = newImagePath;
       await user.save();
-      res.send("User image have been changes successfully.");
+      res.send({ message: "User image has been changed successfully.", user });
       logger.info(
         `status: ${res.statusCode} | Message: User image have been changes successfully.`
       );
     } catch (err) {
       console.log(err);
 
+      res.status(500).send("Internal server error.");
+      logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
+    }
+  }
+);
+
+// remove image (set to default)
+
+router.delete(
+  "/me/image",
+  authMw,
+  permitRoles("admin", "trainer", "user"),
+  async (req, res) => {
+    try {
+      const user = await User.findById(req.user._id);
+      if (!user) {
+        res.status(400).send("User not found.");
+        logger.error(
+          `status: ${res.statusCode} | Message: User not found.`
+        );
+        return;
+      }
+      
+      // Delete the current image if it's not the default
+      if (user.image && user.image !== "/public/defaults/trainer-icon.jpg") {
+        const oldImagePath = path.join(__dirname, "..", "..", user.image);
+        fs.unlink(oldImagePath, (err) => {
+          if (err) {
+            console.error("Failed to delete old image:", err.message);
+          }
+        });
+      }
+      
+      // Set to default image
+      user.image = "/public/defaults/trainer-icon.jpg";
+      await user.save();
+      
+      res.send({ message: "Profile image has been removed and set to default.", user });
+      logger.info(
+        `status: ${res.statusCode} | Message: Profile image removed successfully.`
+      );
+    } catch (err) {
+      console.log(err);
       res.status(500).send("Internal server error.");
       logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
     }

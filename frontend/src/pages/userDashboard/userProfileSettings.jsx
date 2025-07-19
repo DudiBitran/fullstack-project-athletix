@@ -1,0 +1,592 @@
+import { useState, useEffect } from "react";
+import { useAuth } from "../../context/auth.context";
+import { useFormik } from "formik";
+import Joi from "joi";
+import { toast } from "react-toastify";
+import { Navigate } from "react-router";
+import Input from "../../components/common/input";
+import ImageUploader from "../../components/common/imageUploader";
+import userService from "../../services/userService";
+import { FaUser, FaEnvelope, FaBirthdayCake, FaVenusMars, FaRulerVertical, FaWeight, FaPercentage, FaCamera, FaSave, FaUndo } from "react-icons/fa";
+import "../../style/userDashboard/userProfileSettings.css";
+
+function UserProfileSettings() {
+  const { user, refreshUser, updateUserData } = useAuth();  
+  const [serverError, setServerError] = useState("");
+  const [imageFile, setImageFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
+  const [originalImageUrl, setOriginalImageUrl] = useState(null);
+  const [removeImage, setRemoveImage] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  // Function to check if email already exists
+  const checkEmailExists = async (email) => {
+    if (email === currentUser?.email) {
+      return false; // Same email, no conflict
+    }
+    
+    try {
+      // This would need a backend endpoint to check email existence
+      // For now, we'll handle this in the backend validation
+      return false;
+    } catch (err) {
+      console.error("Error checking email:", err);
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      setCurrentUser(user);
+      const userImageUrl = user.image ? `http://localhost:3000/${user.image.replace(/^\/+/, "")}` : null;
+      setPreviewUrl(userImageUrl);
+      setOriginalImageUrl(userImageUrl);
+    }
+  }, [user]);
+
+  const handleImageSelect = (file) => {
+    console.log("Image selected:", file);
+    setImageFile(file);
+    setPreviewUrl(URL.createObjectURL(file));
+    profileFormik.setFieldValue("image", file.name);
+  };
+
+  const profileFormik = useFormik({
+    initialValues: {
+      firstName: currentUser?.firstName || "",
+      lastName: currentUser?.lastName || "",
+      email: currentUser?.email || "",
+      age: currentUser?.age || "",
+      gender: currentUser?.gender || "",
+      height: currentUser?.stats?.height || "",
+      weight: currentUser?.stats?.weight || "",
+      bodyFat: currentUser?.stats?.bodyFat || "",
+      image: "",
+    },
+
+    validate(values) {
+      const profileSchema = Joi.object({
+        firstName: Joi.string().min(2).max(30).required().messages({
+          "string.empty": "First name is required",
+          "string.min": "First name must be at least 2 characters",
+        }),
+        lastName: Joi.string().min(2).max(30).required().messages({
+          "string.empty": "Last name is required",
+          "string.min": "Last name must be at least 2 characters",
+        }),
+        email: Joi.string()
+          .email({ tlds: { allow: false } })
+          .required()
+          .messages({
+            "string.email": "Invalid email format",
+            "string.empty": "Email is required",
+          }),
+        age: Joi.number()
+          .min(18)
+          .max(100)
+          .required()
+          .messages({
+            "number.base": "Age must be a number",
+            "number.min": "You must be at least 18 years old",
+            "number.max": "Age cannot exceed 100",
+          }),
+        gender: Joi.string()
+          .valid("male", "female", "other")
+          .required()
+          .messages({
+            "any.only": "Please select a valid gender",
+          }),
+        height: Joi.number()
+          .min(100)
+          .max(250)
+          .optional()
+          .allow("")
+          .messages({
+            "number.base": "Height must be a valid number",
+            "number.min": "Height must be at least 100 cm",
+            "number.max": "Height cannot exceed 250 cm",
+          }),
+        weight: Joi.number()
+          .min(30)
+          .max(300)
+          .optional()
+          .allow("")
+          .messages({
+            "number.base": "Weight must be a valid number",
+            "number.min": "Weight must be at least 30 kg",
+            "number.max": "Weight cannot exceed 300 kg",
+          }),
+        bodyFat: Joi.number()
+          .min(3)
+          .max(60)
+          .optional()
+          .allow("")
+          .messages({
+            "number.base": "Body fat must be a valid number",
+            "number.min": "Body fat must be at least 3%",
+            "number.max": "Body fat cannot exceed 60%",
+          }),
+        image: Joi.string().allow("").optional(),
+      });
+
+      const { error } = profileSchema.validate(values, { abortEarly: false });
+      const errors = {};
+
+      if (error) {
+        for (const detail of error.details) {
+          errors[detail.path[0]] = detail.message;
+        }
+        return errors;
+      }
+    },
+
+    onSubmit: async (values) => {
+      setIsLoading(true);
+      setServerError("");
+
+      try {
+        // Update profile information
+        const updateData = {
+          firstName: values.firstName,
+          lastName: values.lastName,
+          email: values.email,
+          age: Number(values.age),
+          gender: values.gender,
+          stats: {
+            height: values.height ? Number(values.height) : null,
+            weight: values.weight ? Number(values.weight) : null,
+            bodyFat: values.bodyFat ? Number(values.bodyFat) : null,
+          },
+        };
+
+        // Update profile information first
+        try {
+          await userService.updateUser(updateData);
+        } catch (updateErr) {
+          // Check if it's an email uniqueness error
+          if (updateErr.response?.status === 400) {
+            const errorData = updateErr.response.data;
+            if (errorData.message && errorData.message.includes("email")) {
+              setServerError(errorData.message);
+              toast.error(errorData.message);
+              return;
+            } else if (errorData.message) {
+              // Handle other validation errors
+              setServerError(errorData.message);
+              toast.error(errorData.message);
+              return;
+            }
+          }
+          throw updateErr; // Re-throw if it's not a handled error
+        }
+
+        // Update profile image if a new image was selected or if image should be removed
+        if (imageFile) {
+          try {
+            console.log("Uploading image:", imageFile);
+            const imageResponse = await userService.updateUserImage(imageFile);
+            console.log("Image upload response:", imageResponse);
+            
+            // Update the user state with the new image data
+            if (imageResponse.data && imageResponse.data.user) {
+              setCurrentUser(imageResponse.data.user);
+              const newImageUrl = imageResponse.data.user.image ? 
+                `http://localhost:3000/${imageResponse.data.user.image.replace(/^\/+/, "")}` : null;
+              setPreviewUrl(newImageUrl);
+              setOriginalImageUrl(newImageUrl);
+            }
+            
+            toast.success("Profile and image updated successfully!");
+          } catch (imageErr) {
+            console.error("Image upload error:", imageErr);
+            toast.warning("Profile updated but image upload failed. Please try uploading the image again.");
+          }
+        } else if (removeImage) {
+          try {
+            console.log("Removing profile image...");
+            const removeResponse = await userService.removeUserImage();
+            console.log("Remove image response:", removeResponse);
+            
+            // Update the user state with the default image data
+            if (removeResponse.data && removeResponse.data.user) {
+              setCurrentUser(removeResponse.data.user);
+              const defaultImageUrl = removeResponse.data.user.image ? 
+                `http://localhost:3000/${removeResponse.data.user.image.replace(/^\/+/, "")}` : null;
+              setPreviewUrl(defaultImageUrl);
+              setOriginalImageUrl(defaultImageUrl);
+            }
+            
+            toast.success("Profile updated and image removed successfully!");
+          } catch (removeErr) {
+            console.error("Image removal error:", removeErr);
+            toast.warning("Profile updated but image removal failed. Please try again.");
+          }
+        } else {
+          toast.success("Profile updated successfully!");
+        }
+
+        // Refresh user data with a small delay to ensure backend processing
+        setTimeout(async () => {
+          try {
+            await updateUserData();
+          } catch (err) {
+            throw err;
+          }
+        }, 500);
+        
+        // Reset image file state and remove flag
+        setImageFile(null);
+        setRemoveImage(false);
+        
+      } catch (err) {
+        console.error("Profile update error:", err);
+        
+        // Handle different types of errors
+        if (err.response?.data?.message) {
+          // Backend validation error - show exact server message
+          const errorMessage = err.response.data.message;
+          setServerError(errorMessage);
+          toast.error(errorMessage);
+        } else if (err.response?.data) {
+          // Server response without message field
+          const errorMessage = typeof err.response.data === 'string' ? err.response.data : JSON.stringify(err.response.data);
+          setServerError(errorMessage);
+          toast.error(errorMessage);
+        } else if (err.message) {
+          // General error
+          setServerError(err.message);
+          toast.error(err.message);
+        } else {
+          // Fallback error
+          setServerError("Unable to update profile. Please check your information and try again.");
+          toast.error("Unable to update profile. Please check your information and try again.");
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    },
+  });
+
+  // Update form values when currentUser changes
+  useEffect(() => {
+    if (currentUser) {
+      profileFormik.setValues({
+        firstName: currentUser.firstName || "",
+        lastName: currentUser.lastName || "",
+        email: currentUser.email || "",
+        age: currentUser.age || "",
+        gender: currentUser.gender || "",
+        height: currentUser.stats?.height || "",
+        weight: currentUser.stats?.weight || "",
+        bodyFat: currentUser.stats?.bodyFat || "",
+        image: "",
+      });
+    }
+  }, [currentUser]);
+
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+
+  return (
+    <div className="profile-settings-wrapper">
+      <div className="profile-settings-box">
+        <div className="profile-header">
+          <h2>Profile Settings</h2>
+          <p>Update your personal information and fitness stats</p>
+          {currentUser && (
+            <div className="user-info-summary">
+              <div className="user-role">
+                <span className="role-badge">{currentUser.role}</span>
+              </div>
+              <div className="account-info">
+                <small>Member since: {new Date(currentUser.createdAt).toLocaleDateString()}</small>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {serverError && (
+          <div className="server-error">
+            <span>{serverError}</span>
+          </div>
+        )}
+
+        <form
+          className="profile-form"
+          noValidate
+          autoComplete="off"
+          onSubmit={profileFormik.handleSubmit}
+        >
+          {/* Profile Image Section */}
+          <div className="profile-image-section">
+            <h3><FaCamera className="me-2" />Profile Picture</h3>
+            <div className="image-upload-container">
+              {previewUrl ? (
+                <div className="image-preview-wrapper">
+                  <img
+                    src={previewUrl}
+                    alt="Profile preview"
+                    className="image-preview"
+                    onError={(e) => {
+                      console.log("Image failed to load:", previewUrl);
+                      e.target.style.display = 'none';
+                    }}
+                  />
+
+                  {(originalImageUrl || imageFile) && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setImageFile(null);
+                        setPreviewUrl(null);
+                        setOriginalImageUrl(null);
+                        setRemoveImage(true);
+                        profileFormik.setFieldValue("image", "");
+                      }}
+                      className="image-remove-original-btn"
+                      aria-label="Remove original image"
+                      title="Remove profile picture"
+                    >
+                      Remove Profile Picture
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <div className="image-upload-placeholder">
+                  <ImageUploader
+                    onFileSelected={handleImageSelect}
+                    previewUrl={previewUrl}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Personal Information Section */}
+          <div className="form-section">
+            <h3><FaUser className="me-2" />Personal Information</h3>
+            <div className="row">
+              <div className="col-md-6">
+                <div className="input-icon-wrapper">
+                  <FaUser className="input-icon" />
+                  <Input
+                    {...profileFormik.getFieldProps("firstName")}
+                    type="text"
+                    name="firstName"
+                    placeholder="First Name"
+                    className={`underline-input ${
+                      profileFormik.touched.firstName && profileFormik.errors.firstName ? "is-invalid" : ""
+                    }`}
+                  />
+                </div>
+                {profileFormik.touched.firstName && profileFormik.errors.firstName && (
+                  <div className="invalid-feedback mt-1 d-block">
+                    {profileFormik.errors.firstName}
+                  </div>
+                )}
+              </div>
+
+              <div className="col-md-6">
+                <div className="input-icon-wrapper">
+                  <FaUser className="input-icon" />
+                  <Input
+                    {...profileFormik.getFieldProps("lastName")}
+                    type="text"
+                    name="lastName"
+                    placeholder="Last Name"
+                    className={`underline-input ${
+                      profileFormik.touched.lastName && profileFormik.errors.lastName ? "is-invalid" : ""
+                    }`}
+                  />
+                </div>
+                {profileFormik.touched.lastName && profileFormik.errors.lastName && (
+                  <div className="invalid-feedback mt-1 d-block">
+                    {profileFormik.errors.lastName}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-6">
+                <div className="input-icon-wrapper">
+                  <FaEnvelope className="input-icon" />
+                  <Input
+                    {...profileFormik.getFieldProps("email")}
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    className={`underline-input ${
+                      profileFormik.touched.email && profileFormik.errors.email ? "is-invalid" : ""
+                    }`}
+                  />
+                </div>
+                {profileFormik.touched.email && profileFormik.errors.email && (
+                  <div className="invalid-feedback mt-1 d-block">
+                    {profileFormik.errors.email}
+                  </div>
+                )}
+              </div>
+
+              <div className="col-md-6">
+                <div className="input-icon-wrapper">
+                  <FaBirthdayCake className="input-icon" />
+                  <Input
+                    {...profileFormik.getFieldProps("age")}
+                    type="number"
+                    name="age"
+                    placeholder="Age"
+                    className={`underline-input ${
+                      profileFormik.touched.age && profileFormik.errors.age ? "is-invalid" : ""
+                    }`}
+                  />
+                </div>
+                {profileFormik.touched.age && profileFormik.errors.age && (
+                  <div className="invalid-feedback mt-1 d-block">
+                    {profileFormik.errors.age}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-6">
+                <div className="input-icon-wrapper">
+                  <FaVenusMars className="input-icon" />
+                  <select
+                    {...profileFormik.getFieldProps("gender")}
+                    name="gender"
+                    className={`form-select ${
+                      profileFormik.touched.gender && profileFormik.errors.gender ? "is-invalid" : ""
+                    }`}
+                  >
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
+                  {profileFormik.touched.gender && profileFormik.errors.gender && (
+                    <div className="invalid-feedback mt-1 d-block">
+                      {profileFormik.errors.gender}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Fitness Stats Section */}
+          <div className="form-section">
+            <h3><FaWeight className="me-2" />Fitness Statistics</h3>
+            <div className="row">
+              <div className="col-md-4">
+                <div className="input-icon-wrapper">
+                  <FaRulerVertical className="input-icon" />
+                  <Input
+                    {...profileFormik.getFieldProps("height")}
+                    type="number"
+                    name="height"
+                    placeholder="Height (cm)"
+                    className={`underline-input ${
+                      profileFormik.touched.height && profileFormik.errors.height ? "is-invalid" : ""
+                    }`}
+                  />
+                </div>
+                {profileFormik.touched.height && profileFormik.errors.height && (
+                  <div className="invalid-feedback mt-1 d-block">
+                    {profileFormik.errors.height}
+                  </div>
+                )}
+              </div>
+
+              <div className="col-md-4">
+                <div className="input-icon-wrapper">
+                  <FaWeight className="input-icon" />
+                  <Input
+                    {...profileFormik.getFieldProps("weight")}
+                    type="number"
+                    name="weight"
+                    placeholder="Weight (kg)"
+                    className={`underline-input ${
+                      profileFormik.touched.weight && profileFormik.errors.weight ? "is-invalid" : ""
+                    }`}
+                  />
+                </div>
+                {profileFormik.touched.weight && profileFormik.errors.weight && (
+                  <div className="invalid-feedback mt-1 d-block">
+                    {profileFormik.errors.weight}
+                  </div>
+                )}
+              </div>
+
+              <div className="col-md-4">
+                <div className="input-icon-wrapper">
+                  <FaPercentage className="input-icon" />
+                  <Input
+                    {...profileFormik.getFieldProps("bodyFat")}
+                    type="number"
+                    name="bodyFat"
+                    placeholder="Body Fat (%)"
+                    className={`underline-input ${
+                      profileFormik.touched.bodyFat && profileFormik.errors.bodyFat ? "is-invalid" : ""
+                    }`}
+                  />
+                </div>
+                {profileFormik.touched.bodyFat && profileFormik.errors.bodyFat && (
+                  <div className="invalid-feedback mt-1 d-block">
+                    {profileFormik.errors.bodyFat}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="submit-section">
+            <div className="d-flex gap-3 justify-content-center">
+                              <button 
+                  type="button" 
+                  className="reset-btn"
+                  onClick={() => {
+                    if (currentUser) {
+                      profileFormik.setValues({
+                        firstName: currentUser.firstName || "",
+                        lastName: currentUser.lastName || "",
+                        email: currentUser.email || "",
+                        age: currentUser.age || "",
+                        gender: currentUser.gender || "",
+                        height: currentUser.stats?.height || "",
+                        weight: currentUser.stats?.weight || "",
+                        bodyFat: currentUser.stats?.bodyFat || "",
+                        image: "",
+                      });
+                      setImageFile(null);
+                      setPreviewUrl(originalImageUrl);
+                      setRemoveImage(false);
+                      toast.info("Form reset to original values");
+                    }
+                  }}
+                  disabled={isLoading}
+                >
+                <FaUndo className="me-2" />
+                Reset
+              </button>
+              <button 
+                type="submit" 
+                className="submit-btn"
+                disabled={isLoading}
+              >
+                <FaSave className="me-2" />
+                {isLoading ? "Updating..." : "Update Profile"}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export default UserProfileSettings; 

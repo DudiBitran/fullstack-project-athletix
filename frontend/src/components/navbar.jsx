@@ -95,8 +95,7 @@ function CustomNavbar() {
                       Create a exercise
                     </NavDropdown.Item>
                   )}
-                  <NavDropdown.Item onClick={handleNavLinkClick}>My Profile</NavDropdown.Item>
-                  <NavDropdown.Item onClick={handleNavLinkClick}>Settings</NavDropdown.Item>
+                  <NavDropdown.Item as={NavLink} to="/profile-settings" onClick={handleNavLinkClick}>Profile Settings</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item onClick={() => { handleNavLinkClick(); logoutUser(); }}>
                     Logout
