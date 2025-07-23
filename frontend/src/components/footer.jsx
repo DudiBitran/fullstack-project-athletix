@@ -1,5 +1,7 @@
 import "../style/footer.css";
 import Logo from "./common/logo";
+import { Link, NavLink } from "react-router";
+import { useAuth } from "../context/auth.context";
 import {
   FaFacebookF,
   FaTwitter,
@@ -14,6 +16,7 @@ import {
 } from "react-icons/fa";
 
 function Footer() {
+  const { user } = useAuth();
   return (
     <footer className="footer text-center text-lg-start text-white">
       <div className="container p-4 pb-0">
@@ -27,29 +30,29 @@ function Footer() {
 
             <hr className="w-100 clearfix d-md-none" />
 
-            {/* Products */}
-            <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
-              <h6 className="text-uppercase mb-4 font-weight-bold">Products</h6>
-              <p>
-                <a href="#!" className="text-white">
-                  MDBootstrap
-                </a>
-              </p>
-              <p>
-                <a href="#!" className="text-white">
-                  MDWordPress
-                </a>
-              </p>
-              <p>
-                <a href="#!" className="text-white">
-                  BrandFlow
-                </a>
-              </p>
-              <p>
-                <a href="#!" className="text-white">
-                  Bootstrap Angular
-                </a>
-              </p>
+            {/* Dynamic Navigation Links */}
+            <div className="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+              <h6 className="text-uppercase mb-4 font-weight-bold">Navigation</h6>
+              <ul className="footer-nav-list">
+                {!user && (
+                  <>
+                    <li><NavLink to="/" className="text-white">Home</NavLink></li>
+                    <li><NavLink to="/about" className="text-white">About</NavLink></li>
+                    <li><NavLink to="/contact" className="text-white">Contact</NavLink></li>
+                    <li><NavLink to="/login" className="text-white">Login</NavLink></li>
+                    <li><NavLink to="/register" className="text-white">Join Now!</NavLink></li>
+                  </>
+                )}
+                {user && (
+                  <>
+                    {user.role === "trainer" && <li><NavLink to="/trainer/my-programs" className="text-white">My Programs</NavLink></li>}
+                    {user.role === "trainer" && <li><NavLink to="/trainer/my-exercises" className="text-white">My Exercises</NavLink></li>}
+                    {user.role === "trainer" && <li><NavLink to="/trainer/my-customers" className="text-white">My Clients</NavLink></li>}
+                    {user.role === "user" && <li><NavLink to="/dashboard" className="text-white">My Program</NavLink></li>}
+                    <li><NavLink to="/profile-settings" className="text-white">Profile Settings</NavLink></li>
+                  </>
+                )}
+              </ul>
             </div>
 
             <hr className="w-100 clearfix d-md-none" />
@@ -72,7 +75,7 @@ function Footer() {
             </div>
 
             {/* Social Media */}
-            <div className="col-md-3 col-lg-2 col-xl-2 mx-auto my-3">
+            <div className="col-md-2 col-lg-2 col-xl-2 mx-auto my-3">
               <h6 className="text-uppercase mb-4 font-weight-bold">
                 Follow us
               </h6>
@@ -127,7 +130,7 @@ function Footer() {
         className="text-center p-3"
         style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
       >
-        © {new Date().getFullYear()} Copyright:{" "}
+        © {new Date().getFullYear()} Copyright: {" "}
         <span className="">
           Athleti
           <Logo className="logo" />

@@ -12,19 +12,23 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     if (!userToken) {
+      setUser(null);
+      setProfileImage(undefined);
       return;
     }
+    
     const getUser = async () => {
       try {
         const response = await userService.getMe();
         setUser(response.data);
         setProfileImage(response.data?.image);
-        return;
       } catch (err) {
         setUser(null);
-        throw new Error(err);
+        setProfileImage(undefined);
+        setUserToken(null);
       }
     };
+    
     getUser();
   }, [userToken]);
 
@@ -37,6 +41,7 @@ export function AuthProvider({ children }) {
     try {
       const response = await userService.getMe();
       setUser(response.data);
+      console.log('Auth context - updating profileImage from:', profileImage, 'to:', response.data?.image);
       setProfileImage(response.data?.image);
       return response;
     } catch (err) {
@@ -57,7 +62,7 @@ export function AuthProvider({ children }) {
   const login = async (credentials) => {
     try {
       const response = await userService.login(credentials);
-      refreshUser();
+      setUserToken(userService.getJwt());
       return response;
     } catch (err) {
       throw err;
@@ -68,7 +73,7 @@ export function AuthProvider({ children }) {
     userService.logout();
     setUser(null);
     setUserToken(null);
-    refreshUser();
+    setProfileImage(undefined);
   };
 
   const createProgram = async (credentials) => {
@@ -92,6 +97,15 @@ export function AuthProvider({ children }) {
   const programDeleteById = async (programId) => {
     try {
       const response = await trainerService.programDeleteById(programId);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const updateProgram = async (programId, programData) => {
+    try {
+      const response = await trainerService.updateProgram(programId, programData);
       return response;
     } catch (err) {
       throw err;
@@ -215,7 +229,16 @@ export function AuthProvider({ children }) {
     }
   };
 
-    return (
+  const sendTrainerDeleteRequest = async () => {
+    try {
+      const response = await trainerService.sendTrainerDeleteRequest();
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  return (
     <AuthContext.Provider
       value={{
         login,
@@ -228,6 +251,7 @@ export function AuthProvider({ children }) {
         createProgram,
         getMyProgramsById,
         programDeleteById,
+        updateProgram,
         getMyOwnClients,
         getAllAvailableClients,
         assignClient,
@@ -240,6 +264,7 @@ export function AuthProvider({ children }) {
         getClientById,
         addExerciseToDay,
         deleteExerciseFromDay,
+        sendTrainerDeleteRequest,
       }}
     >
       {children}

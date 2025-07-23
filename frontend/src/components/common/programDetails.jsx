@@ -43,7 +43,6 @@ function ProgramDetails({ program, setProgram }) {
     const getClientDetails = async () => {
       const response = await getClientById(program.assignedTo);
       setSelectedClientId(response.data);
-      console.log(response.data);
     };
     getClientDetails();
   }, [program]);

@@ -83,6 +83,26 @@ const removeUserImage = async () => {
   }
 };
 
+const markWorkoutStatus = async ({ programId, date, completed }) => {
+  return httpService.patch("/workout-status/", { programId, date, completed });
+};
+
+const getWorkoutStatuses = async () => {
+  return httpService.get("/workout-status/");
+};
+
+const getProgressAnalytics = async () => {
+  return httpService.get("/analytics/progress");
+};
+
+const getWeeklyActivityAnalytics = async () => {
+  return httpService.get("/analytics/weekly-activity");
+};
+
+const getAllTimeProgressAnalytics = async () => {
+  return httpService.get("/analytics/progress-alltime");
+};
+
 const userService = {
   login,
   logout,
@@ -93,5 +113,11 @@ const userService = {
   removeUserImage,
   getJwt,
 };
+
+userService.markWorkoutStatus = markWorkoutStatus;
+userService.getWorkoutStatuses = getWorkoutStatuses;
+userService.getProgressAnalytics = getProgressAnalytics;
+userService.getWeeklyActivityAnalytics = getWeeklyActivityAnalytics;
+userService.getAllTimeProgressAnalytics = getAllTimeProgressAnalytics;
 
 export default userService;

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/auth.context";
+import { useTrainerSearchFilter } from "../../context/trainerSearchFilter.context";
 import "../../style/trainerDash/myPrograms.css";
 import "../../style/trainerDash/myCustomers.css";
 import "../../style/trainerDash/availableClients.css";
@@ -7,7 +8,7 @@ import { MdList } from "react-icons/md";
 import { FaCubes } from "react-icons/fa";
 import ProgramCard from "../../components/common/programCard";
 import ProgramTable from "../../components/common/programTable";
-import { Navigate, Link } from "react-router";
+import { Navigate, Link, useNavigate } from "react-router";
 import ConfirmationModal from "../../components/common/confirmationModal";
 import AvailableClientsTableBody from "../../components/common/availableClientsTableBody";
 import AssignProgramModal from "../../components/common/assignProgramModal";
@@ -18,16 +19,21 @@ function MyPrograms() {
   const [viewMode, setViewMode] = useState("grid");
   const [showModal, setShowModal] = useState(false);
   const [showAssignModal, setShowAssignModal] = useState(false);
-  const [selectedClientIdToAssign, setSelectedClientIdToAssign] =
-    useState(null);
+  const [selectedClientIdToAssign, setSelectedClientIdToAssign] = useState(null);
   const [programToDelete, setProgramToDelete] = useState(null);
   const [assignedUsers, setAssignedUsers] = useState([]);
   const [availableClients, setAvailableClients] = useState([]);
   const [selectedProgramId, setSelectedProgramId] = useState(null);
   const [selectedClientId, setSelectedClientId] = useState(null);
   const [showAssignProgramModal, setShowAssignProgramModal] = useState(false);
-  const [showUnAssignProgramModal, setShowUnAssignProgramModal] =
-    useState(false);
+  const [showUnAssignProgramModal, setShowUnAssignProgramModal] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
+  const [difficulty, setDifficulty] = useState("");
+  const [weeksMin, setWeeksMin] = useState("");
+  const [weeksMax, setWeeksMax] = useState("");
+  const [availableClientsSearch, setAvailableClientsSearch] = useState("");
+  const navigate = useNavigate();
+  const { search, setSearch } = useTrainerSearchFilter();
   const {
     user,
     getMyProgramsById,
@@ -39,7 +45,8 @@ function MyPrograms() {
     unassignClientToProgram,
   } = useAuth();
 
-  if (user?.role !== "trainer") return <Navigate to="/" />;
+  // Remove the redundant role check since route is protected
+  // if (user?.role !== "trainer") return <Navigate to="/" />;
 
   useEffect(() => {
     if (!user?._id) return;
@@ -178,11 +185,105 @@ function MyPrograms() {
     setShowUnAssignProgramModal(true);
   };
 
+  const handleEditClick = (program) => {
+    navigate(`/trainer/update-program/${program._id}`);
+  };
+
+  // Filter programs based on search and filters
+  const filteredPrograms = programs.filter(program => {
+    const matchesSearch = !search || (program.title && program.title.toLowerCase().includes(search.toLowerCase()));
+    const matchesDifficulty = !difficulty || (program.difficulty && program.difficulty.toLowerCase() === difficulty);
+    const min = weeksMin ? parseInt(weeksMin, 10) : null;
+    const max = weeksMax ? parseInt(weeksMax, 10) : null;
+    const weeks = program.durationWeeks;
+    const matchesWeeks = (
+      (!min || (weeks >= min)) &&
+      (!max || (weeks <= max))
+    );
+    return matchesSearch && matchesDifficulty && matchesWeeks;
+  });
+
+  // Filter available clients by search
+  const filteredAvailableClients = availableClients.filter(client => {
+    if (!availableClientsSearch) return true;
+    const fullName = `${client.firstName || ''} ${client.lastName || ''}`.toLowerCase();
+    const email = (client.email || '').toLowerCase();
+    const searchLower = availableClientsSearch.toLowerCase();
+    return fullName.includes(searchLower) || email.includes(searchLower);
+  });
+
   return (
     <main className="myPrograms-container">
+      {/* Mobile/Tablet search input */}
+      <div className="d-block d-lg-none mb-4">
+        <input
+          type="text"
+          className="form-control mb-4"
+          placeholder="Search..."
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          style={{ maxWidth: 260 }}
+        />
+      </div>
+      {/* Filter Button and Filters */}
+      <div className="d-flex flex-wrap align-items-center filter-controls-row mt-0 mt-4 mt-lg-0 mb-4" style={{ flexWrap: 'wrap', gap: '12px' }}>
+        <button
+          className="btn btn-outline-secondary"
+          style={{ margin: 0, padding: '6px 12px' }}
+          type="button"
+          onClick={() => setShowFilters(f => !f)}
+        >
+          {showFilters ? "Hide Filters" : "Filter"}
+        </button>
+        {showFilters && (
+          <>
+            <select
+              className="form-select"
+              value={difficulty}
+              onChange={e => setDifficulty(e.target.value)}
+              style={{ maxWidth: 140, minWidth: 110, fontSize: '1rem', display: 'inline-block', margin: 0 }}
+            >
+              <option value="">All Difficulties</option>
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+            <input
+              type="number"
+              className="form-control"
+              placeholder="Min weeks"
+              value={weeksMin}
+              min={1}
+              onChange={e => setWeeksMin(e.target.value)}
+              style={{ maxWidth: 110, minWidth: 90, fontSize: '1rem', padding: '', display: 'inline-block' }}
+            />
+            <span style={{margin: '0 2px', fontSize: '1rem'}}>–</span>
+            <input
+              type="number"
+              className="form-control"
+              placeholder="Max weeks"
+              value={weeksMax}
+              min={1}
+              onChange={e => setWeeksMax(e.target.value)}
+              style={{ maxWidth: 110, minWidth: 90, fontSize: '1rem', padding: '', display: 'inline-block' }}
+            />
+            <button
+              className="btn btn-outline-danger btn-sm ms-2"
+              type="button"
+              onClick={() => {
+                setDifficulty("");
+                setWeeksMin("");
+                setWeeksMax("");
+              }}
+            >
+              Clear
+            </button>
+          </>
+        )}
+      </div>
       {/* Header */}
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2>My Programs</h2>
+      <div className="d-flex justify-content-between align-items-center">
+        <h2 className="mt-0">My Programs</h2>
         <div className="btn-group" role="group">
           <button
             type="button"
@@ -231,19 +332,21 @@ function MyPrograms() {
 
         {/* Programs section */}
         <section className="myProgram-content" style={{ flex: 1 }}>
-          {programs.length === 0 ? (
+          {filteredPrograms.length === 0 ? (
             <p>No programs found.</p>
           ) : viewMode === "grid" ? (
             <ProgramCard
-              programs={programs}
+              programs={filteredPrograms}
               onDeleteClick={handleDeleteClick}
+              onEditClick={handleEditClick}
               onAssignClick={handleAssignToProgramClick}
               onUnAssignClick={handleUnAssignClick}
             />
           ) : (
             <ProgramTable
-              programs={programs}
+              programs={filteredPrograms}
               onDeleteClick={handleDeleteClick}
+              onEditClick={handleEditClick}
               onAssignClick={handleAssignToProgramClick}
               onUnAssignClick={handleUnAssignClick}
             />
@@ -254,6 +357,21 @@ function MyPrograms() {
       {/* Available Clients Section (Below) */}
       <section className="available-users">
         <h3>Available Clients for Assignment: {availableClients.length}</h3>
+        <div className="d-flex justify-content-center mb-3">
+          <div style={{ position: 'relative', maxWidth: 260, width: '100%' }}>
+            <input
+              type="text"
+              className="styled-search-input"
+              placeholder="Search available clients..."
+              value={availableClientsSearch}
+              onChange={e => setAvailableClientsSearch(e.target.value)}
+              style={{ maxWidth: 260, width: '100%' }}
+            />
+            <span className="styled-search-icon">
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="9" r="7" stroke="#aaa" strokeWidth="2"/><line x1="14.4142" y1="14" x2="18" y2="17.5858" stroke="#aaa" strokeWidth="2" strokeLinecap="round"/></svg>
+            </span>
+          </div>
+        </div>
         {availableClients.length === 0 ? (
           <p>No available clients found.</p>
         ) : (
@@ -268,7 +386,7 @@ function MyPrograms() {
             </thead>
             <tbody>
               <AvailableClientsTableBody
-                clients={availableClients}
+                clients={filteredAvailableClients}
                 onAssign={handleAskAssign}
               />
             </tbody>

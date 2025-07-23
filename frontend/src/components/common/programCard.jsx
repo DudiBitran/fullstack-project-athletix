@@ -3,6 +3,7 @@ import { Link } from "react-router";
 function ProgramCard({
   programs,
   onDeleteClick,
+  onEditClick,
   onAssignClick,
   onUnAssignClick,
 }) {
@@ -28,7 +29,10 @@ function ProgramCard({
               </div>
 
               <div className="card-footer bg-transparent d-flex flex-wrap justify-content-between gap-2">
-                <button className="btn btn-sm btn-outline-warning flex-fill">
+                <button
+                  className="btn btn-sm btn-outline-warning flex-fill"
+                  onClick={() => onEditClick(program)}
+                >
                   ✏️ Edit
                 </button>
                 {!program.assignedTo ? (

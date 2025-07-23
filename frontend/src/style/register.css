@@ -190,8 +190,32 @@ p .lgn-btn {
   color: #fff;
 }
 
+/* Centered containers for upload and submit button */
+.upload-container {
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.submit-btn-container {
+  max-width: 300px;
+  width: 100%;
+}
+
+.submit-btn-container .submit-btn {
+  width: 100%;
+}
+
 @media (max-width: 991.98px) {
   .register-wrapper {
     padding: 35% 25px;
+  }
+  
+  .upload-container {
+    max-width: 100%;
+  }
+  
+  .submit-btn-container {
+    max-width: 100%;
   }
 }

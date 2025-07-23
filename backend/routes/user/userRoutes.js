@@ -186,8 +186,8 @@ router.delete(
         });
       }
       
-      // Set to default image
-      user.image = "/public/defaults/trainer-icon.jpg";
+      // Set image to null so frontend can handle default avatar
+      user.image = null;
       await user.save();
       
       res.send({ message: "Profile image has been removed and set to default.", user });

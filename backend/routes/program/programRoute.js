@@ -83,10 +83,19 @@ router.get(
 router.get(
   "/details/:programId",
   authMw,
-  permitRoles("admin", "trainer"),
+  permitRoles("admin", "trainer", "user"),
   async (req, res) => {
     const { programId } = req.params;
     const program = await Program.findById(programId).populate('days.exercises');
+
+    // Fetch the full user object from the database
+    const { User } = require('../../model/user');
+    const dbUser = await User.findById(req.user._id);
+    if (!dbUser) {
+      res.status(400).send("User not found.");
+      logger.error(`status: ${res.statusCode} | Message: User not found.`);
+      return;
+    }
 
     try {
       if (!program) {
@@ -95,19 +104,55 @@ router.get(
         return;
       }
 
-      if (
-        req.user._id.toString() !== program.trainer.toString() &&
-        userRole !== "admin"
-      ) {
-        res.status(400).send("Trainer is not the owner");
-        logger.error(
-          `status: ${res.statusCode} | Message: Trainer is not the owner`
+      // Allow if admin
+      if (dbUser.role === "admin") {
+        res.send(program);
+        logger.info(
+          `status: ${res.statusCode} | Message: Program sent successfully.`
         );
         return;
       }
-      res.send(program);
-      logger.info(
-        `status: ${res.statusCode} | Message: Program sent successfully.`
+
+      // Allow if trainer and owner
+      if (dbUser.role === "trainer" && dbUser._id.toString() === program.trainer.toString()) {
+        res.send(program);
+        logger.info(
+          `status: ${res.statusCode} | Message: Program sent successfully.`
+        );
+        return;
+      }
+
+      // Allow if user and assigned to this program (old, keep for backward compatibility)
+      if (
+        dbUser.role === "user" &&
+        program.assignedTo &&
+        dbUser._id.toString() === program.assignedTo.toString()
+      ) {
+        res.send(program);
+        logger.info(
+          `status: ${res.statusCode} | Message: Program sent successfully to assigned user.`
+        );
+        return;
+      }
+
+      // Allow if user and this program is in their programs array (NEW, preferred)
+      if (
+        dbUser.role === "user" &&
+        Array.isArray(dbUser.programs) &&
+        dbUser.programs.some(
+          (id) => id.toString() === program._id.toString()
+        )
+      ) {
+        res.send(program);
+        logger.info(
+          `status: ${res.statusCode} | Message: Program sent successfully to assigned user (via user.programs array).`
+        );
+        return;
+      }
+
+      res.status(403).send("Not authorized to view this program.");
+      logger.error(
+        `status: ${res.statusCode} | Message: Not authorized to view this program.`
       );
     } catch (err) {
       res.status(500).send("Internal server error.");
@@ -140,6 +185,15 @@ router.delete(
         res.status(400).send("Trainer is not the owner");
         logger.error(
           `status: ${res.statusCode} | Message: Trainer is not the owner`
+        );
+        return;
+      }
+
+      // Check if program is assigned to any user
+      if (program.assignedTo) {
+        res.status(400).send("Cannot delete program. Please unassign all users from this program first.");
+        logger.error(
+          `status: ${res.statusCode} | Message: Cannot delete program - program is assigned to user ${program.assignedTo}`
         );
         return;
       }

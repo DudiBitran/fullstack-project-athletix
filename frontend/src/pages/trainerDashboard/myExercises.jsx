@@ -10,9 +10,11 @@ import { Navigate } from "react-router";
 function MyExercises() {
   const [exercises, setExercises] = useState([]);
   const [viewMode, setViewMode] = useState("grid");
+  const [search, setSearch] = useState("");
   const { user, getMyExercises } = useAuth();
 
-  if (user?.role !== "trainer") return <Navigate to="/" />;
+  // Remove the redundant role check since route is protected
+  // if (user?.role !== "trainer") return <Navigate to="/" />;
 
   useEffect(() => {
     const getExercises = async () => {
@@ -27,8 +29,22 @@ function MyExercises() {
     getExercises();
   }, []);
 
+  // Filter exercises by name
+  const filteredExercises = exercises.filter(ex => !search || (ex.name && ex.name.toLowerCase().includes(search.toLowerCase())));
+
   return (
     <main className="myExercises-container">
+      {/* Mobile/Tablet search input */}
+      <div className="d-block d-lg-none mb-4 d-flex justify-content-center">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search exercises..."
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          style={{ maxWidth: 260 }}
+        />
+      </div>
       <h2>My Exercises</h2>
       <div className="d-flex justify-content-between align-items-center mb-4 container">
         <div className="btn-group" role="group">
@@ -53,7 +69,7 @@ function MyExercises() {
 
       <section className="w-100 px-3 px-lg-0 container-lg">
         {viewMode === "grid" ? (
-          <ExerciseCardList exercises={exercises} />
+          <ExerciseCardList exercises={filteredExercises} />
         ) : (
           <div className="table-responsive">
             <table className="table table-dark table-hover table-striped">
@@ -68,7 +84,7 @@ function MyExercises() {
                 </tr>
               </thead>
               <tbody>
-                <ExerciseTableBody exercises={exercises} />
+                <ExerciseTableBody exercises={filteredExercises} />
               </tbody>
             </table>
           </div>

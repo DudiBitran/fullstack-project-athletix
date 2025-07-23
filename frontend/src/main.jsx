@@ -6,12 +6,15 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { BrowserRouter } from "react-router";
 import { AuthProvider } from "./context/auth.context.jsx";
+import { TrainerSearchFilterProvider } from "./context/trainerSearchFilter.context";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <App />
+        <TrainerSearchFilterProvider>
+          <App />
+        </TrainerSearchFilterProvider>
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>

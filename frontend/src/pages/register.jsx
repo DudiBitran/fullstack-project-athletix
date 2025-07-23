@@ -370,52 +370,56 @@ function Register() {
             </div>
 
             {/* Upload Image - placed last */}
-            <div className="col-12">
-              <label htmlFor="imageUpload" className="form-label">
-                Profile image
-              </label>
-              {previewUrl ? (
-                <div className="image-preview-wrapper">
-                  <img
-                    src={previewUrl}
-                    alt="preview"
-                    className="image-preview"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setImageFile(null);
-                      setPreviewUrl(null);
-                      registerFormik.setFieldValue("image", "");
-                    }}
-                    className="image-remove-btn"
-                    aria-label="Remove image"
-                  >
-                    ×
-                  </button>
-                </div>
-              ) : (
-                <div className="image-upload-placeholder">
-                  <ImageUploader
-                    onFileSelected={handleImageSelect}
-                    previewUrl={previewUrl}
-                  />
-                </div>
-              )}
+            <div className="col-12 d-flex justify-content-center">
+              <div className="upload-container">
+                <label htmlFor="imageUpload" className="form-label">
+                  Profile image
+                </label>
+                {previewUrl ? (
+                  <div className="image-preview-wrapper">
+                    <img
+                      src={previewUrl}
+                      alt="preview"
+                      className="image-preview"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setImageFile(null);
+                        setPreviewUrl(null);
+                        registerFormik.setFieldValue("image", "");
+                      }}
+                      className="image-remove-btn"
+                      aria-label="Remove image"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ) : (
+                  <div className="image-upload-placeholder">
+                    <ImageUploader
+                      onFileSelected={handleImageSelect}
+                      previewUrl={previewUrl}
+                    />
+                  </div>
+                )}
 
-              {registerFormik.errors.image && (
-                <div className="invalid-feedback mt-1 d-block">
-                  {registerFormik.errors.image}
-                </div>
-              )}
+                {registerFormik.errors.image && (
+                  <div className="invalid-feedback mt-1 d-block">
+                    {registerFormik.errors.image}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
           {/* Submit Button */}
-          <div className="mt-4">
-            <button type="submit" className="submit-btn">
-              Register
-            </button>
+          <div className="mt-4 d-flex justify-content-center">
+            <div className="submit-btn-container">
+              <button type="submit" className="submit-btn">
+                Register
+              </button>
+            </div>
           </div>
         </form>
 

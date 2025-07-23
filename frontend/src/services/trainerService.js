@@ -29,6 +29,16 @@ const programDeleteById = async (programId) => {
   }
 };
 
+// update program by id
+const updateProgram = async (programId, programData) => {
+  try {
+    const response = await httpService.put(`/program/${programId}`, programData);
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
 // get my own clients
 const getMyClients = async () => {
   try {
@@ -163,10 +173,37 @@ const deleteExerciseFromDay = async (programId, day, exerciseIds) => {
   }
 };
 
+// send delete request for trainer account
+const sendTrainerDeleteRequest = async () => {
+  try {
+    const response = await httpService.post("/users/trainers/me/delete-request", {
+      role: "trainer"
+    });
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const getUserCompletionAnalytics = async (userId) => {
+  return httpService.get(`/analytics/completion/${userId}`);
+};
+
+const getUserWeekProgressAnalytics = async (userId) => {
+  return httpService.get(`/analytics/progress/${userId}`);
+};
+const getUserAllTimeProgressAnalytics = async (userId) => {
+  return httpService.get(`/analytics/progress-alltime/${userId}`);
+};
+const getUserWeeklyActivityAnalytics = async (userId) => {
+  return httpService.get(`/analytics/weekly-activity/${userId}`);
+};
+
 const trainerService = {
   createProgram,
   getMyProgramsById,
   programDeleteById,
+  updateProgram,
   getMyClients,
   getAvailableClients,
   assignClientToTrainer,
@@ -179,6 +216,11 @@ const trainerService = {
   getClientById,
   addExerciseToDay,
   deleteExerciseFromDay,
+  sendTrainerDeleteRequest,
+  getUserCompletionAnalytics,
+  getUserWeekProgressAnalytics,
+  getUserAllTimeProgressAnalytics,
+  getUserWeeklyActivityAnalytics,
 };
 
 export default trainerService;

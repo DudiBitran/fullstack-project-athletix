@@ -1,9 +1,0 @@
-function UserMainDash() {
-  return (
-    <main>
-      <section></section>
-    </main>
-  );
-}
-
-export default UserMainDash;

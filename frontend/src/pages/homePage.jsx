@@ -29,7 +29,15 @@ function HomePage() {
     pauseOnHover: false,
   };
 
-  if (user) return <Navigate to="/trainer/my-programs" />;
+  if (user) {
+    // Redirect based on user role
+    if (user.role === "trainer") {
+      return <Navigate to="/trainer/my-programs" />;
+    } else if (user.role === "user") {
+      return <Navigate to="/dashboard" />;
+    }
+  }
+  
   return (
     <main className="main-background">
       <section className="banner-container">

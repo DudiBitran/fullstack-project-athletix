@@ -7,11 +7,12 @@ import { Navigate } from "react-router";
 import Input from "../../components/common/input";
 import ImageUploader from "../../components/common/imageUploader";
 import userService from "../../services/userService";
-import { FaUser, FaEnvelope, FaBirthdayCake, FaVenusMars, FaRulerVertical, FaWeight, FaPercentage, FaCamera, FaSave, FaUndo } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaBirthdayCake, FaVenusMars, FaRulerVertical, FaWeight, FaPercentage, FaCamera, FaSave, FaUndo, FaTrash } from "react-icons/fa";
 import "../../style/userDashboard/userProfileSettings.css";
+import ConfirmationModal from "../../components/common/confirmationModal";
 
 function UserProfileSettings() {
-  const { user, refreshUser, updateUserData } = useAuth();  
+  const { user, refreshUser, updateUserData, sendTrainerDeleteRequest } = useAuth();  
   const [serverError, setServerError] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -19,6 +20,8 @@ function UserProfileSettings() {
   const [removeImage, setRemoveImage] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [deleteRequestLoading, setDeleteRequestLoading] = useState(false);
+  const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
 
   // Function to check if email already exists
   const checkEmailExists = async (email) => {
@@ -39,7 +42,7 @@ function UserProfileSettings() {
   useEffect(() => {
     if (user) {
       setCurrentUser(user);
-      const userImageUrl = user.image ? `http://localhost:3000/${user.image.replace(/^\/+/, "")}` : null;
+      const userImageUrl = user.image ? `http://localhost:3000/${user.image.replace(/^\/+/, "")}` : "/default-avatar-profile.jpg";
       setPreviewUrl(userImageUrl);
       setOriginalImageUrl(userImageUrl);
     }
@@ -50,6 +53,7 @@ function UserProfileSettings() {
     setImageFile(file);
     setPreviewUrl(URL.createObjectURL(file));
     profileFormik.setFieldValue("image", file.name);
+    setRemoveImage(false);
   };
 
   const profileFormik = useFormik({
@@ -198,6 +202,15 @@ function UserProfileSettings() {
             }
             
             toast.success("Profile and image updated successfully!");
+            
+            // Immediately update the auth context
+            try {
+              console.log("Updating auth context after image upload...");
+              await updateUserData();
+              console.log("Auth context updated successfully");
+            } catch (updateErr) {
+              console.error("Failed to update auth context:", updateErr);
+            }
           } catch (imageErr) {
             console.error("Image upload error:", imageErr);
             toast.warning("Profile updated but image upload failed. Please try uploading the image again.");
@@ -211,13 +224,20 @@ function UserProfileSettings() {
             // Update the user state with the default image data
             if (removeResponse.data && removeResponse.data.user) {
               setCurrentUser(removeResponse.data.user);
-              const defaultImageUrl = removeResponse.data.user.image ? 
-                `http://localhost:3000/${removeResponse.data.user.image.replace(/^\/+/, "")}` : null;
-              setPreviewUrl(defaultImageUrl);
-              setOriginalImageUrl(defaultImageUrl);
+              setPreviewUrl("/default-avatar-profile.jpg");
+              setOriginalImageUrl("/default-avatar-profile.jpg");
             }
             
             toast.success("Profile updated and image removed successfully!");
+            
+            // Immediately update the auth context
+            try {
+              console.log("Updating auth context after image removal...");
+              await updateUserData();
+              console.log("Auth context updated successfully");
+            } catch (updateErr) {
+              console.error("Failed to update auth context:", updateErr);
+            }
           } catch (removeErr) {
             console.error("Image removal error:", removeErr);
             toast.warning("Profile updated but image removal failed. Please try again.");
@@ -320,48 +340,44 @@ function UserProfileSettings() {
           onSubmit={profileFormik.handleSubmit}
         >
           {/* Profile Image Section */}
-          <div className="profile-image-section">
-            <h3><FaCamera className="me-2" />Profile Picture</h3>
-            <div className="image-upload-container">
-              {previewUrl ? (
-                <div className="image-preview-wrapper">
-                  <img
-                    src={previewUrl}
-                    alt="Profile preview"
-                    className="image-preview"
-                    onError={(e) => {
-                      console.log("Image failed to load:", previewUrl);
-                      e.target.style.display = 'none';
-                    }}
-                  />
-
-                  {(originalImageUrl || imageFile) && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setImageFile(null);
-                        setPreviewUrl(null);
-                        setOriginalImageUrl(null);
-                        setRemoveImage(true);
-                        profileFormik.setFieldValue("image", "");
-                      }}
-                      className="image-remove-original-btn"
-                      aria-label="Remove original image"
-                      title="Remove profile picture"
-                    >
-                      Remove Profile Picture
-                    </button>
-                  )}
-                </div>
-              ) : (
-                <div className="image-upload-placeholder">
-                  <ImageUploader
-                    onFileSelected={handleImageSelect}
-                    previewUrl={previewUrl}
-                  />
-                </div>
-              )}
-            </div>
+          <div className="profile-image-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', background: 'none', boxShadow: 'none', border: 'none', padding: 0, paddingBottom: '2rem' }}>
+            <h3 style={{ alignSelf: 'flex-start' }}><FaCamera className="me-2" />Profile Picture</h3>
+            <img
+              src={previewUrl || "/default-avatar-profile.jpg"}
+              alt="Profile preview"
+              style={{ width: 120, height: 120, borderRadius: '50%', objectFit: 'cover', border: '1px solid #ccc', marginBottom: 0 }}
+              onError={(e) => {
+                e.target.src = "/default-avatar-profile.jpg";
+              }}
+            />
+            {/* Only show remove button if not already default avatar */}
+            {previewUrl !== "/default-avatar-profile.jpg" && (
+              <button
+                type="button"
+                onClick={() => {
+                  setImageFile(null);
+                  setPreviewUrl("/default-avatar-profile.jpg");
+                  setOriginalImageUrl("/default-avatar-profile.jpg");
+                  setRemoveImage(true);
+                  profileFormik.setFieldValue("image", "");
+                }}
+                style={{ marginTop: 8, marginBottom: 24 }}
+                className="image-remove-original-btn"
+                aria-label="Remove original image"
+                title="Remove profile picture"
+              >
+                Remove Profile Picture
+              </button>
+            )}
+            {/* Always show upload option if default avatar is displayed */}
+            {previewUrl === "/default-avatar-profile.jpg" && (
+              <div style={{ width: '100%', marginTop: 8 }}>
+                <ImageUploader
+                  onFileSelected={handleImageSelect}
+                  previewUrl={null}
+                />
+              </div>
+            )}
           </div>
 
           {/* Personal Information Section */}
@@ -546,30 +562,30 @@ function UserProfileSettings() {
           {/* Action Buttons */}
           <div className="submit-section">
             <div className="d-flex gap-3 justify-content-center">
-                              <button 
-                  type="button" 
-                  className="reset-btn"
-                  onClick={() => {
-                    if (currentUser) {
-                      profileFormik.setValues({
-                        firstName: currentUser.firstName || "",
-                        lastName: currentUser.lastName || "",
-                        email: currentUser.email || "",
-                        age: currentUser.age || "",
-                        gender: currentUser.gender || "",
-                        height: currentUser.stats?.height || "",
-                        weight: currentUser.stats?.weight || "",
-                        bodyFat: currentUser.stats?.bodyFat || "",
-                        image: "",
-                      });
-                      setImageFile(null);
-                      setPreviewUrl(originalImageUrl);
-                      setRemoveImage(false);
-                      toast.info("Form reset to original values");
-                    }
-                  }}
-                  disabled={isLoading}
-                >
+              <button 
+                type="button" 
+                className="reset-btn"
+                onClick={() => {
+                  if (currentUser) {
+                    profileFormik.setValues({
+                      firstName: currentUser.firstName || "",
+                      lastName: currentUser.lastName || "",
+                      email: currentUser.email || "",
+                      age: currentUser.age || "",
+                      gender: currentUser.gender || "",
+                      height: currentUser.stats?.height || "",
+                      weight: currentUser.stats?.weight || "",
+                      bodyFat: currentUser.stats?.bodyFat || "",
+                      image: "",
+                    });
+                    setImageFile(null);
+                    setPreviewUrl(originalImageUrl);
+                    setRemoveImage(false);
+                    toast.info("Form reset to original values");
+                  }
+                }}
+                disabled={isLoading}
+              >
                 <FaUndo className="me-2" />
                 Reset
               </button>
@@ -583,7 +599,52 @@ function UserProfileSettings() {
               </button>
             </div>
           </div>
+
+          {/* Delete Account Request Section - Only for Trainers */}
+          {user?.role === "trainer" && (
+            <div className="form-section" style={{ marginTop: '2rem', borderTop: '1px solid #dee2e6', paddingTop: '2rem' }}>
+              <h3 style={{ color: '#dc3545' }}><FaTrash className="me-2" />Delete Account Request</h3>
+              <p style={{ color: '#6c757d', fontSize: '0.9rem', marginBottom: '1rem' }}>
+                Request to delete your trainer account. This action will be reviewed by an administrator.
+              </p>
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={() => setShowDeleteConfirmModal(true)}
+                disabled={deleteRequestLoading}
+                style={{ width: '100%', maxWidth: '300px' }}
+              >
+                <FaTrash className="me-2" />
+                {deleteRequestLoading ? "Sending Request..." : "Request Account Deletion"}
+              </button>
+            </div>
+          )}
         </form>
+
+        {/* Delete Confirmation Modal */}
+        <ConfirmationModal
+          show={showDeleteConfirmModal}
+          title="Request Account Deletion"
+          message="Are you sure you want to request account deletion? This action will be reviewed by an administrator and cannot be undone."
+          onConfirm={async () => {
+            setShowDeleteConfirmModal(false);
+            setDeleteRequestLoading(true);
+            try {
+              await sendTrainerDeleteRequest();
+              toast.success("Delete request sent successfully. An administrator will review your request.");
+            } catch (err) {
+              if (err.response?.status === 400 && err.response?.data === "Delete request already sent.") {
+                toast.warning("A delete request has already been sent and is pending review.");
+              } else {
+                toast.error(err.response?.data || "Failed to send delete request. Please try again.");
+              }
+            } finally {
+              setDeleteRequestLoading(false);
+            }
+          }}
+          onCancel={() => setShowDeleteConfirmModal(false)}
+          icon="fas fa-exclamation-triangle"
+        />
       </div>
     </div>
   );

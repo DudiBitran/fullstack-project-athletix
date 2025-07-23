@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Route, Routes, Navigate } from "react-router";
 import "./App.css";
 import CustomNavbar from "./components/navbar";
 import HomePage from "./pages/homePage";
@@ -7,19 +7,26 @@ import Login from "./pages/login";
 import Register from "./pages/register";
 import Contact from "./pages/contact";
 import About from "./pages/about";
-import UserMainDash from "./pages/userDashboard/userMainDash";
 import UserProfileSettings from "./pages/userDashboard/userProfileSettings";
 import CreateProgram from "./pages/trainerDashboard/createProgram";
+import UpdateProgram from "./pages/trainerDashboard/updateProgram";
 import MyClients from "./pages/trainerDashboard/myClients";
 import MyPrograms from "./pages/trainerDashboard/myPrograms";
 import CreateExercise from "./pages/trainerDashboard/createExercise";
 import MyExercises from "./pages/trainerDashboard/myExercises";
 import AddExercisesToDay from "./components/common/addExerciseToDay";
 import ProgramViewPage from "./pages/trainerDashboard/programView";
+import ProtectedTrainerRoute from "./components/common/ProtectedTrainerRoute";
+import ProtectedUserRoute from "./components/common/ProtectedUserRoute";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import MyProgram from "./pages/userDashboard/MyProgram";
+import ClientAnalytics from "./pages/trainerDashboard/ClientAnalytics";
+import { useAuth } from "./context/auth.context";
+import NotFound from "./pages/NotFound";
 
 function App() {
+  const { user } = useAuth();
   return (
     <div className="app-layout">
       <header>
@@ -33,18 +40,98 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
-          <Route path="/dashboard" element={<UserMainDash />} />
-          <Route path="/profile-settings" element={<UserProfileSettings />} />
-          <Route path="/trainer/create-program" element={<CreateProgram />} />
-          <Route path="/trainer/my-customers" element={<MyClients />} />
-          <Route path="/trainer/my-programs" element={<MyPrograms />} />
-          <Route path="/trainer/create-exercise" element={<CreateExercise />} />
-          <Route path="/trainer/my-exercises" element={<MyExercises />} />
-          <Route path="/trainer/add-exercise" element={<AddExercisesToDay />} />
+          <Route
+            path="/dashboard"
+            element={
+              user && user.role === "trainer" ? (
+                <Navigate to="/" />
+              ) : (
+                <ProtectedUserRoute>
+                  <MyProgram />
+                </ProtectedUserRoute>
+              )
+            }
+          />
+          <Route
+            path="/profile-settings"
+            element={
+              <ProtectedUserRoute>
+                <UserProfileSettings />
+              </ProtectedUserRoute>
+            }
+          />
+          <Route
+            path="/trainer/create-program"
+            element={
+              <ProtectedTrainerRoute>
+                <CreateProgram />
+              </ProtectedTrainerRoute>
+            }
+          />
+          <Route
+            path="/trainer/update-program/:programId"
+            element={
+              <ProtectedTrainerRoute>
+                <UpdateProgram />
+              </ProtectedTrainerRoute>
+            }
+          />
+          <Route
+            path="/trainer/my-customers"
+            element={
+              <ProtectedTrainerRoute>
+                <MyClients />
+              </ProtectedTrainerRoute>
+            }
+          />
+          <Route
+            path="/trainer/my-programs"
+            element={
+              <ProtectedTrainerRoute>
+                <MyPrograms />
+              </ProtectedTrainerRoute>
+            }
+          />
+          <Route
+            path="/trainer/create-exercise"
+            element={
+              <ProtectedTrainerRoute>
+                <CreateExercise />
+              </ProtectedTrainerRoute>
+            }
+          />
+          <Route
+            path="/trainer/my-exercises"
+            element={
+              <ProtectedTrainerRoute>
+                <MyExercises />
+              </ProtectedTrainerRoute>
+            }
+          />
+          <Route
+            path="/trainer/add-exercise"
+            element={
+              <ProtectedTrainerRoute>
+                <AddExercisesToDay />
+              </ProtectedTrainerRoute>
+            }
+          />
           <Route
             path="/trainer/program/:programId"
-            element={<ProgramViewPage />}
+            element={
+              <ProtectedTrainerRoute>
+                <ProgramViewPage />
+              </ProtectedTrainerRoute>
+            }
           />
+          <Route path="/trainer/client-analytics/:userId" element={
+            <ProtectedTrainerRoute>
+              <ClientAnalytics />
+            </ProtectedTrainerRoute>
+          } />
+        </Routes>
+        <Routes>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
 

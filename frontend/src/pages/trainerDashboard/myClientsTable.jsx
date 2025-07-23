@@ -1,8 +1,8 @@
-function MyClientsTableBody({ clients, onUnassign }) {
+function MyClientsTableBody({ clients, onUnassign, onViewAnalytics, onViewProgram }) {
   if (!clients || clients.length === 0) {
     return (
       <tr>
-        <td colSpan="6">No clients assigned.</td>
+        <td colSpan="7">No clients assigned.</td>
       </tr>
     );
   }
@@ -15,8 +15,10 @@ function MyClientsTableBody({ clients, onUnassign }) {
             <img
               src={
                 client.image
-                  ? `${baseUrl}/${client.image.replace(/^\/+/, "")}`
-                  : `${baseUrl}/public/defaults/trainer-icon.jpg`
+                  ? client.image.startsWith("http")
+                    ? client.image
+                    : `${baseUrl}/${client.image.replace(/^\/+/,'')}`
+                  : '/default-avatar-profile.jpg'
               }
               alt={`${client.firstName} ${client.lastName}`}
               style={{ width: "33px", height: "33px", borderRadius: "50%" }}
@@ -32,6 +34,20 @@ function MyClientsTableBody({ clients, onUnassign }) {
             {client.stats.weight} KG | {client.stats.height} CM
           </td>
           <td>
+            <button
+              className="btn btn-info btn-sm me-2"
+              onClick={() => onViewAnalytics(client._id)}
+            >
+              View Analytics
+            </button>
+            <button
+              className="btn btn-primary btn-sm me-2"
+              onClick={() => onViewProgram(client.programs)}
+              disabled={!(client.programs && client.programs.length > 0)}
+              title={client.programs && client.programs.length > 0 ? '' : 'No assigned program'}
+            >
+              View Program
+            </button>
             <button
               className="btn btn-danger btn-sm"
               onClick={() => onUnassign(client._id)}
