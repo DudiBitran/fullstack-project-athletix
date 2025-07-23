@@ -1,0 +1,22 @@
+24-07-2025 00:01:18 | ERROR: status: 400 | Message: User failed to register, email already in use.
+24-07-2025 00:01:36 | INFO: status: 304 | Message: User sent successfully.
+24-07-2025 00:01:36 | INFO: status: 200 | Message: User sent successfully.
+24-07-2025 00:01:54 | INFO: status: 200 | Message: Token provided.
+24-07-2025 00:01:54 | INFO: status: 200 | Message: User sent successfully.
+24-07-2025 00:01:54 | INFO: status: 200 | Message: Clients has been sent successfully.
+24-07-2025 00:01:54 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+24-07-2025 00:01:54 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+24-07-2025 00:01:54 | INFO: status: 200 | Message: Clients has been sent successfully.
+24-07-2025 00:01:54 | INFO: status: 200 | Message: Program sent successfully.
+24-07-2025 00:01:54 | INFO: status: 200 | Message: Program sent successfully.
+24-07-2025 00:02:12 | INFO: status: 200 | Message: User updated successfully.
+24-07-2025 00:02:12 | INFO: status: 200 | Message: User sent successfully.
+24-07-2025 00:02:16 | INFO: status: 200 | Message: User registered successfully
+24-07-2025 00:39:56 | ERROR: status: 400 | Message: User failed to register, email already in use.
+24-07-2025 00:40:15 | INFO: status: 200 | Message: User registered successfully
+24-07-2025 00:41:12 | INFO: status: 200 | Message: Token provided.
+24-07-2025 00:41:12 | INFO: status: 200 | Message: User sent successfully.
+24-07-2025 00:41:26 | INFO: status: 200 | Message: User updated successfully.
+24-07-2025 00:41:26 | INFO: status: 200 | Message: User sent successfully.
+24-07-2025 00:41:34 | INFO: status: 304 | Message: User sent successfully.
+24-07-2025 00:41:34 | INFO: status: 200 | Message: User sent successfully.

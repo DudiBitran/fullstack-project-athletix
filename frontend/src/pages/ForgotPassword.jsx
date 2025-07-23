@@ -23,8 +23,9 @@ function ForgotPassword() {
         <h2>Forgot Password</h2>
         <p>Enter your email to receive a password reset link.</p>
         {submitted ? (
-          <div className="server-error" style={{ color: 'green' }}>
-            If your email exists, you will receive a reset link.
+          <div className="server-message success" role="status" aria-live="polite">
+            <span style={{fontSize: '1.3em', lineHeight: 1, verticalAlign: 'middle'}} aria-hidden="true">✔️</span>
+            <span>If your email exists, you will receive a reset link.</span>
           </div>
         ) : (
           <form className="login-form" onSubmit={handleSubmit}>

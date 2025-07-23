@@ -10,6 +10,7 @@ const authMw = require("../../middleware/auth");
 const imageUpload = require("../../middleware/imageUpload");
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
+const { log } = require("console");
 
 router.post("/register", imageUpload.single("image"), async (req, res) => {
   if (typeof req.body.stats === "string") {
@@ -156,6 +157,8 @@ router.post('/forgot-password', async (req, res) => {
     await transporter.sendMail(mailOptions);
     res.send({ message: 'If your email exists, you will receive a reset link.' });
   } catch (err) {
+    console.log(err);
+    
     res.status(500).send('Internal server error.');
   }
 });

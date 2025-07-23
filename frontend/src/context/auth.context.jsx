@@ -41,7 +41,6 @@ export function AuthProvider({ children }) {
     try {
       const response = await userService.getMe();
       setUser(response.data);
-      console.log('Auth context - updating profileImage from:', profileImage, 'to:', response.data?.image);
       setProfileImage(response.data?.image);
       return response;
     } catch (err) {

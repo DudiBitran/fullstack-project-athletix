@@ -70,6 +70,14 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  resetPasswordToken: {
+    type: String,
+    default: null,
+  },
+  resetPasswordExpires: {
+    type: Date,
+    default: null,
+  },
 });
 
 userSchema.set("toJSON", {
