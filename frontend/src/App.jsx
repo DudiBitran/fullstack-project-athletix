@@ -129,8 +129,6 @@ function App() {
               <ClientAnalytics />
             </ProtectedTrainerRoute>
           } />
-        </Routes>
-        <Routes>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

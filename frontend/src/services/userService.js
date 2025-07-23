@@ -103,6 +103,15 @@ const getAllTimeProgressAnalytics = async () => {
   return httpService.get("/analytics/progress-alltime");
 };
 
+const changePassword = async ({ currentPassword, newPassword }) => {
+  try {
+    const response = await httpService.patch("/users/me/change-password", { currentPassword, newPassword });
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const userService = {
   login,
   logout,
@@ -119,5 +128,6 @@ userService.getWorkoutStatuses = getWorkoutStatuses;
 userService.getProgressAnalytics = getProgressAnalytics;
 userService.getWeeklyActivityAnalytics = getWeeklyActivityAnalytics;
 userService.getAllTimeProgressAnalytics = getAllTimeProgressAnalytics;
+userService.changePassword = changePassword;
 
 export default userService;

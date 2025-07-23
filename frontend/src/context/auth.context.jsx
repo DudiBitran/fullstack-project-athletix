@@ -238,6 +238,10 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const changePassword = async ({ currentPassword, newPassword }) => {
+    return userService.changePassword({ currentPassword, newPassword });
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -265,6 +269,7 @@ export function AuthProvider({ children }) {
         addExerciseToDay,
         deleteExerciseFromDay,
         sendTrainerDeleteRequest,
+        changePassword,
       }}
     >
       {children}

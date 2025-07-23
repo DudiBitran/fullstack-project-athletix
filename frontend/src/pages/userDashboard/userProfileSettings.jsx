@@ -10,9 +10,10 @@ import userService from "../../services/userService";
 import { FaUser, FaEnvelope, FaBirthdayCake, FaVenusMars, FaRulerVertical, FaWeight, FaPercentage, FaCamera, FaSave, FaUndo, FaTrash } from "react-icons/fa";
 import "../../style/userDashboard/userProfileSettings.css";
 import ConfirmationModal from "../../components/common/confirmationModal";
+import axios from "axios";
 
 function UserProfileSettings() {
-  const { user, refreshUser, updateUserData, sendTrainerDeleteRequest } = useAuth();  
+  const { user, refreshUser, updateUserData, sendTrainerDeleteRequest, changePassword } = useAuth();  
   const [serverError, setServerError] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -22,6 +23,53 @@ function UserProfileSettings() {
   const [currentUser, setCurrentUser] = useState(null);
   const [deleteRequestLoading, setDeleteRequestLoading] = useState(false);
   const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
+  const [changePwLoading, setChangePwLoading] = useState(false);
+  const [changePwError, setChangePwError] = useState("");
+  const [changePwSuccess, setChangePwSuccess] = useState("");
+
+  // Change Password Formik
+  const [pwForm, setPwForm] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+
+  const handleChangePw = async (e) => {
+    e.preventDefault();
+    setChangePwError("");
+    setChangePwSuccess("");
+    if (!pwForm.currentPassword || !pwForm.newPassword || !pwForm.confirmPassword) {
+      setChangePwError("All fields are required.");
+      return;
+    }
+    if (pwForm.newPassword.length < 6) {
+      setChangePwError("New password must be at least 6 characters.");
+      return;
+    }
+    if (pwForm.newPassword !== pwForm.confirmPassword) {
+      setChangePwError("New passwords do not match.");
+      return;
+    }
+    setChangePwLoading(true);
+    try {
+      await changePassword({
+        currentPassword: pwForm.currentPassword,
+        newPassword: pwForm.newPassword,
+      });
+      setChangePwSuccess("Password changed successfully.");
+      setPwForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
+      toast.success("Password changed successfully.");
+    } catch (err) {
+      setChangePwError(
+        err.response?.data || err.message || "Failed to change password. Please try again."
+      );
+      toast.error(
+        err.response?.data || err.message || "Failed to change password. Please try again."
+      );
+    } finally {
+      setChangePwLoading(false);
+    }
+  };
 
   // Function to check if email already exists
   const checkEmailExists = async (email) => {
@@ -620,6 +668,54 @@ function UserProfileSettings() {
             </div>
           )}
         </form>
+
+        {/* Change Password Section */}
+        <div className="form-section" style={{ marginTop: '2.5rem', borderTop: '1px solid #dee2e6', paddingTop: '2.5rem' }}>
+          <h3 style={{ color: '#ffe600' }}>Change Password</h3>
+          <form onSubmit={handleChangePw} autoComplete="off" style={{ maxWidth: 400, margin: '0 auto' }}>
+            <div className="mb-3">
+              <label htmlFor="currentPassword" className="form-label">Current Password</label>
+              <input
+                type="password"
+                className="form-control"
+                id="currentPassword"
+                value={pwForm.currentPassword}
+                onChange={e => setPwForm(f => ({ ...f, currentPassword: e.target.value }))}
+                autoComplete="current-password"
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="newPassword" className="form-label">New Password</label>
+              <input
+                type="password"
+                className="form-control"
+                id="newPassword"
+                value={pwForm.newPassword}
+                onChange={e => setPwForm(f => ({ ...f, newPassword: e.target.value }))}
+                autoComplete="new-password"
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="confirmPassword" className="form-label">Confirm New Password</label>
+              <input
+                type="password"
+                className="form-control"
+                id="confirmPassword"
+                value={pwForm.confirmPassword}
+                onChange={e => setPwForm(f => ({ ...f, confirmPassword: e.target.value }))}
+                autoComplete="new-password"
+                required
+              />
+            </div>
+            {changePwError && <div className="text-danger mb-2">{changePwError}</div>}
+            {changePwSuccess && <div className="text-success mb-2">{changePwSuccess}</div>}
+            <button type="submit" className="btn btn-warning w-100" disabled={changePwLoading}>
+              {changePwLoading ? "Changing..." : "Change Password"}
+            </button>
+          </form>
+        </div>
 
         {/* Delete Confirmation Modal */}
         <ConfirmationModal

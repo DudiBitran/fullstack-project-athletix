@@ -8,6 +8,7 @@ const authMw = require("../../middleware/auth");
 const imageUpload = require("../../middleware/imageUpload");
 const path = require("path");
 const fs = require("fs");
+const bcrypt = require("bcrypt");
 
 router.get(
   "/me",
@@ -196,6 +197,39 @@ router.delete(
       );
     } catch (err) {
       console.log(err);
+      res.status(500).send("Internal server error.");
+      logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
+    }
+  }
+);
+
+// Change password
+router.patch(
+  "/me/change-password",
+  authMw,
+  permitRoles("user", "trainer", "admin"),
+  async (req, res) => {
+    const { currentPassword, newPassword } = req.body;
+    if (!currentPassword || !newPassword) {
+      return res.status(400).send("Current and new password are required.");
+    }
+    try {
+      const user = await User.findById(req.user._id);
+      if (!user) {
+        return res.status(404).send("User not found.");
+      }
+      // Check current password
+      const valid = await bcrypt.compare(currentPassword, user.password);
+      if (!valid) {
+        return res.status(400).send("Current password is incorrect.");
+      }
+      // Hash and set new password
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(newPassword, salt);
+      await user.save();
+      res.send({ message: "Password changed successfully." });
+      logger.info(`status: ${res.statusCode} | Message: Password changed successfully for user ${user._id}`);
+    } catch (err) {
       res.status(500).send("Internal server error.");
       logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
     }
