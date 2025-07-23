@@ -14,11 +14,13 @@ function MyClientsTableBody({ clients, onUnassign, onViewAnalytics, onViewProgra
           <td>
             <img
               src={
-                client.image
-                  ? client.image.startsWith("http")
+                !client.image ||
+                client.image === 'public/defaults/trainer-icon.jpg' ||
+                client.image === '/public/defaults/trainer-icon.jpg'
+                  ? '/default-avatar-profile.jpg'
+                  : client.image.startsWith("http")
                     ? client.image
-                    : `${baseUrl}/${client.image.replace(/^\/+/,'')}`
-                  : '/default-avatar-profile.jpg'
+                    : `${baseUrl}/${client.image.replace(/^\/+/,"")}`
               }
               alt={`${client.firstName} ${client.lastName}`}
               style={{ width: "33px", height: "33px", borderRadius: "50%" }}
