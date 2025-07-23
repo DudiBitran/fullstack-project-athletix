@@ -8,6 +8,8 @@ const jwt = require("jsonwebtoken");
 const { permitRoles } = require("../../middleware/role");
 const authMw = require("../../middleware/auth");
 const imageUpload = require("../../middleware/imageUpload");
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 
 router.post("/register", imageUpload.single("image"), async (req, res) => {
   if (typeof req.body.stats === "string") {
@@ -117,6 +119,64 @@ router.post("/login", async (req, res) => {
   } catch (err) {
     res.status(500).send("Internal server error.");
     logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
+  }
+});
+
+// Forgot Password Endpoint
+router.post('/forgot-password', async (req, res) => {
+  const { email } = req.body;
+  if (!email) return res.status(400).send({ message: 'Email is required.' });
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      // Always respond with success to prevent email enumeration
+      return res.send({ message: 'If your email exists, you will receive a reset link.' });
+    }
+    // Generate token
+    const token = crypto.randomBytes(32).toString('hex');
+    user.resetPasswordToken = token;
+    user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+    await user.save();
+
+    // Send email (configure your transporter)
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+    const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/reset-password?token=${token}`;
+    const mailOptions = {
+      to: user.email,
+      from: process.env.EMAIL_USER,
+      subject: 'Password Reset',
+      text: `You requested a password reset. Click the link to reset your password: ${resetUrl}\nIf you did not request this, please ignore this email.`
+    };
+    await transporter.sendMail(mailOptions);
+    res.send({ message: 'If your email exists, you will receive a reset link.' });
+  } catch (err) {
+    res.status(500).send('Internal server error.');
+  }
+});
+
+// Reset Password Endpoint
+router.post('/reset-password', async (req, res) => {
+  const { token, password } = req.body;
+  if (!token || !password) return res.status(400).send({ message: 'Token and new password are required.' });
+  try {
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+    if (!user) return res.status(400).send({ message: 'Invalid or expired token.' });
+    user.password = await bcrypt.hash(password, 14);
+    user.resetPasswordToken = null;
+    user.resetPasswordExpires = null;
+    await user.save();
+    res.send({ message: 'Password has been reset successfully.' });
+  } catch (err) {
+    res.status(500).send('Internal server error.');
   }
 });
 

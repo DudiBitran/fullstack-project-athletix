@@ -1,5 +1,5 @@
-import { FaLink } from "react-icons/fa";
-import { Link } from "react-router";
+import { FaLink, FaEdit } from "react-icons/fa";
+import { Link } from "react-router-dom";
 function ProgramCard({
   programs,
   onDeleteClick,
@@ -29,27 +29,31 @@ function ProgramCard({
               </div>
 
               <div className="card-footer bg-transparent d-flex flex-wrap justify-content-between gap-2">
-                <button
-                  className="btn btn-sm btn-outline-warning flex-fill"
-                  onClick={() => onEditClick(program)}
-                >
-                  ✏️ Edit
-                </button>
-                {!program.assignedTo ? (
+                <div className="d-flex gap-2 flex-nowrap align-items-center" style={{ minWidth: 'fit-content' }}>
+                  <button
+                    className="btn btn-sm btn-outline-warning d-flex align-items-center"
+                    onClick={() => onEditClick(program)}
+                    style={{ whiteSpace: 'nowrap' }}
+                  >
+                    <FaEdit style={{ marginRight: 4 }} /> Edit
+                  </button>
+                  {program.assignedTo && (
+                    <button
+                      onClick={() => onUnAssignClick(program._id, program.assignedTo)}
+                      className="btn btn-sm btn-outline-danger d-flex align-items-center"
+                      style={{ whiteSpace: 'nowrap' }}
+                    >
+                      <FaLink style={{ marginRight: 4 }} /> UnAssign
+                    </button>
+                  )}
+                </div>
+                {!program.assignedTo && (
                   <button
                     onClick={() => onAssignClick(program._id)}
-                    className="btn btn-sm btn-outline-success"
+                    className="btn btn-sm btn-outline-success d-flex align-items-center flex-fill"
+                    style={{ whiteSpace: 'nowrap' }}
                   >
-                    <FaLink /> Assign
-                  </button>
-                ) : (
-                  <button
-                    onClick={() =>
-                      onUnAssignClick(program._id, program.assignedTo)
-                    }
-                    className="btn btn-sm btn-outline-danger"
-                  >
-                    <FaLink /> UnAssign
+                    <FaLink style={{ marginRight: 4 }} /> Assign
                   </button>
                 )}
                 <button

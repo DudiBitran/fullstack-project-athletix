@@ -2,7 +2,7 @@ import "../style/login.css";
 import Input from "../components/common/input";
 import { useState } from "react";
 import { FaUser, FaLock } from "react-icons/fa";
-import { Link, useNavigate, Navigate } from "react-router";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import { useFormik } from "formik";
 import Joi from "joi";
 import { useAuth } from "../context/auth.context";
@@ -132,7 +132,7 @@ function Login() {
             </Link>
           </p>
           <p>
-            <Link className="link-span">Forgot the password?</Link>
+            <Link to="/forgot-password" className="link-span">Forgot the password?</Link>
           </p>
         </div>
       </div>

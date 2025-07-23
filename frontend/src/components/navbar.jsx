@@ -2,7 +2,7 @@ import { Navbar, Nav, NavDropdown, Container, Image } from "react-bootstrap";
 import { useState, useEffect, useRef } from "react";
 import "../style/navbar.css";
 import Logo from "./common/logo";
-import { Link, NavLink, useNavigate, useLocation } from "react-router";
+import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/auth.context";
 import { useTrainerSearchFilter } from "../context/trainerSearchFilter.context";
 function CustomNavbar() {

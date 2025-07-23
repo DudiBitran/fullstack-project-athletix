@@ -24,6 +24,8 @@ import MyProgram from "./pages/userDashboard/MyProgram";
 import ClientAnalytics from "./pages/trainerDashboard/ClientAnalytics";
 import { useAuth } from "./context/auth.context";
 import NotFound from "./pages/NotFound";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   const { user } = useAuth();
@@ -40,6 +42,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route
             path="/dashboard"
             element={

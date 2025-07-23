@@ -3,7 +3,7 @@ import "../../style/trainerDash/programDetails.css";
 import { useAuth } from "../../context/auth.context";
 import AssignProgramModal from "./assignProgramModal";
 import ConfirmationModal from "../common/confirmationModal";
-import { Navigate } from "react-router";
+import { Navigate } from "react-router-dom";
 import AddExercisesPage from "./addExerciseToDay";
 function ProgramDetails({ program, setProgram }) {
   const [showAssignModal, setShowAssignModal] = useState(false);

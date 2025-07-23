@@ -112,6 +112,14 @@ const changePassword = async ({ currentPassword, newPassword }) => {
   }
 };
 
+const forgotPassword = async (email) => {
+  return httpService.post('/auth/forgot-password', { email });
+};
+
+const resetPassword = async ({ token, password }) => {
+  return httpService.post('/auth/reset-password', { token, password });
+};
+
 const userService = {
   login,
   logout,
@@ -129,5 +137,7 @@ userService.getProgressAnalytics = getProgressAnalytics;
 userService.getWeeklyActivityAnalytics = getWeeklyActivityAnalytics;
 userService.getAllTimeProgressAnalytics = getAllTimeProgressAnalytics;
 userService.changePassword = changePassword;
+userService.forgotPassword = forgotPassword;
+userService.resetPassword = resetPassword;
 
 export default userService;
