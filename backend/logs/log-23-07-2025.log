@@ -744,3 +744,21 @@ Require stack:
 23-07-2025 22:13:20 | INFO: status: 200 | Message: Available clients have been sent successfully. 
 23-07-2025 22:13:20 | INFO: status: 200 | Message: Program sent successfully.
 23-07-2025 22:13:20 | INFO: status: 304 | Message: Program sent successfully.
+23-07-2025 22:14:03 | INFO: status: 304 | Message: Exercise have been sent successfully.
+23-07-2025 22:14:03 | INFO: status: 200 | Message: Exercise have been sent successfully.
+23-07-2025 22:14:05 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+23-07-2025 22:14:05 | INFO: status: 304 | Message: Clients has been sent successfully.
+23-07-2025 22:14:05 | INFO: status: 304 | Message: Program sent successfully.
+23-07-2025 22:14:05 | INFO: status: 200 | Message: Program sent successfully.
+23-07-2025 22:14:05 | INFO: status: 200 | Message: Clients has been sent successfully.
+23-07-2025 22:14:05 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+23-07-2025 22:14:10 | INFO: status: 304 | Message: Clients has been sent successfully.
+23-07-2025 22:14:10 | INFO: status: 200 | Message: Clients has been sent successfully.
+23-07-2025 22:14:12 | INFO: status: 304 | Message: Exercise have been sent successfully.
+23-07-2025 22:14:12 | INFO: status: 200 | Message: Exercise have been sent successfully.
+23-07-2025 22:14:13 | INFO: status: 304 | Message: Clients has been sent successfully.
+23-07-2025 22:14:13 | INFO: status: 200 | Message: Clients has been sent successfully.
+23-07-2025 22:14:13 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+23-07-2025 22:14:13 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+23-07-2025 22:14:13 | INFO: status: 304 | Message: Program sent successfully.
+23-07-2025 22:14:13 | INFO: status: 200 | Message: Program sent successfully.

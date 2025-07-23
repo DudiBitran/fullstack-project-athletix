@@ -191,3 +191,9 @@ nav .order-2 .nav-link {
     width: fit-content;
   }
 }
+
+@media (max-width: 600px) {
+  .navbar, .custom-navbar {
+    padding: 8px !important;
+  }
+}

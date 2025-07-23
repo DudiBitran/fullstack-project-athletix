@@ -36,22 +36,45 @@
 }
 
 .overlay-text h1 {
-  font-size: 18px;
+  font-size: 1.3rem !important;
   font-weight: 600;
 }
 
 .overlay-text h2 {
-  font-size: 40px;
+  font-size: 1.5rem;
   font-weight: 700;
   color: #fff;
 }
 
 .overlay-text p {
   color: #fff;
-  width: 700px;
+  width: 100%;
+  max-width: 700px;
   font-size: 18px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
+@media (max-width: 991.98px) {
+  .fixed-bg-section {
+    height: 300px;
+    min-height: 120px;
+    background-attachment: scroll;
+  }
+  .overlay-text h1 {
+    font-size: 1.2rem !important;
+  }
+  .overlay-text h2 {
+    font-size: 1.3rem;
+  }
+  .overlay-text p {
+    width: 95vw;
+    max-width: 95vw;
+    font-size: 0.95rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+}
 @media (max-width: 900px) {
   .fixed-bg-section {
     height: 350px;
@@ -59,13 +82,14 @@
     background-attachment: scroll;
   }
   .overlay-text h1 {
-    font-size: 1.2rem;
+    font-size: 1.15rem !important;
   }
   .overlay-text h2 {
-    font-size: 1.6rem;
+    font-size: 1.15rem;
   }
   .overlay-text p {
     width: 90vw;
+    max-width: 90vw;
     font-size: 1rem;
     margin: 0 auto;
   }
@@ -76,13 +100,14 @@
     min-height: 120px;
   }
   .overlay-text h1 {
-    font-size: 1rem;
+    font-size: 1.05rem !important;
   }
   .overlay-text h2 {
-    font-size: 1.2rem;
+    font-size: 1.05rem;
   }
   .overlay-text p {
     width: 95vw;
+    max-width: 95vw;
     font-size: 0.85rem;
   }
 }
@@ -93,13 +118,14 @@
     background-attachment: scroll;
   }
   .overlay-text h1 {
-    font-size: 1rem;
+    font-size: 0.95rem !important;
   }
   .overlay-text h2 {
-    font-size: 1.2rem;
+    font-size: 0.95rem;
   }
   .overlay-text p {
     width: 95vw;
+    max-width: 95vw;
     font-size: 0.85rem;
     margin: 0 auto;
   }
@@ -109,10 +135,10 @@
     height: 120px;
   }
   .overlay-text h1 {
-    font-size: 0.8rem;
+    font-size: 0.8rem !important;
   }
   .overlay-text h2 {
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
   .overlay-text p {
     font-size: 0.7rem;
