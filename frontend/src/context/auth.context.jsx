@@ -276,6 +276,15 @@ export function AuthProvider({ children }) {
     return trainerService.updateExercise(id, data);
   };
 
+  const deleteExerciseById = async (exerciseId) => {
+    try {
+      const response = await trainerService.deleteExerciseById(exerciseId);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -314,6 +323,7 @@ export function AuthProvider({ children }) {
         getAllTimeProgressAnalytics,
         getWeeklyActivityAnalytics,
         updateExercise,
+        deleteExerciseById,
       }}
     >
       {children}

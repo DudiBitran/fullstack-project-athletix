@@ -7,12 +7,14 @@ import { useAuth } from "../../context/auth.context";
 import "../../style/trainerDash/myExercises.css";
 import { Navigate } from "react-router";
 import ConfirmationModal from "../../components/common/confirmationModal";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function MyExercises() {
   const [exercises, setExercises] = useState([]);
   const [viewMode, setViewMode] = useState("grid");
   const [search, setSearch] = useState("");
-  const { user, getMyExercises } = useAuth();
+  const { user, getMyExercises, deleteExerciseById } = useAuth();
   const [showRemoveModal, setShowRemoveModal] = useState(false);
   const [removeId, setRemoveId] = useState(null);
 
@@ -40,10 +42,16 @@ function MyExercises() {
     setShowRemoveModal(true);
   }
 
-  function confirmRemove() {
-    setExercises(function(prev) {
-      return prev.filter(function(ex) { return ex._id !== removeId; });
-    });
+  async function confirmRemove() {
+    try {
+      await deleteExerciseById(removeId);
+      setExercises(function(prev) {
+        return prev.filter(function(ex) { return ex._id !== removeId; });
+      });
+      toast.success("Exercise deleted successfully!");
+    } catch (err) {
+      toast.error("Failed to delete exercise.");
+    }
     setShowRemoveModal(false);
     setRemoveId(null);
   }
@@ -85,10 +93,16 @@ function MyExercises() {
 
       <section className="w-100 px-3 px-lg-0 container-lg">
         {viewMode === "grid" ? (
-          <ExerciseCardList exercises={filteredExercises} onRemove={function(id) {
-            setExercises(function(prev) {
-              return prev.filter(function(ex) { return ex._id !== id; });
-            });
+          <ExerciseCardList exercises={filteredExercises} onRemove={async function(id) {
+            try {
+              await deleteExerciseById(id);
+              setExercises(function(prev) {
+                return prev.filter(function(ex) { return ex._id !== id; });
+              });
+              toast.success("Exercise deleted successfully!");
+            } catch (err) {
+              toast.error("Failed to delete exercise.");
+            }
           }} />
         ) : (
           <>
@@ -121,6 +135,7 @@ function MyExercises() {
               onCancel={function() { setShowRemoveModal(false); }}
               icon="fas fa-exclamation-triangle"
             />
+            <toast.Container />
           </>
         )}
       </section>

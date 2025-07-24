@@ -21,7 +21,8 @@
   width: 100%;
   margin-top: 20px;
   border-radius: 8px;
-  overflow-x: auto; 
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .my-clients-table table {
@@ -30,6 +31,7 @@
   background-color: #222;
   color: #eee;
   font-family: var(--font-family-Rajdhani);
+  min-width: 600px;
 }
 
 .my-clients-table thead {
@@ -74,25 +76,18 @@
 }
 
 /* Responsive styles */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .my-clients-table th:nth-child(3), /* Email header */
   .my-clients-table td:nth-child(3)  /* Email cell */ {
     display: none;
   }
-  .myClients-container h2 {
-    font-size: 32px;
-  }
-  .my-clients-table th,
-  .my-clients-table td {
-    padding: 10px 8px;
-    font-size: 0.95rem;
+  .my-clients-table th:nth-child(6), /* Stats header */
+  .my-clients-table td:nth-child(6)  /* Stats cell */ {
+    display: none;
   }
 }
 
-@media (max-width: 480px) {
-  .myClients-container {
-    padding: 90px 2px 30px 2px;
-  }
+@media (max-width: 600px) {
   .myClients-container h2 {
     font-size: 22px;
   }
@@ -100,5 +95,16 @@
   .my-clients-table td {
     font-size: 0.85rem;
     padding: 7px 4px;
+  }
+  .my-clients-table td:last-child {
+    min-width: 120px;
+  }
+  .my-clients-table td:last-child .btn {
+    display: block;
+    width: 100%;
+    margin-bottom: 6px;
+  }
+  .my-clients-table td:last-child .btn:last-child {
+    margin-bottom: 0;
   }
 }

@@ -209,6 +209,16 @@ const updateExercise = async (id, data) => {
   }
 };
 
+// delete exercise by id
+const deleteExerciseById = async (exerciseId) => {
+  try {
+    const response = await httpService.delete(`/exercise/${exerciseId}`);
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const trainerService = {
   createProgram,
   getMyProgramsById,
@@ -232,6 +242,7 @@ const trainerService = {
   getUserAllTimeProgressAnalytics,
   getUserWeeklyActivityAnalytics,
   updateExercise,
+  deleteExerciseById,
 };
 
 export default trainerService;

@@ -28,10 +28,10 @@ function ProgramCard({
                 </ul>
               </div>
 
-              <div className="card-footer bg-transparent d-flex flex-wrap justify-content-between gap-2">
-                <div className="d-flex gap-2 flex-nowrap align-items-center" style={{ minWidth: 'fit-content' }}>
+              <div className="card-footer bg-transparent">
+                <div className="d-flex flex-column gap-2">
                   <button
-                    className="btn btn-sm btn-outline-warning d-flex align-items-center"
+                    className="btn btn-sm btn-outline-warning d-flex align-items-center w-100 justify-content-center"
                     onClick={() => onEditClick(program)}
                     style={{ whiteSpace: 'nowrap' }}
                   >
@@ -40,34 +40,34 @@ function ProgramCard({
                   {program.assignedTo && (
                     <button
                       onClick={() => onUnAssignClick(program._id, program.assignedTo)}
-                      className="btn btn-sm btn-outline-danger d-flex align-items-center"
+                      className="btn btn-sm btn-outline-danger d-flex align-items-center w-100 justify-content-center"
                       style={{ whiteSpace: 'nowrap' }}
                     >
                       <FaLink style={{ marginRight: 4 }} /> UnAssign
                     </button>
                   )}
-                </div>
-                {!program.assignedTo && (
+                  {!program.assignedTo && (
+                    <button
+                      onClick={() => onAssignClick(program._id)}
+                      className="btn btn-sm btn-outline-success d-flex align-items-center w-100 justify-content-center"
+                      style={{ whiteSpace: 'nowrap' }}
+                    >
+                      <FaLink style={{ marginRight: 4 }} /> Assign
+                    </button>
+                  )}
                   <button
-                    onClick={() => onAssignClick(program._id)}
-                    className="btn btn-sm btn-outline-success d-flex align-items-center flex-fill"
-                    style={{ whiteSpace: 'nowrap' }}
+                    onClick={() => onDeleteClick(program._id)}
+                    className="btn btn-sm btn-outline-danger w-100"
                   >
-                    <FaLink style={{ marginRight: 4 }} /> Assign
+                    🗑️ Delete
                   </button>
-                )}
-                <button
-                  onClick={() => onDeleteClick(program._id)}
-                  className="btn btn-sm btn-outline-danger flex-fill"
-                >
-                  🗑️ Delete
-                </button>
-                <Link
-                  to={`/trainer/program/${program._id}`}
-                  className="btn btn-sm btn-outline-info flex-fill"
-                >
-                  View Details
-                </Link>
+                  <Link
+                    to={`/trainer/program/${program._id}`}
+                    className="btn btn-sm btn-outline-info w-100"
+                  >
+                    View Details
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
