@@ -236,4 +236,21 @@ router.patch(
   }
 );
 
+router.get(
+  "/:id",
+  authMw,
+  permitRoles("user", "trainer", "admin"),
+  async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+      if (!user) {
+        return res.status(404).send("User not found.");
+      }
+      res.send(user);
+    } catch (err) {
+      res.status(500).send("Internal server error.");
+    }
+  }
+);
+
 module.exports = router;

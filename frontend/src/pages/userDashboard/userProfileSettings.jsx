@@ -6,14 +6,13 @@ import { toast } from "react-toastify";
 import { Navigate } from "react-router";
 import Input from "../../components/common/input";
 import ImageUploader from "../../components/common/imageUploader";
-import userService from "../../services/userService";
 import { FaUser, FaEnvelope, FaBirthdayCake, FaVenusMars, FaRulerVertical, FaWeight, FaPercentage, FaCamera, FaSave, FaUndo, FaTrash } from "react-icons/fa";
 import "../../style/userDashboard/userProfileSettings.css";
 import ConfirmationModal from "../../components/common/confirmationModal";
 import axios from "axios";
 
 function UserProfileSettings() {
-  const { user, refreshUser, updateUserData, sendTrainerDeleteRequest, changePassword } = useAuth();  
+  const { user, refreshUser, updateUserData, sendTrainerDeleteRequest, changePassword, updateUser, updateUserImage, removeUserImage } = useAuth();  
   const [serverError, setServerError] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -214,7 +213,7 @@ function UserProfileSettings() {
 
         // Update profile information first
         try {
-          await userService.updateUser(updateData);
+          await updateUser(updateData);
         } catch (updateErr) {
           // Check if it's an email uniqueness error
           if (updateErr.response?.status === 400) {
@@ -237,7 +236,7 @@ function UserProfileSettings() {
         if (imageFile) {
           try {
             console.log("Uploading image:", imageFile);
-            const imageResponse = await userService.updateUserImage(imageFile);
+            const imageResponse = await updateUserImage(imageFile);
             console.log("Image upload response:", imageResponse);
             
             // Update the user state with the new image data
@@ -266,7 +265,7 @@ function UserProfileSettings() {
         } else if (removeImage) {
           try {
             console.log("Removing profile image...");
-            const removeResponse = await userService.removeUserImage();
+            const removeResponse = await removeUserImage();
             console.log("Remove image response:", removeResponse);
             
             // Update the user state with the default image data

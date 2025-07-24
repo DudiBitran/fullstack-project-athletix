@@ -86,8 +86,12 @@ function CustomNavbar() {
                     <Image
                       src={
                         profileImage
-                          ? `${baseUrl}/${profileImage.replace(/^\/+/,'')}`
-                          : `/default-avatar-profile.jpg`
+                          ? (profileImage === "/public/defaults/trainer-icon.jpg" || profileImage === "public/defaults/trainer-icon.jpg"
+                              ? "/trainer-icon.jpg"
+                              : profileImage.startsWith("http")
+                                ? profileImage
+                                : `${baseUrl}/${profileImage.replace(/^\/+/,'')}`)
+                          : "/default-avatar-profile.jpg"
                       }
                       roundedCircle
                       width="35"

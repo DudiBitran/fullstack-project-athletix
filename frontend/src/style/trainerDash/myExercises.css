@@ -137,6 +137,20 @@
   color: #a5ff7b;
 }
 
+.exercise-card-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  width: 100%;
+}
+.exercise-card-actions .btn {
+  margin: 0 2px;
+}
+
 /* ============ Responsive Design ============ */
 @media (max-width: 768px) {
   .myExercises-container h2 {

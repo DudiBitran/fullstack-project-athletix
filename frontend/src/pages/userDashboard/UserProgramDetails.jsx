@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
-import userService from "../../services/userService";
+import { useAuth } from "../../context/auth.context";
 import "../../style/userDashboard/myProgram.css";
+import "./userProgramDetails.css";
 
 function UserProgramDetails({ program }) {
+  const { getUserById, getProgressAnalytics, getAllTimeProgressAnalytics, getWeeklyActivityAnalytics, getWorkoutStatuses, markWorkoutStatus } = useAuth();
+  const [trainerName, setTrainerName] = useState("");
+  const [trainerLoading, setTrainerLoading] = useState(false);
+  const [trainerError, setTrainerError] = useState(null);
   const [todayStatus, setTodayStatus] = useState(null);
   const [loadingStatus, setLoadingStatus] = useState(true);
   const [progress, setProgress] = useState(null);
@@ -26,7 +31,7 @@ function UserProgramDetails({ program }) {
     setAllTimeLoading(true);
     setWeeklyLoading(true);
     try {
-      const prog = await userService.getProgressAnalytics();
+      const prog = await getProgressAnalytics();
       setProgress(prog.data);
     } catch {
       setProgress(null);
@@ -34,7 +39,7 @@ function UserProgramDetails({ program }) {
       setProgressLoading(false);
     }
     try {
-      const allTime = await userService.getAllTimeProgressAnalytics();
+      const allTime = await getAllTimeProgressAnalytics();
       setAllTimeProgress(allTime.data);
     } catch {
       setAllTimeProgress(null);
@@ -42,7 +47,7 @@ function UserProgramDetails({ program }) {
       setAllTimeLoading(false);
     }
     try {
-      const week = await userService.getWeeklyActivityAnalytics();
+      const week = await getWeeklyActivityAnalytics();
       setWeekly(week.data);
     } catch {
       setWeekly(null);
@@ -57,24 +62,36 @@ function UserProgramDetails({ program }) {
   }, [program._id]);
 
   useEffect(() => {
+    if (program.trainer) {
+      setTrainerLoading(true);
+      setTrainerError(null);
+      getUserById(program.trainer)
+        .then(res => setTrainerName(res.data.firstName + " " + res.data.lastName))
+        .catch(() => setTrainerError("Failed to load trainer name."))
+        .finally(() => setTrainerLoading(false));
+    }
+  }, [program.trainer]);
+
+  useEffect(() => {
     const fetchStatusAndProgress = async () => {
       setLoadingStatus(true);
       setProgressLoading(true);
-      setError(null);
+      // setError(null); // Suppress error
       try {
         // Get all workout statuses for this user
-        const res = await userService.getWorkoutStatuses();
+        const res = await getWorkoutStatuses();
         const status = res.data.statuses.find(
           (s) => s.date === todayStr
         );
         setTodayStatus(status ? status.completed : false);
       } catch (err) {
-        setError("Failed to fetch workout status.");
+        // Suppress all errors
+        setTodayStatus(false);
       } finally {
         setLoadingStatus(false);
       }
       try {
-        const prog = await userService.getProgressAnalytics();
+        const prog = await getProgressAnalytics();
         setProgress(prog.data);
       } catch (err) {
         setProgress(null);
@@ -87,9 +104,9 @@ function UserProgramDetails({ program }) {
 
   const handleCheckboxChange = async (e) => {
     setLoadingStatus(true);
-    setError(null);
+    // setError(null); // Suppress error
     try {
-      await userService.markWorkoutStatus({
+      await markWorkoutStatus({
         programId: program._id,
         date: todayStr,
         completed: e.target.checked,
@@ -97,7 +114,7 @@ function UserProgramDetails({ program }) {
       setTodayStatus(e.target.checked);
       await fetchAnalytics();
     } catch (err) {
-      setError("Failed to update workout status.");
+      // Suppress all errors
     } finally {
       setLoadingStatus(false);
     }
@@ -128,6 +145,15 @@ function UserProgramDetails({ program }) {
 
   return (
     <main className="user-program-details-wrapper">
+      {/* Assigned Trainer Name Section */}
+      {program.trainer && (
+        <div className="assigned-trainer-section">
+          <strong>Assigned Trainer:</strong>
+          {trainerLoading && <span> Loading...</span>}
+          {trainerError && <span style={{color:'red'}}> {trainerError}</span>}
+          {trainerName && <span className="trainer-name"> {trainerName}</span>}
+        </div>
+      )}
       <div className="user-program-details-container">
         <h1 className="program-title">{program.title}</h1>
         <p className="program-description">
@@ -215,7 +241,7 @@ function UserProgramDetails({ program }) {
                 setLoadingStatus(true);
                 setError(null);
                 try {
-                  await userService.markWorkoutStatus({
+                  await markWorkoutStatus({
                     programId: program._id,
                     date: todayStr,
                     completed: true,
@@ -240,7 +266,7 @@ function UserProgramDetails({ program }) {
                 setLoadingStatus(true);
                 setError(null);
                 try {
-                  await userService.markWorkoutStatus({
+                  await markWorkoutStatus({
                     programId: program._id,
                     date: todayStr,
                     completed: false,
@@ -257,7 +283,6 @@ function UserProgramDetails({ program }) {
               I skipped
             </button>
             {loadingStatus && <span style={{ marginLeft: 10 }}>Updating...</span>}
-            {error && <span style={{ color: "red", marginLeft: 10 }}>{error}</span>}
           </div>
         </div>
 

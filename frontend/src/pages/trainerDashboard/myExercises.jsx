@@ -6,12 +6,15 @@ import { MdList } from "react-icons/md";
 import { useAuth } from "../../context/auth.context";
 import "../../style/trainerDash/myExercises.css";
 import { Navigate } from "react-router";
+import ConfirmationModal from "../../components/common/confirmationModal";
 
 function MyExercises() {
   const [exercises, setExercises] = useState([]);
   const [viewMode, setViewMode] = useState("grid");
   const [search, setSearch] = useState("");
   const { user, getMyExercises } = useAuth();
+  const [showRemoveModal, setShowRemoveModal] = useState(false);
+  const [removeId, setRemoveId] = useState(null);
 
   // Remove the redundant role check since route is protected
   // if (user?.role !== "trainer") return <Navigate to="/" />;
@@ -31,6 +34,19 @@ function MyExercises() {
 
   // Filter exercises by name
   const filteredExercises = exercises.filter(ex => !search || (ex.name && ex.name.toLowerCase().includes(search.toLowerCase())));
+
+  function handleRemove(id) {
+    setRemoveId(id);
+    setShowRemoveModal(true);
+  }
+
+  function confirmRemove() {
+    setExercises(function(prev) {
+      return prev.filter(function(ex) { return ex._id !== removeId; });
+    });
+    setShowRemoveModal(false);
+    setRemoveId(null);
+  }
 
   return (
     <main className="myExercises-container">
@@ -69,25 +85,43 @@ function MyExercises() {
 
       <section className="w-100 px-3 px-lg-0 container-lg">
         {viewMode === "grid" ? (
-          <ExerciseCardList exercises={filteredExercises} />
+          <ExerciseCardList exercises={filteredExercises} onRemove={function(id) {
+            setExercises(function(prev) {
+              return prev.filter(function(ex) { return ex._id !== id; });
+            });
+          }} />
         ) : (
-          <div className="table-responsive">
-            <table className="table table-dark table-hover table-striped">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Sets</th>
-                  <th>Reps</th>
-                  <th>Rest</th>
-                  <th>Notes</th>
-                  <th>Attachment</th>
-                </tr>
-              </thead>
-              <tbody>
-                <ExerciseTableBody exercises={filteredExercises} />
-              </tbody>
-            </table>
-          </div>
+          <>
+            <div className="table-responsive">
+              <table className="table table-dark table-hover table-striped">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Sets</th>
+                    <th>Reps</th>
+                    <th>Rest</th>
+                    <th>Notes</th>
+                    <th>Attachment</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ExerciseTableBody
+                    exercises={filteredExercises}
+                    onRemove={handleRemove}
+                  />
+                </tbody>
+              </table>
+            </div>
+            <ConfirmationModal
+              show={showRemoveModal}
+              title="Remove Exercise"
+              message="Are you sure you want to remove this exercise?"
+              onConfirm={confirmRemove}
+              onCancel={function() { setShowRemoveModal(false); }}
+              icon="fas fa-exclamation-triangle"
+            />
+          </>
         )}
       </section>
     </main>

@@ -199,6 +199,16 @@ const getUserWeeklyActivityAnalytics = async (userId) => {
   return httpService.get(`/analytics/weekly-activity/${userId}`);
 };
 
+// update exercise by id
+const updateExercise = async (id, data) => {
+  try {
+    const response = await httpService.put(`/exercise/${id}`, data);
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const trainerService = {
   createProgram,
   getMyProgramsById,
@@ -221,6 +231,7 @@ const trainerService = {
   getUserWeekProgressAnalytics,
   getUserAllTimeProgressAnalytics,
   getUserWeeklyActivityAnalytics,
+  updateExercise,
 };
 
 export default trainerService;

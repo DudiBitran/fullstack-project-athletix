@@ -1,5 +1,6 @@
-import { Route, Routes, Navigate } from "react-router";
 import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
+import { Route, Routes, Navigate } from "react-router-dom";
 import CustomNavbar from "./components/navbar";
 import HomePage from "./pages/homePage";
 import Footer from "./components/footer";
@@ -19,13 +20,14 @@ import ProgramViewPage from "./pages/trainerDashboard/programView";
 import ProtectedTrainerRoute from "./components/common/ProtectedTrainerRoute";
 import ProtectedUserRoute from "./components/common/ProtectedUserRoute";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import MyProgram from "./pages/userDashboard/MyProgram";
 import ClientAnalytics from "./pages/trainerDashboard/ClientAnalytics";
 import { useAuth } from "./context/auth.context";
 import NotFound from "./pages/NotFound";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import EditExercise from "./pages/trainerDashboard/editExercise";
+import ViewExercise from "./pages/trainerDashboard/viewExercise";
 
 function App() {
   const { user } = useAuth();
@@ -128,11 +130,30 @@ function App() {
               </ProtectedTrainerRoute>
             }
           />
-          <Route path="/trainer/client-analytics/:userId" element={
-            <ProtectedTrainerRoute>
-              <ClientAnalytics />
-            </ProtectedTrainerRoute>
-          } />
+          <Route
+            path="/trainer/client-analytics/:userId"
+            element={
+              <ProtectedTrainerRoute>
+                <ClientAnalytics />
+              </ProtectedTrainerRoute>
+            }
+          />
+          <Route
+            path="/trainer/edit-exercise/:id"
+            element={
+              <ProtectedTrainerRoute>
+                <EditExercise />
+              </ProtectedTrainerRoute>
+            }
+          />
+          <Route
+            path="/trainer/view-exercise/:id"
+            element={
+              <ProtectedTrainerRoute>
+                <ViewExercise />
+              </ProtectedTrainerRoute>
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

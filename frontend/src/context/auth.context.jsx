@@ -241,6 +241,41 @@ export function AuthProvider({ children }) {
     return userService.changePassword({ currentPassword, newPassword });
   };
 
+  const getUserById = async (userId) => {
+    return userService.getUserById(userId);
+  };
+
+  const updateUser = async (userData) => {
+    return userService.updateUser(userData);
+  };
+  const updateUserImage = async (imageFile) => {
+    return userService.updateUserImage(imageFile);
+  };
+  const removeUserImage = async () => {
+    return userService.removeUserImage();
+  };
+
+  const markWorkoutStatus = async ({ programId, date, completed }) => {
+    return userService.markWorkoutStatus({ programId, date, completed });
+  };
+  const getWorkoutStatuses = async () => {
+    return userService.getWorkoutStatuses();
+  };
+
+  const getProgressAnalytics = async () => {
+    return userService.getProgressAnalytics();
+  };
+  const getAllTimeProgressAnalytics = async () => {
+    return userService.getAllTimeProgressAnalytics();
+  };
+  const getWeeklyActivityAnalytics = async () => {
+    return userService.getWeeklyActivityAnalytics();
+  };
+
+  const updateExercise = async (id, data) => {
+    return trainerService.updateExercise(id, data);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -269,6 +304,16 @@ export function AuthProvider({ children }) {
         deleteExerciseFromDay,
         sendTrainerDeleteRequest,
         changePassword,
+        getUserById,
+        updateUser,
+        updateUserImage,
+        removeUserImage,
+        markWorkoutStatus,
+        getWorkoutStatuses,
+        getProgressAnalytics,
+        getAllTimeProgressAnalytics,
+        getWeeklyActivityAnalytics,
+        updateExercise,
       }}
     >
       {children}

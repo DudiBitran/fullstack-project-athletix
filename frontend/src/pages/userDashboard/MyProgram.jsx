@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/auth.context";
 import UserProgramDetails from "./UserProgramDetails";
-import userService from "../../services/userService";
 import "../../style/userDashboard/myProgram.css";
 
 function MyProgram() {
-  const { user, getProgramById } = useAuth();
+  const { user, getProgramById, getProgressAnalytics, getAllTimeProgressAnalytics, getWeeklyActivityAnalytics } = useAuth();
   const [programs, setPrograms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -46,7 +45,7 @@ function MyProgram() {
       setAllTimeLoading(true);
       setWeeklyLoading(true);
       try {
-        const prog = await userService.getProgressAnalytics();
+        const prog = await getProgressAnalytics();
         setProgress(prog.data);
       } catch {
         setProgress(null);
@@ -54,7 +53,7 @@ function MyProgram() {
         setProgressLoading(false);
       }
       try {
-        const allTime = await userService.getAllTimeProgressAnalytics();
+        const allTime = await getAllTimeProgressAnalytics();
         setAllTimeProgress(allTime.data);
       } catch {
         setAllTimeProgress(null);
@@ -62,7 +61,7 @@ function MyProgram() {
         setAllTimeLoading(false);
       }
       try {
-        const week = await userService.getWeeklyActivityAnalytics();
+        const week = await getWeeklyActivityAnalytics();
         setWeekly(week.data);
       } catch {
         setWeekly(null);

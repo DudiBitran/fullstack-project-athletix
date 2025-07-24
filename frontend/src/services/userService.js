@@ -120,6 +120,15 @@ const resetPassword = async ({ token, password }) => {
   return httpService.post('/auth/reset-password', { token, password });
 };
 
+const getUserById = async (userId) => {
+  try {
+    const response = await httpService.get(`/users/${userId}`);
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const userService = {
   login,
   logout,
@@ -129,15 +138,15 @@ const userService = {
   updateUserImage,
   removeUserImage,
   getJwt,
+  markWorkoutStatus,
+  getWorkoutStatuses,
+  getProgressAnalytics,
+  getWeeklyActivityAnalytics,
+  getAllTimeProgressAnalytics,
+  changePassword,
+  forgotPassword,
+  resetPassword,
+  getUserById,
 };
-
-userService.markWorkoutStatus = markWorkoutStatus;
-userService.getWorkoutStatuses = getWorkoutStatuses;
-userService.getProgressAnalytics = getProgressAnalytics;
-userService.getWeeklyActivityAnalytics = getWeeklyActivityAnalytics;
-userService.getAllTimeProgressAnalytics = getAllTimeProgressAnalytics;
-userService.changePassword = changePassword;
-userService.forgotPassword = forgotPassword;
-userService.resetPassword = resetPassword;
 
 export default userService;

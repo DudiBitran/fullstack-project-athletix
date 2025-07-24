@@ -2,13 +2,14 @@ import { useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Joi from "joi";
-import userService from "../services/userService";
+import { useAuth } from "../context/auth.context";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "../style/resetPassword.css";
 
 const passwordRegex = /^(?=(?:.*\d){4,})(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
 
 function ResetPassword() {
+  const { resetPassword } = useAuth();
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
   const [submitted, setSubmitted] = useState(false);
@@ -51,7 +52,7 @@ function ResetPassword() {
     }
     setLoading(true);
     try {
-      await userService.resetPassword({ token, password: values.password });
+      await resetPassword({ token, password: values.password });
       setSubmitted(true);
       setTimeout(() => navigate("/login"), 2000);
     } catch (err) {

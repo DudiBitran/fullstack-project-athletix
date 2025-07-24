@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import userService from "../services/userService";
+import { useAuth } from "../context/auth.context";
 import Joi from "joi";
 import "../style/forgotPassword.css";
 
 function ForgotPassword() {
+  const { forgotPassword } = useAuth();
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
 
@@ -30,7 +31,7 @@ function ForgotPassword() {
   const handleSubmit = async (values, { setSubmitting }) => {
     setError("");
     try {
-      await userService.forgotPassword(values.email);
+      await forgotPassword(values.email);
       setSubmitted(true);
     } catch (err) {
       setError("Something went wrong. Please try again later.");
