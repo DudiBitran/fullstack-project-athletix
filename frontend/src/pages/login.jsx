@@ -57,7 +57,11 @@ function Login() {
       try {
         const userDetails = generatePostObj(values);
         await login(userDetails);
-        navigate("/");
+        if (user && user.role === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
       } catch (err) {
         if (err.response?.status === 400) {
           const response = err.response.data;
@@ -68,7 +72,7 @@ function Login() {
   });
 
   if (user) {
-    return <Navigate to="/" />;
+    return <Navigate to={user.role === "admin" ? "/admin" : "/"} />;
   }
 
   return (

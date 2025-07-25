@@ -60,7 +60,7 @@ router.patch("/", authMw, permitRoles("user"), async (req, res) => {
         req.user._id
       } on ${parsedDate.toDateString()}`
     );
-  } catch (err) {
+  } catch (err) {n``
     res.status(500).send("Internal server error.");
     logger.error(
       `Status: ${res.statusCode} | Workout status error: ${err.message}`

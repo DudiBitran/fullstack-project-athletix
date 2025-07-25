@@ -46,7 +46,9 @@ function ConfirmationModal({
               ></button>
             </div>
             <div className="modal-body">
-              <p>{message || "Are you sure you want to proceed?"}</p>
+              <p style={{ color: '#222', fontWeight: 500, fontSize: '1.1rem', margin: 0, padding: '8px 0', wordBreak: 'break-word' }}>
+                {message || "Are you sure you want to proceed?"}
+              </p>
             </div>
             <div className="modal-footer mt-auto">
               <button className="btn btn-secondary" onClick={onCancel}>

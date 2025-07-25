@@ -134,6 +134,13 @@ const updateValidation = Joi.object(
   _.pick(validation, ["firstName", "lastName", "image", "email", "age", "gender", "stats"])
 );
 
+const userUpdateValidation = Joi.object({
+  firstName: Joi.string().required(),
+  lastName: Joi.string().required(),
+  email: Joi.string().email().required(),
+  // password removed, not updatable by admin
+});
+
 const AssignTrainerValidation = Joi.object({
   trainerId: Joi.string().length(24).hex().required().messages({
     "string.base": "Trainer ID must be a string.",
@@ -147,6 +154,7 @@ module.exports = {
   userValidation,
   loginValidation,
   updateValidation,
+  userUpdateValidation,
   AssignTrainerValidation,
   User,
 };

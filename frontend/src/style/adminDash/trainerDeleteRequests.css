@@ -1,0 +1,191 @@
+/* Trainer Delete Requests Styles */
+
+.trainer-delete-requests-section {
+  margin-bottom: 2rem;
+}
+
+.trainer-delete-requests-section h2 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Filter Container */
+.filter-container {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  background-color: #2a2a2a;
+  padding: 16px;
+  border-radius: 8px;
+  border: 2px solid #ffd900;
+}
+
+/* Filter Groups */
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.filter-label {
+  color: #ffd900;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Filter Inputs */
+.filter-select,
+.filter-input {
+  min-width: 120px;
+  background-color: #333;
+  border: 2px solid #ffd900;
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.filter-input {
+  min-width: 180px;
+}
+
+.filter-select:focus,
+.filter-input:focus {
+  outline: none;
+  border-color: #fff;
+  background-color: #444;
+}
+
+/* Filter Options */
+.filter-select option {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Table Styles */
+.trainer-delete-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #181818;
+  color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.trainer-delete-table thead {
+  background: #232323;
+}
+
+.trainer-delete-table th {
+  padding: 12px 8px;
+  text-align: left;
+  color: var(--primary-color);
+  font-weight: 600;
+  border-bottom: 2px solid #333;
+}
+
+.trainer-delete-table tbody tr {
+  border-bottom: 1px solid #333;
+}
+
+.trainer-delete-table tbody tr:hover {
+  background: #222;
+}
+
+.trainer-delete-table td {
+  padding: 12px 8px;
+  border-bottom: 1px solid #333;
+}
+
+/* Action Buttons */
+.action-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  margin-right: 8px;
+  transition: opacity 0.2s;
+}
+
+.action-btn:hover {
+  opacity: 0.8;
+}
+
+.action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-success {
+  background: #28a745;
+  color: #fff;
+}
+
+.btn-danger {
+  background: #dc3545;
+  color: #fff;
+}
+
+/* Loading and Error States */
+.loading-message {
+  text-align: center;
+  padding: 20px;
+  color: #ccc;
+  font-style: italic;
+}
+
+.error-message {
+  background: #dc3545;
+  color: #fff;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .filter-container {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .filter-group {
+    width: 100%;
+  }
+  
+  .filter-select,
+  .filter-input {
+    width: 100%;
+    min-width: auto;
+  }
+  
+  .trainer-delete-table {
+    font-size: 14px;
+  }
+  
+  .trainer-delete-table th,
+  .trainer-delete-table td {
+    padding: 8px 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-container {
+    padding: 12px;
+  }
+  
+  .trainer-delete-table {
+    font-size: 13px;
+  }
+  
+  .action-btn {
+    padding: 4px 8px;
+    font-size: 11px;
+    margin-right: 4px;
+  }
+} 

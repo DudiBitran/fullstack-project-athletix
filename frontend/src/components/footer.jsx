@@ -49,6 +49,7 @@ function Footer() {
                     {user.role === "trainer" && <li><NavLink to="/trainer/my-exercises" className="text-white">My Exercises</NavLink></li>}
                     {user.role === "trainer" && <li><NavLink to="/trainer/my-customers" className="text-white">My Clients</NavLink></li>}
                     {user.role === "user" && <li><NavLink to="/dashboard" className="text-white">My Program</NavLink></li>}
+                    {user.role === "admin" && <li><NavLink to="/admin" className="text-white">Admin Panel</NavLink></li>}
                     <li><NavLink to="/profile-settings" className="text-white">Profile Settings</NavLink></li>
                   </>
                 )}

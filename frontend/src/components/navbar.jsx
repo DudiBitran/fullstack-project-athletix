@@ -144,7 +144,7 @@ function CustomNavbar() {
                   </Nav.Link>
                 </>
               )}
-              {user && user.role !== "trainer" && (
+              {user && user.role === "user" && (
                 <Nav.Link as={NavLink} to="/dashboard" onClick={handleNavLinkClick}>
                   Dashboard
                 </Nav.Link>
@@ -162,6 +162,11 @@ function CustomNavbar() {
               {user?.role === "trainer" && (
                 <Nav.Link as={NavLink} to="/trainer/my-customers" onClick={handleNavLinkClick}>
                   My clients
+                </Nav.Link>
+              )}
+              {user?.role === "admin" && (
+                <Nav.Link as={NavLink} to="/admin" onClick={handleNavLinkClick}>
+                  Admin Panel
                 </Nav.Link>
               )}
             </Nav>

@@ -1,0 +1,168 @@
+/* Admin Tables Styles */
+
+/* Simple Responsive Table */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  background: #181818;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+
+/* Main Table */
+.table {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+  background: #181818;
+  color: #fff;
+}
+
+.table thead {
+  background: #232323;
+}
+
+.table th {
+  padding: 12px 8px;
+  text-align: left;
+  color: var(--primary-color);
+  font-weight: 600;
+  border-bottom: 2px solid #333;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid #333;
+}
+
+.table tbody tr:hover {
+  background: #222;
+}
+
+.table td {
+  padding: 12px 8px;
+  border-bottom: 1px solid #333;
+}
+
+/* Actions Column */
+.table th:last-child,
+.table td:last-child {
+  min-width: 250px !important;
+  width: 250px !important;
+}
+
+/* Action Buttons */
+.table-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.table-actions .btn {
+  width: 100%;
+  padding: 6px 8px;
+  font-size: 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  min-height: 50px !important;
+  font-size: 16px !important;
+}
+
+.table-actions .btn-secondary {
+  background: #6c757d;
+  color: #fff;
+}
+
+.table-actions .btn-warning {
+  background: #ffc107;
+  color: #000;
+}
+
+.table-actions .btn-danger {
+  background: #dc3545;
+  color: #fff;
+}
+
+.table-actions .btn:hover {
+  opacity: 0.8;
+}
+
+/* Scroll Hint */
+.table-scroll-hint {
+  display: none;
+  font-size: 12px;
+  color: var(--primary-color);
+  text-align: right;
+  margin-bottom: 8px;
+  font-style: italic;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 768px) {
+  .table {
+    min-width: 700px;
+  }
+  
+  .table-scroll-hint {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .table {
+    min-width: 800px;
+    font-size: 13px;
+  }
+  
+  .table th,
+  .table td {
+    padding: 8px 6px;
+  }
+  
+  .table-actions .btn {
+    font-size: 11px;
+    padding: 5px 6px;
+  }
+}
+
+@media (max-width: 450px) {
+  .table-responsive {
+    overflow-x: auto !important;
+    width: 100% !important;
+  }
+  
+  .table {
+    min-width: 1000px !important;
+    width: 100% !important;
+  }
+  
+  .table th:last-child,
+  .table td:last-child {
+    min-width: 250px !important;
+    width: 250px !important;
+    position: sticky !important;
+    right: 0 !important;
+    z-index: 999 !important;
+  }
+  
+  .table th:last-child {
+    z-index: 1000 !important;
+  }
+  
+  .table-actions {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+  
+  .table-actions .btn {
+    font-size: 16px !important;
+    padding: 15px 20px !important;
+    width: 100% !important;
+    min-height: 50px !important;
+  }
+} 

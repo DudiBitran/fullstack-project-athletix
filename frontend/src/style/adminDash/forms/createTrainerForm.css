@@ -1,0 +1,168 @@
+/* Create Trainer Form Styles */
+
+.create-trainer-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background: linear-gradient(135deg, #181818, #23272f);
+  padding: 40px 0;
+}
+
+.create-trainer-box {
+  background: rgba(30, 30, 30, 0.95);
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  padding: 36px 32px 32px 32px;
+  max-width: 420px;
+  width: 100%;
+  color: #f3f3f3;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.create-trainer-box h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #ffd900;
+}
+
+.create-trainer-box p {
+  font-size: 15px;
+  color: #bdbdbd;
+  margin-bottom: 22px;
+}
+
+.create-trainer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+}
+
+.create-trainer-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.create-trainer-input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  text-align: left;
+}
+
+.create-trainer-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #f3f3f3;
+  margin-bottom: 4px;
+}
+
+.create-trainer-input {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #444;
+  color: #f3f3f3;
+  padding: 10px 0 8px 0;
+  font-size: 15px;
+  transition: border-color 0.3s;
+}
+
+.create-trainer-input:focus {
+  outline: none;
+  border-bottom: 2px solid #ffd900;
+}
+
+/* Custom select styles for CreateTrainer */
+.create-trainer-input[type="select"],
+.create-trainer-input select,
+.create-trainer-input-group select.create-trainer-input {
+  background: #23272f;
+  color: #f3f3f3;
+  border: 1.5px solid #444;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 15px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  transition: border-color 0.3s, background 0.3s;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  box-shadow: none;
+}
+
+.create-trainer-input-group select.create-trainer-input:focus {
+  border-color: #ffd900;
+  background: #23272f;
+  color: #fff;
+}
+
+.create-trainer-input-group select.create-trainer-input option {
+  background: #23272f;
+  color: #f3f3f3;
+}
+
+/* Custom dropdown arrow for select */
+.create-trainer-input-group select.create-trainer-input {
+  background-image: url("data:image/svg+xml;charset=UTF-8,<svg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M4 6L8 10L12 6' stroke='%23ffd900' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 18px 18px;
+  padding-right: 36px;
+}
+
+.create-trainer-invalid-feedback {
+  color: #ff6b6b;
+  font-size: 13px;
+  margin-top: 2px;
+  text-align: left;
+}
+
+.create-trainer-success {
+  background: #1e7e34;
+  color: #fff;
+  padding: 8px 0;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.create-trainer-error {
+  background: #ad0000;
+  color: #fff;
+  padding: 8px 0;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.create-trainer-btn {
+  margin-top: 10px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #ffd900;
+  color: #181818;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.create-trainer-btn:hover {
+  background: #fff200;
+  color: #000;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .create-trainer-box {
+    padding: 20px 8px;
+    max-width: 98vw;
+  }
+} 

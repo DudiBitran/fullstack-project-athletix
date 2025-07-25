@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { User, userValidation } = require("../../model/user");
+const { User, userValidation, userUpdateValidation } = require("../../model/user");
 const { trainerValidation, Trainer } = require("../../model/trainer");
 const logger = require("../../fileLogger/fileLogger");
 const _ = require("lodash");
@@ -14,7 +14,7 @@ const {
 } = require("../../model/trainerDeleteRequest");
 
 // admin getting all users
-router.get("/", authMw, permitRoles("admin"), async (req, res) => {
+router.get("/get-all-users", authMw, permitRoles("admin"), async (req, res) => {
   try {
     const users = await User.find();
     if (users.length === 0) {
@@ -24,13 +24,14 @@ router.get("/", authMw, permitRoles("admin"), async (req, res) => {
     }
     res.send(users);
   } catch (err) {
+    console.log(err);
     res.status(500).send("Internal server error.");
     logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
   }
 });
 
 // Admin getting all trainers
-router.get("/", authMw, permitRoles("admin"), async (req, res) => {
+router.get("/trainers", authMw, permitRoles("admin"), async (req, res) => {
   try {
     const trainers = await User.find({ role: "trainer" });
     if (trainers.length === 0) {
@@ -101,9 +102,7 @@ router.post(
       await newTrainer.save();
 
       res.send(newTrainer);
-      logger.info(
-        `status: ${res.statusCode} | Message: A new trainer user created successfully.`
-      );
+      logger.info(`status: ${res.statusCode} | Message: A new trainer user created successfully.`);
     } catch (err) {
       console.log(err);
 
@@ -117,6 +116,58 @@ router.post(
 
       res.status(500).send("Internal server error.");
       logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
+    }
+  }
+);
+
+// Admin update user details
+router.put(
+  "/:id",
+  authMw,
+  permitRoles("admin"),
+  async (req, res) => {
+    try {
+      const { error } = userUpdateValidation.validate(req.body);
+      if (error) {
+        return res.status(400).send({
+          message: "Input validation error.",
+          details: error.details.map((e) => e.message),
+        });
+      }
+      // Only update allowed fields
+      const updateFields = _.pick(req.body, ["firstName", "lastName", "email"]);
+      const user = await User.findByIdAndUpdate(
+        req.params.id,
+        { $set: updateFields },
+        { new: true, runValidators: true }
+      );
+      if (!user) {
+        return res.status(404).send("User not found.");
+      }
+      res.send(user);
+    } catch (err) {
+      res.status(500).send("Internal server error.");
+    }
+  }
+);
+
+// Admin delete user by ID
+router.delete(
+  "/:id",
+  authMw,
+  permitRoles("admin"),
+  async (req, res) => {
+    try {
+      const user = await User.findByIdAndDelete(req.params.id);
+      if (!user) {
+        logger.error(`status: 404 | Message: User not found for delete. ID: ${req.params.id}`);
+        return res.status(404).send("User not found.");
+      }
+      res.send(user);
+      logger.info(`status: ${res.statusCode} | Message: User deleted successfully. ID: ${req.params.id}`);
+    } catch (err) {
+      logger.error(`status: 500 | Message: ${err.message}`);
+      res.status(500).send("Internal server error.");
     }
   }
 );
@@ -143,6 +194,7 @@ router.delete(
       }
       const deleteRequest = await DeleteRequest.findOne({
         trainerId: req.params.id,
+        status: "pending",
       });
       if (!deleteRequest) {
         res.status(400).send("Delete request not found.");
@@ -172,6 +224,7 @@ router.delete(
           { new: true }
         );
         res.status(200).send(deleteRequest);
+        logger.info(`status: ${res.statusCode} | Message: Trainer delete request rejected. TrainerID: ${req.params.id}`);
         logger.error(
           `status: ${res.statusCode} | Message: Delete request answared by reject.`
         );
@@ -197,8 +250,8 @@ router.delete(
           },
           { new: true }
         );
-
         res.send(deletedTrainer);
+        logger.info(`status: ${res.statusCode} | Message: Trainer deleted and request approved. TrainerID: ${req.params.id}`);
         return;
       }
     } catch (err) {
@@ -211,7 +264,7 @@ router.delete(
 // Get all delete request (Admin)
 
 router.get(
-  "/delete-request",
+  "/trainer-delete-requests",
   authMw,
   permitRoles("admin"),
   async (req, res) => {

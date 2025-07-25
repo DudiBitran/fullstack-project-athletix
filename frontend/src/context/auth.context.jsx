@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import userService from "../services/userService";
 import trainerService from "../services/trainerService";
+import adminService from "../services/adminService";
 
 const AuthContext = createContext();
 AuthContext.displayName = "Auth";
@@ -285,6 +286,52 @@ export function AuthProvider({ children }) {
     }
   };
 
+  // admin services
+  const getAllUsers = async () => {
+    try {
+      const response = await adminService.getAllUsers();
+      return response;
+    } catch (err) { 
+      throw err;
+    }
+  };
+
+  const getTrainerDeleteRequests = async () => {
+    try {
+      const response = await adminService.getTrainerDeleteRequests();
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const handleTrainerDeleteRequest = async (trainerId, status) => {
+    try {
+      const response = await adminService.handleTrainerDeleteRequest(trainerId, status);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const deleteUserById = async (userId) => {
+    try {
+      const response = await adminService.deleteUserById(userId);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const updateUserById = async (userId, data) => {
+    try {
+      const response = await adminService.updateUserById(userId, data);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -324,6 +371,11 @@ export function AuthProvider({ children }) {
         getWeeklyActivityAnalytics,
         updateExercise,
         deleteExerciseById,
+        getAllUsers,
+        getTrainerDeleteRequests,
+        handleTrainerDeleteRequest,
+        deleteUserById,
+        updateUserById,
       }}
     >
       {children}

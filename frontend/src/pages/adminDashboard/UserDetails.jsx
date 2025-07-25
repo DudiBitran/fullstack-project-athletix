@@ -1,0 +1,118 @@
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/auth.context";
+import "../../style/adminDash/userDetails.css";
+
+function getLabel(key) {
+  const labels = {
+    firstName: 'First Name',
+    lastName: 'Last Name',
+    email: 'Email',
+    age: 'Age',
+    gender: 'Gender',
+    bio: 'Bio',
+    role: 'Role',
+    assignedTrainerId: 'Assigned Trainer ID',
+    programs: 'Programs',
+    createdAt: 'Created At',
+    updatedAt: 'Updated At',
+    stats: 'Stats',
+    height: 'Height',
+    weight: 'Weight',
+    bodyFat: 'Body Fat',
+    // Add more as needed
+  };
+  return labels[key] || key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+}
+
+function UserDetails() {
+  const { userId } = useParams();
+  const { getUserById } = useAuth();
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await getUserById(userId);
+        setUser(res.data);
+      } catch (err) {
+        setError(err.response?.data || "Failed to load user details");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUser();
+  }, [userId, getUserById]);
+
+  if (loading) return <div>Loading user details...</div>;
+  if (error) return <div className="text-danger">{error}</div>;
+  if (!user) return <div>No user found.</div>;
+
+  return (
+    <div className="user-details-outer-wrapper">
+      <div className="user-details-wrapper">
+        <button
+          className="user-details-back-btn"
+          onClick={() => navigate(-1)}
+        >
+          &#8592; Back
+        </button>
+        <h2>User Details</h2>
+        <table className="table table-dark table-bordered">
+          <tbody>
+            {Object.entries(user)
+              .filter(([key]) => key !== "image" && key !== "resetPasswordToken" && key !== "resetPassword" && key !== "resetPasswordExpires" && key !== "_id" && key !== "id")
+              .flatMap(([key, value]) => {
+                if (key === "assignedTrainerId") {
+                  return [
+                    <tr key={key}>
+                      <th style={{ width: "35%" }}>{getLabel(key)}</th>
+                      <td>{(value === null || value === undefined) ? "Not assigned to trainer" : String(value)}</td>
+                    </tr>
+                  ];
+                }
+                if (key === "stats" && value && typeof value === "object") {
+                  return Object.entries(value).map(([statKey, statValue]) => (
+                    <tr key={`stats-${statKey}`}>
+                      <th style={{ width: "35%" }}>{getLabel(statKey)}</th>
+                      <td>{String(statValue)}</td>
+                    </tr>
+                  ));
+                }
+                if (key === "programs" && Array.isArray(value)) {
+                  if (value.length === 0) {
+                    return [
+                      <tr key={key}>
+                        <th style={{ width: "35%" }}>{getLabel(key)}</th>
+                        <td>No programs assigned</td>
+                      </tr>
+                    ];
+                  } else {
+                    return [
+                      <tr key={key}>
+                        <th style={{ width: "35%" }}>{getLabel(key)}</th>
+                        <td>{value.map(String).join(", ")}</td>
+                      </tr>
+                    ];
+                  }
+                }
+                return [
+                  <tr key={key}>
+                    <th style={{ width: "35%" }}>{getLabel(key)}</th>
+                    <td>{typeof value === "object" && value !== null ? JSON.stringify(value) : String(value)}</td>
+                  </tr>
+                ];
+              })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+export default UserDetails; 

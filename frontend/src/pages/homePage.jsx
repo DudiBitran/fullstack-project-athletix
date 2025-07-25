@@ -31,7 +31,9 @@ function HomePage() {
 
   if (user) {
     // Redirect based on user role
-    if (user.role === "trainer") {
+    if (user.role === "admin") {
+      return <Navigate to="/admin" />;
+    } else if (user.role === "trainer") {
       return <Navigate to="/trainer/my-programs" />;
     } else if (user.role === "user") {
       return <Navigate to="/dashboard" />;

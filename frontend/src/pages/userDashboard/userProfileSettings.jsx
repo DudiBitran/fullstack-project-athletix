@@ -647,25 +647,6 @@ function UserProfileSettings() {
             </div>
           </div>
 
-          {/* Delete Account Request Section - Only for Trainers */}
-          {user?.role === "trainer" && (
-            <div className="form-section" style={{ marginTop: '2rem', borderTop: '1px solid #dee2e6', paddingTop: '2rem' }}>
-              <h3 style={{ color: '#dc3545' }}><FaTrash className="me-2" />Delete Account Request</h3>
-              <p style={{ color: '#6c757d', fontSize: '0.9rem', marginBottom: '1rem' }}>
-                Request to delete your trainer account. This action will be reviewed by an administrator.
-              </p>
-              <button
-                type="button"
-                className="btn btn-danger"
-                onClick={() => setShowDeleteConfirmModal(true)}
-                disabled={deleteRequestLoading}
-                style={{ width: '100%', maxWidth: '300px' }}
-              >
-                <FaTrash className="me-2" />
-                {deleteRequestLoading ? "Sending Request..." : "Request Account Deletion"}
-              </button>
-            </div>
-          )}
         </form>
 
         {/* Change Password Section */}
@@ -715,6 +696,26 @@ function UserProfileSettings() {
             </button>
           </form>
         </div>
+
+        {/* Delete Account Request Section - Only for Trainers */}
+        {user?.role === "trainer" && (
+          <div className="form-section" style={{ marginTop: '2rem', borderTop: '1px solid #dee2e6', paddingTop: '2rem' }}>
+            <h3 style={{ color: '#dc3545' }}><FaTrash className="me-2" />Delete Account Request</h3>
+            <p style={{ color: '#6c757d', fontSize: '0.9rem', marginBottom: '1rem' }}>
+              Request to delete your trainer account. This action will be reviewed by an administrator.
+            </p>
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={() => setShowDeleteConfirmModal(true)}
+              disabled={deleteRequestLoading}
+              style={{ width: '100%', maxWidth: '300px' }}
+            >
+              <FaTrash className="me-2" />
+              {deleteRequestLoading ? "Sending Request..." : "Request Account Deletion"}
+            </button>
+          </div>
+        )}
 
         {/* Delete Confirmation Modal */}
         <ConfirmationModal

@@ -1,0 +1,111 @@
+
+
+.user-details-outer-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 200px 10px;
+  background-color: var(--dark-background-color);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+}
+
+.user-details-wrapper {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  background: #232323;
+  color: #fff;
+  border-radius: 16px;
+  padding: 40px 32px 32px 32px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.15);
+  border: 1.5px solid var(--primary-color, #4fc3f7);
+  transition: box-shadow 0.2s;
+}
+
+.user-details-wrapper h2 {
+  color: var(--primary-color, #4fc3f7);
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+  font-family: var(--font-family-navbar, inherit);
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.user-details-wrapper table {
+  background: #181818;
+  color: #fff;
+  border-radius: 10px;
+  width: 100%;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+}
+
+.user-details-wrapper th {
+  text-transform: capitalize;
+  font-weight: 600;
+  color: var(--primary-color, #4fc3f7);
+  background: #232323;
+  padding: 0.85rem 1rem;
+  border-bottom: 1.5px solid #333;
+  width: 35%;
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+
+.user-details-wrapper td {
+  padding: 0.85rem 1rem;
+  background: #181818;
+  border-bottom: 1px solid #292929;
+  word-break: break-word;
+  color: #e0e0e0;
+}
+
+.user-details-wrapper tr {
+  transition: background 0.15s;
+}
+
+.user-details-wrapper tr:hover {
+  background: #232b36;
+}
+
+.user-details-wrapper tr:last-child th,
+.user-details-wrapper tr:last-child td {
+  border-bottom: none;
+}
+
+.user-details-back-btn {
+  background: var(--primary-color, #4fc3f7);
+  color: #111;
+  border: 1.5px solid var(--primary-color, #4fc3f7);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.user-details-back-btn:hover, .user-details-back-btn:focus {
+  background: #2196b6;
+  color: #fff;
+  text-decoration: none;
+}
+
+@media (max-width: 700px) {
+  .user-details-wrapper {
+    padding: 18px 4px 12px 4px;
+  }
+  .user-details-wrapper h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1.2rem;
+  }
+  .user-details-wrapper th, .user-details-wrapper td {
+    padding: 0.6rem 0.5rem;
+    font-size: 0.98rem;
+  }
+} 

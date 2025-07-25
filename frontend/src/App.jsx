@@ -28,6 +28,9 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import EditExercise from "./pages/trainerDashboard/editExercise";
 import ViewExercise from "./pages/trainerDashboard/viewExercise";
+import AdminPanel from "./pages/adminDashboard/AdminPanel";
+import UserDetails from "./pages/adminDashboard/UserDetails";
+import EditUser from "./pages/adminDashboard/EditUser";
 
 function App() {
   const { user } = useAuth();
@@ -51,6 +54,8 @@ function App() {
             element={
               user && user.role === "trainer" ? (
                 <Navigate to="/" />
+              ) : user && user.role === "admin" ? (
+                <Navigate to="/admin" />
               ) : (
                 <ProtectedUserRoute>
                   <MyProgram />
@@ -154,6 +159,12 @@ function App() {
               </ProtectedTrainerRoute>
             }
           />
+          <Route
+            path="/admin"
+            element={user && user.role === "admin" ? <AdminPanel /> : <Navigate to="/login" />}
+          />
+          <Route path="/admin/users/:userId" element={<UserDetails />} />
+          <Route path="/admin/users/:userId/edit" element={<EditUser />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

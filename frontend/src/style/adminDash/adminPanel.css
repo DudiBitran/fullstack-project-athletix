@@ -1,0 +1,13 @@
+/* Admin Panel CSS - Main Import File */
+
+/* Import Layout Styles */
+@import url('./layout/adminPanelLayout.css');
+
+/* Import Table Styles */
+@import url('./tables/adminTables.css');
+
+/* Import Form Styles */
+@import url('./forms/createTrainerForm.css');
+
+/* Import Trainer Delete Requests Styles */
+@import url('./trainerDeleteRequests.css'); 
