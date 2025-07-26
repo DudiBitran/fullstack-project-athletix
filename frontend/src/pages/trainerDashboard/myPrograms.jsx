@@ -214,7 +214,31 @@ function MyPrograms() {
 
   return (
     <main className="myPrograms-container">
-      {/* Mobile/Tablet search input */}
+      {/* Header */}
+      <div className="d-flex justify-content-between align-items-center">
+        <h2 className="mt-0">My Programs</h2>
+        <div className="btn-group" role="group">
+          <button
+            type="button"
+            className={`btn btn-outline-dark ${
+              viewMode === "grid" ? "active" : ""
+            }`}
+            onClick={() => setViewMode("grid")}
+          >
+            <FaCubes />
+          </button>
+          <button
+            type="button"
+            className={`btn btn-outline-dark ${
+              viewMode === "list" ? "active" : ""
+            }`}
+            onClick={() => setViewMode("list")}
+          >
+            <MdList />
+          </button>
+        </div>
+      </div>
+      {/* Filter controls just above table/cards */}
       <div className="d-block d-lg-none mb-4">
         <input
           type="text"
@@ -225,7 +249,6 @@ function MyPrograms() {
           style={{ maxWidth: 260 }}
         />
       </div>
-      {/* Filter Button and Filters */}
       <div className="d-flex flex-wrap align-items-center filter-controls-row mt-0 mt-4 mt-lg-0 mb-4" style={{ flexWrap: 'wrap', gap: '12px' }}>
         <button
           className="btn btn-outline-secondary"
@@ -281,33 +304,9 @@ function MyPrograms() {
           </>
         )}
       </div>
-      {/* Header */}
-      <div className="d-flex justify-content-between align-items-center">
-        <h2 className="mt-0">My Programs</h2>
-        <div className="btn-group" role="group">
-          <button
-            type="button"
-            className={`btn btn-outline-dark ${
-              viewMode === "grid" ? "active" : ""
-            }`}
-            onClick={() => setViewMode("grid")}
-          >
-            <FaCubes />
-          </button>
-          <button
-            type="button"
-            className={`btn btn-outline-dark ${
-              viewMode === "list" ? "active" : ""
-            }`}
-            onClick={() => setViewMode("list")}
-          >
-            <MdList />
-          </button>
-        </div>
-      </div>
-
       <div className="programs-layout">
-        <section className="sidebar-users">
+        {/* Desktop sidebar */}
+        <section className="sidebar-users d-none d-md-block">
           <h3>My Clients: {assignedUsers.length}</h3>
           <ul>
             {assignedUsers.length === 0 ? (
@@ -329,8 +328,7 @@ function MyPrograms() {
             </button>
           </Link>
         </section>
-
-        {/* Programs section */}
+        {/* Main content */}
         <section className="myProgram-content" style={{ flex: 1 }}>
           {filteredPrograms.length === 0 ? (
             <p>No programs found.</p>
@@ -353,6 +351,29 @@ function MyPrograms() {
           )}
         </section>
       </div>
+      {/* Mobile/tablet: My Clients below */}
+      <section className="sidebar-users d-block d-md-none mt-4">
+        <h3>My Clients: {assignedUsers.length}</h3>
+        <ul>
+          {assignedUsers.length === 0 ? (
+            <li>No users assigned</li>
+          ) : (
+            assignedUsers.map((user) => (
+              <li key={user._id}>
+                {user.firstName} {user.lastName}
+              </li>
+            ))
+          )}
+        </ul>
+        <Link to="/trainer/my-customers">
+          <button
+            style={{ fontSize: "1.1rem", fontWeight: "600" }}
+            className="btn btn-warning"
+          >
+            View clients details ➔
+          </button>
+        </Link>
+      </section>
 
       {/* Available Clients Section (Below) */}
       <section className="available-users">

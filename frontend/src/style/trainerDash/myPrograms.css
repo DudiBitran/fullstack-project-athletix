@@ -280,6 +280,14 @@
 }
 
 @media (max-width: 900px) {
+  .sidebar-users.d-block.d-md-none {
+    max-width: 100%;
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 900px) {
   .table-responsive {
     margin-left: auto;
     margin-right: auto;
