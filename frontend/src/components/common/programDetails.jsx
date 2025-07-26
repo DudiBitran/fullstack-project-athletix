@@ -9,7 +9,7 @@ function ProgramDetails({ program, setProgram }) {
   const [showAssignModal, setShowAssignModal] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [availableClients, setAvailableClients] = useState([]);
-  const [selectedClientId, setSelectedClientId] = useState("");
+  const [selectedClient, setSelectedClient] = useState(null);
   const [showAddExerciseDay, setShowAddExerciseDay] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
   const {
@@ -39,13 +39,21 @@ function ProgramDetails({ program, setProgram }) {
   }, [showAssignModal]);
 
   useEffect(() => {
-    if (!program || !program.assignedTo) return;
+    if (!program || !program.assignedTo) {
+      setSelectedClient(null);
+      return;
+    }
     const getClientDetails = async () => {
-      const response = await getClientById(program.assignedTo);
-      setSelectedClientId(response.data);
+      try {
+        const response = await getClientById(program.assignedTo);
+        setSelectedClient(response.data);
+      } catch (err) {
+        console.error("Error fetching client details:", err);
+        setSelectedClient(null);
+      }
     };
     getClientDetails();
-  }, [program]);
+  }, [program, program?.assignedTo]);
 
   const handleAssignProgram = async (programId, clientId) => {
     try {
@@ -53,7 +61,7 @@ function ProgramDetails({ program, setProgram }) {
       const response = await getProgramById(programId);
       setProgram(response.data);
       setShowAssignModal(false);
-      setSelectedClientId("");
+      setSelectedClient(null);
     } catch (err) {
       throw err;
     }
@@ -91,10 +99,15 @@ function ProgramDetails({ program, setProgram }) {
   // Refresh program after adding exercises
   const handleExercisesAdded = async () => {
     setRefreshing(true);
-    const response = await getProgramById(program._id);
-    setProgram(response.data);
-    setShowAddExerciseDay(null);
-    setRefreshing(false);
+    try {
+      const response = await getProgramById(program._id);
+      setProgram(response.data);
+      setShowAddExerciseDay(null);
+    } catch (err) {
+      console.error("Error refreshing program:", err);
+    } finally {
+      setRefreshing(false);
+    }
   };
 
   if (!program) {
@@ -124,8 +137,10 @@ function ProgramDetails({ program, setProgram }) {
           </div>
           <div>
             <strong>Assigned To:</strong>{" "}
-            {program.assignedTo
-              ? `${selectedClientId?.firstName} ${selectedClientId?.lastName}`
+            {program.assignedTo && selectedClient
+              ? `${selectedClient.firstName} ${selectedClient.lastName}`
+              : program.assignedTo
+              ? "Client not assigned"
               : "Not assigned"}
           </div>
         </div>
@@ -167,8 +182,14 @@ function ProgramDetails({ program, setProgram }) {
                             className="btn btn-danger btn-sm"
                             style={{marginLeft: '1rem'}}
                             onClick={async () => {
-                              await deleteExerciseFromDay(program._id, day, [ex._id]);
-                              handleExercisesAdded();
+                              try {
+                                await deleteExerciseFromDay(program._id, day, [ex._id]);
+                                handleExercisesAdded();
+                              } catch (err) {
+                                console.error("Error deleting exercise:", err);
+                                // Still refresh the program to show current state
+                                handleExercisesAdded();
+                              }
                             }}
                           >
                             Delete

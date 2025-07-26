@@ -1,5 +1,5 @@
 import { useAuth } from "../../context/auth.context";
-import MyClientsTableBody from "./myClientsTable";
+import MyClientsTable from "../../components/common/myClientsTable";
 import { useEffect, useState } from "react";
 import "../../style/trainerDash/myClients.css";
 import { Navigate, useNavigate } from "react-router";
@@ -92,34 +92,19 @@ function MyClients() {
           style={{ maxWidth: 260 }}
         />
       </div>
-      <section className="table-responsive my-clients-table container">
+      <section className="my-clients-section container">
         <h2>My Clients</h2>
         {serverError && (
           <div className="alert alert-danger" role="alert">
             {serverError}
           </div>
         )}
-        <table className="table table-dark table-striped table-hover">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Full Name</th>
-              <th>Email</th>
-              <th>Age</th>
-              <th>Gender</th>
-              <th>Stats</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <MyClientsTableBody
-              clients={filteredClients}
-              onUnassign={handleAskUnassign}
-              onViewAnalytics={handleViewAnalytics}
-              onViewProgram={handleViewProgram}
-            />
-          </tbody>
-        </table>
+        <MyClientsTable
+          clients={filteredClients}
+          onUnassign={handleAskUnassign}
+          onViewAnalytics={handleViewAnalytics}
+          onViewProgram={handleViewProgram}
+        />
       </section>
       <ConfirmationModal
         show={showModal}

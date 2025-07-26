@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import ExerciseCardList from "../../components/common/exerciseCard";
-import ExerciseTableBody from "../../components/common/exerciseTableBody";
+import ExerciseTable from "../../components/common/exerciseTable";
 import { FaCubes } from "react-icons/fa";
 import { MdList } from "react-icons/md";
 import { useAuth } from "../../context/auth.context";
 import "../../style/trainerDash/myExercises.css";
-import { Navigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 import ConfirmationModal from "../../components/common/confirmationModal";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,6 +17,7 @@ function MyExercises() {
   const { user, getMyExercises, deleteExerciseById } = useAuth();
   const [showRemoveModal, setShowRemoveModal] = useState(false);
   const [removeId, setRemoveId] = useState(null);
+  const navigate = useNavigate();
 
   // Remove the redundant role check since route is protected
   // if (user?.role !== "trainer") return <Navigate to="/" />;
@@ -55,6 +56,10 @@ function MyExercises() {
     setShowRemoveModal(false);
     setRemoveId(null);
   }
+
+  const handleEditClick = (exercise) => {
+    navigate(`/trainer/update-exercise/${exercise._id}`);
+  };
 
   return (
     <main className="myExercises-container">
@@ -106,27 +111,11 @@ function MyExercises() {
           }} />
         ) : (
           <>
-            <div className="table-responsive">
-              <table className="table table-dark table-hover table-striped">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Sets</th>
-                    <th>Reps</th>
-                    <th>Rest</th>
-                    <th>Notes</th>
-                    <th>Attachment</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <ExerciseTableBody
-                    exercises={filteredExercises}
-                    onRemove={handleRemove}
-                  />
-                </tbody>
-              </table>
-            </div>
+            <ExerciseTable
+              exercises={filteredExercises}
+              onEditClick={handleEditClick}
+              onDeleteClick={handleRemove}
+            />
             <ConfirmationModal
               show={showRemoveModal}
               title="Remove Exercise"
