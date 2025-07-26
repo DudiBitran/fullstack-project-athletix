@@ -1,8 +1,9 @@
 function AvailableClientsTableBody({ clients, onAssign }) {
   return (
     <>
-      {clients.map((client) => (
+      {clients.map((client, index) => (
         <tr key={client._id}>
+          <th scope="row">{index + 1}</th>
           <td>
             {client.firstName} {client.lastName}
           </td>
@@ -10,7 +11,6 @@ function AvailableClientsTableBody({ clients, onAssign }) {
           <td>{client.age}</td>
           <td>
             <button
-              style={{ fontSize: "1.1rem", fontWeight: "bold" }}
               className="btn btn-warning btn-sm"
               onClick={() => onAssign(client._id)}
             >

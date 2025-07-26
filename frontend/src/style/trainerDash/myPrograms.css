@@ -49,6 +49,9 @@
   background-color: #353535 !important;
   color: #eee !important;
   border-color: var(--primary-color);
+  padding: 12px 16px;
+  vertical-align: middle;
+  border-bottom: 1px solid #444;
 }
 
 .myPrograms-container h2 {
@@ -135,7 +138,6 @@
   border-radius: 8px;
   width: 100%;
   max-width: 300px;
-  flex: 1 1 250px;
 }
 
 .sidebar-users h3 {
@@ -159,10 +161,6 @@
   margin-top: 20px;
 }
 
-.program-table-wrapper {
-  width: 100%;
-}
-
 .filter-controls-row {
   transition: margin 0.2s;
 }
@@ -170,6 +168,33 @@
   .filter-controls-row {
     margin-top: 12px !important;
     margin-bottom: 12px !important;
+  }
+}
+
+@media (max-width: 980px) {
+  .program-table-wrapper .table th:nth-child(4), /* Description header */
+  .program-table-wrapper .table td:nth-child(4)  /* Description cell */ {
+    display: none;
+  }
+
+  .program-table-wrapper .table {
+    min-width: 700px;
+  }
+
+  .program-table-wrapper .table td:last-child {
+    min-width: 150px;
+  }
+
+  .program-table-wrapper .table td:last-child .btn {
+    display: block;
+    width: 100%;
+    margin-bottom: 4px;
+    font-size: 0.8rem;
+    padding: 4px 8px;
+  }
+
+  .program-table-wrapper .table td:last-child .btn:last-child {
+    margin-bottom: 0;
   }
 }
 
@@ -195,12 +220,30 @@
   .card-footer button {
     width: 100%;
   }
+
+  .program-table-wrapper .table {
+    min-width: 700px;
+    font-size: 0.9rem;
+  }
+
+  .program-table-wrapper td {
+    padding: 8px 12px;
+  }
 }
 
-@media (max-width: 450px) {
-  table thead th:nth-child(4),
-  table tbody td:nth-child(4) {
-    display: none;
+@media (max-width: 576px) {
+  .program-table-wrapper .table {
+    min-width: 600px;
+    font-size: 0.85rem;
+  }
+
+  .program-table-wrapper td {
+    padding: 6px 8px;
+  }
+
+  .program-table-wrapper .btn {
+    font-size: 0.8rem;
+    padding: 4px 8px;
   }
 }
 
@@ -231,3 +274,22 @@
   font-size: 1.2rem;
   pointer-events: none;
 }
+
+.table-responsive {
+  margin-top: 0 !important;
+}
+
+@media (max-width: 900px) {
+  .table-responsive {
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
+    text-align: center;
+  }
+  .table-responsive table {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+

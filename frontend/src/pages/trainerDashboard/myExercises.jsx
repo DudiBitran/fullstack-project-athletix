@@ -7,7 +7,7 @@ import { useAuth } from "../../context/auth.context";
 import "../../style/trainerDash/myExercises.css";
 import { Navigate } from "react-router";
 import ConfirmationModal from "../../components/common/confirmationModal";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function MyExercises() {
@@ -135,7 +135,7 @@ function MyExercises() {
               onCancel={function() { setShowRemoveModal(false); }}
               icon="fas fa-exclamation-triangle"
             />
-            <toast.Container />
+            <ToastContainer />
           </>
         )}
       </section>

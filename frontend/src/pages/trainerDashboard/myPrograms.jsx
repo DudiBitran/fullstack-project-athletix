@@ -375,22 +375,61 @@ function MyPrograms() {
         {availableClients.length === 0 ? (
           <p>No available clients found.</p>
         ) : (
-          <table className="table table-dark table-striped table-hover">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Age</th>
-                <th>Assign</th>
-              </tr>
-            </thead>
-            <tbody>
-              <AvailableClientsTableBody
-                clients={filteredAvailableClients}
-                onAssign={handleAskAssign}
-              />
-            </tbody>
-          </table>
+          <>
+            {/* Desktop Table View */}
+            <div className="d-none d-md-block">
+              <div className="table-responsive">
+                <table className="table table-striped table-dark">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Age</th>
+                      <th scope="col">Assign</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <AvailableClientsTableBody
+                      clients={filteredAvailableClients}
+                      onAssign={handleAskAssign}
+                    />
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Mobile Card View */}
+            <div className="d-md-none">
+              {filteredAvailableClients.map((client, index) => (
+                <div key={client._id} className="card mb-3 bg-dark text-light">
+                  <div className="card-body">
+                    <div className="row">
+                      <div className="col-8">
+                        <h6 className="card-title mb-1">
+                          #{index + 1} - {client.firstName} {client.lastName}
+                        </h6>
+                        <p className="card-text mb-1">
+                          <small style={{ color: '#fff' }}>{client.email}</small>
+                        </p>
+                        <p className="card-text mb-0">
+                          <small>Age: {client.age}</small>
+                        </p>
+                      </div>
+                      <div className="col-4 d-flex align-items-center justify-content-end">
+                        <button
+                          className="btn btn-warning btn-sm"
+                          onClick={() => handleAskAssign(client._id)}
+                        >
+                          Assign
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
         )}
       </section>
 

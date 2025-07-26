@@ -8,15 +8,15 @@ function ProgramTable({
   onUnAssignClick,
 }) {
   return (
-    <div className="program-table-wrapper">
-      <table className="table table-hover table-bordered">
-        <thead className="table-dark">
+    <section className="table-responsive container">
+      <table className="table table-dark table-hover table-striped">
+        <thead>
           <tr>
-            <th>Title</th>
-            <th>Duration (weeks)</th>
-            <th>Difficulty</th>
-            <th>Description</th>
-            <th>Actions</th>
+            <th scope="col">Title</th>
+            <th scope="col">Duration (weeks)</th>
+            <th scope="col">Difficulty</th>
+            <th scope="col">Description</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -26,50 +26,48 @@ function ProgramTable({
               <td>{program.durationWeeks}</td>
               <td>{program.difficulty}</td>
               <td>{program.description}</td>
-              <td>
-                <div className="d-flex flex-wrap gap-2">
+              <td className="d-flex justify-content-center gap-2 flex-wrap">
+                <button
+                  className="btn btn-sm btn-outline-warning flex-fill me-2"
+                  onClick={() => onEditClick(program)}
+                >
+                  ✏️ Edit
+                </button>
+                {!program.assignedTo ? (
                   <button
-                    className="btn btn-sm btn-outline-warning"
-                    onClick={() => onEditClick(program)}
+                    onClick={() => onAssignClick(program._id)}
+                    className="btn btn-sm btn-outline-success flex-fill me-2"
                   >
-                    ✏️ Edit
+                    <FaLink /> Assign
                   </button>
-                  {!program.assignedTo ? (
-                    <button
-                      onClick={() => onAssignClick(program._id)}
-                      className="btn btn-sm btn-outline-success"
-                    >
-                      <FaLink /> Assign
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() =>
-                        onUnAssignClick(program._id, program.assignedTo)
-                      }
-                      className="btn btn-sm btn-outline-danger"
-                    >
-                      <FaLink /> UnAssign
-                    </button>
-                  )}
+                ) : (
                   <button
-                    className="btn btn-sm btn-outline-danger"
-                    onClick={() => onDeleteClick(program._id)}
+                    onClick={() =>
+                      onUnAssignClick(program._id, program.assignedTo)
+                    }
+                    className="btn btn-sm btn-outline-danger flex-fill me-2"
                   >
-                    🗑️ Delete
+                    <FaLink /> UnAssign
                   </button>
-                  <Link
-                    to={`/trainer/program/${program._id}`}
-                    className="btn btn-sm btn-outline-info"
-                  >
-                    View Details
-                  </Link>
-                </div>
+                )}
+                <button
+                  className="btn btn-sm btn-outline-danger flex-fill me-2"
+                  onClick={() => onDeleteClick(program._id)}
+                >
+                  🗑️ Delete
+                </button>
+                <Link
+                  to={`/trainer/program/${program._id}`}
+                  className="btn btn-sm btn-outline-info"
+                >
+                  View Details
+                </Link>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-    </div>
+    </section>
   );
 }
 
