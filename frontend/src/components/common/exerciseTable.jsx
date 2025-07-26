@@ -56,7 +56,7 @@ function ExerciseTable({
                   🗑️ Delete
                 </button>
                 <Link
-                  to={`/trainer/exercise/${exercise._id}`}
+                  to={`/trainer/view-exercise/${exercise._id}`}
                   className="action-btn view-btn"
                 >
                   View Details

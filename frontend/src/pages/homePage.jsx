@@ -1,3 +1,4 @@
+import "../style/homePage/homePage.css";
 import "../style/homePage/banner.css";
 import "../style/homePage/whoWeAre.css";
 import "../style/homePage/fixed-section.css";

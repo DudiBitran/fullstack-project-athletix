@@ -103,6 +103,9 @@
 /* ============ Table View ============ */
 .table-responsive {
   margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .table th,

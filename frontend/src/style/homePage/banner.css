@@ -43,6 +43,7 @@
   padding: 2rem;
   height: fit-content;
   width: fit-content;
+  transform: translateY(-50%);
 }
 
 .text-container h1 {
@@ -50,10 +51,15 @@
   width: 700px;
   font-weight: 900;
   font-size: 80px;
+  line-height: 1.1;
+  margin-bottom: 1rem;
 }
+
 .text-container p {
   width: 500px;
   font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 2rem;
 }
 
 .text-container .join-btn {
@@ -67,21 +73,66 @@
   background-color: transparent;
   padding: 10px 30px;
   text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .text-container .join-btn:hover {
   color: #000;
   background-color: var(--primary-color);
+  transform: translateY(-2px);
 }
 
 .text-container a {
   text-decoration: none !important;
 }
+
 .text-container a:focus, .text-container a:active {
   outline: none;
   box-shadow: none;
 }
 
+/* Large Desktop */
+@media (min-width: 1400px) {
+  .text-container h1 {
+    font-size: 90px;
+    width: 800px;
+  }
+  .text-container p {
+    font-size: 18px;
+    width: 600px;
+  }
+  .text-container .join-btn {
+    padding: 12px 35px;
+    font-size: 18px;
+  }
+}
+
+/* Desktop */
+@media (max-width: 1399px) and (min-width: 1200px) {
+  .text-container h1 {
+    font-size: 70px;
+    width: 650px;
+  }
+  .text-container p {
+    font-size: 17px;
+    width: 550px;
+  }
+}
+
+/* Small Desktop */
+@media (max-width: 1199px) and (min-width: 992px) {
+  .text-container h1 {
+    font-size: 60px;
+    width: 600px;
+  }
+  .text-container p {
+    font-size: 16px;
+    width: 500px;
+  }
+}
+
+/* Tablet Landscape */
 @media (max-width: 991.98px) {
   .banner-container {
     display: flex;
@@ -89,10 +140,10 @@
     text-align: center;
     flex-direction: column;
     width: 100%;
-    height: 500px;
+    height: 600px;
   }
   .slider-image-container {
-    height: 500px;
+    height: 600px;
   }
   .text-container {
     position: absolute;
@@ -100,8 +151,9 @@
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    padding: 1rem;
+    padding: 1.5rem;
     width: 100%;
+    max-width: 800px;
   }
   .text-container h1 {
     text-align: center;
@@ -109,86 +161,164 @@
     align-items: center;
     width: 100%;
     max-width: 700px;
-    margin: 0 auto;
+    margin: 0 auto 1rem auto;
     box-sizing: border-box;
-    font-size: 2.2rem;
+    font-size: 3rem;
   }
   .text-container p {
     width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
+    max-width: 600px;
+    margin: 0 auto 1.5rem auto;
     box-sizing: border-box;
     text-align: center;
     font-size: 1.1rem;
-    margin: 0 auto;
   }
   .text-container .join-btn {
     font-size: 1.1rem;
-    padding: 10px 24px;
-    width: 80%;
+    padding: 12px 28px;
+    width: auto;
     max-width: 220px;
-    margin: 24px auto 0 auto;
-    display: block;
+    margin: 0 auto;
+    display: inline-block;
     text-decoration: none;
   }
 }
 
-@media (max-width: 600px) {
+/* Tablet Portrait */
+@media (max-width: 767px) and (min-width: 600px) {
   .banner-container {
-    height: 350px;
-    min-height: 200px;
+    height: 500px;
   }
   .slider-image-container {
-    height: 350px;
-    min-height: 200px;
-  }
-  .fade-zoom-image {
-    height: 350px;
-    min-height: 200px;
-    object-fit: cover;
+    height: 500px;
   }
   .text-container {
-    position: static;
-    transform: none;
-    padding: 0.5rem;
-    width: 100%;
-    text-align: center;
-    background: rgba(0,0,0,0.5);
+    padding: 1rem;
+    max-width: 600px;
   }
   .text-container h1 {
-    font-size: 1.7rem;
+    font-size: 2.5rem;
+    max-width: 500px;
+  }
+  .text-container p {
+    font-size: 1rem;
+    max-width: 500px;
+  }
+  .text-container .join-btn {
+    font-size: 1rem;
+    padding: 10px 24px;
+  }
+}
+
+/* Large Mobile - Use single static image */
+@media (max-width: 600px) {
+  .banner-container {
+    height: 400px;
+    min-height: 300px;
+    position: relative;
+    background-image: url("/images/banner4.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  /* Hide slider on mobile */
+  .banner-container > div:last-child {
+    display: none;
+  }
+  
+  .text-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1rem;
     width: 100%;
-    margin-bottom: 0.5rem;
+    text-align: center;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(5px);
+    z-index: 3;
+  }
+  .text-container h1 {
+    font-size: 2rem;
+    width: 100%;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
   }
   .text-container p {
     font-size: 0.95rem;
     width: 100%;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
   }
   .text-container .join-btn {
     font-size: 1rem;
-    padding: 8px 18px;
+    padding: 10px 20px;
     width: 90%;
-    max-width: 220px;
-    margin: 20px auto 0 auto;
+    max-width: 200px;
+    margin: 0 auto;
     display: block;
   }
 }
 
-@media (max-width: 400px) {
+/* Medium Mobile */
+@media (max-width: 480px) {
   .banner-container {
-    height: 220px;
+    height: 350px;
   }
-  .slider-image-container {
-    height: 220px;
-  }
-  .fade-zoom-image {
-    height: 220px;
+  .text-container {
+    padding: 0.75rem;
   }
   .text-container h1 {
-    font-size: 1.1rem;
+    font-size: 1.8rem;
+  }
+  .text-container p {
+    font-size: 0.9rem;
+  }
+  .text-container .join-btn {
+    font-size: 0.95rem;
+    padding: 8px 18px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 400px) {
+  .banner-container {
+    height: 300px;
+  }
+  .text-container {
+    padding: 0.5rem;
+  }
+  .text-container h1 {
+    font-size: 1.5rem;
+  }
+  .text-container p {
+    font-size: 0.85rem;
+  }
+  .text-container .join-btn {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    max-width: 180px;
+  }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 320px) {
+  .banner-container {
+    height: 250px;
+  }
+  .text-container {
+    padding: 0.5rem;
+  }
+  .text-container h1 {
+    font-size: 1.3rem;
   }
   .text-container p {
     font-size: 0.8rem;
+  }
+  .text-container .join-btn {
+    font-size: 0.85rem;
+    padding: 6px 14px;
+    max-width: 160px;
   }
 }

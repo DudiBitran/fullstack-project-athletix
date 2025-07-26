@@ -1,0 +1,255 @@
+/* Homepage General Responsive Styles */
+
+/* Ensure proper viewport and scrolling */
+html, body {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* Main container improvements */
+.main-background {
+  background-color: var(--dark-background-color);
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Container improvements for better spacing */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Responsive container adjustments */
+@media (max-width: 1200px) {
+  .container {
+    max-width: 100%;
+    padding: 0 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 8px;
+  }
+}
+
+/* Section spacing improvements */
+section {
+  position: relative;
+  width: 100%;
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  transition: all 0.3s ease;
+}
+
+/* Focus states for accessibility */
+button:focus,
+a:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Loading states */
+.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Improved text rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Better image handling */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Improved button styles */
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* Link improvements */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Better spacing for mobile */
+@media (max-width: 600px) {
+  section {
+    margin-bottom: 2rem;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (orientation: landscape) and (max-height: 500px) {
+  .banner-container {
+    height: 100vh !important;
+  }
+  
+  .slider-image-container {
+    height: 100vh !important;
+  }
+  
+  .text-container {
+    padding: 1rem !important;
+  }
+  
+  .text-container h1 {
+    font-size: 2rem !important;
+  }
+  
+  .text-container p {
+    font-size: 0.9rem !important;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Print styles */
+@media print {
+  .main-background {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .banner-container,
+  .fixed-bg-section {
+    display: none !important;
+  }
+  
+  .text-container {
+    color: black !important;
+    position: static !important;
+    background: white !important;
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .fade-zoom-image {
+    transition: none !important;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .main-background {
+    background-color: #000;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .text-container .join-btn {
+    border-width: 3px;
+  }
+  
+  .whoWeAre-container .box1,
+  .whoWeAre-container .box2,
+  .whoWeAre-container .box3 {
+    border-width: 8px;
+  }
+}
+
+/* Large text support */
+@media (prefers-reduced-motion: no-preference) and (min-resolution: 2dppx) {
+  .text-container h1 {
+    font-weight: 900;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .text-container .join-btn:hover {
+    transform: none;
+  }
+  
+  .whoWeAre-container .box1:hover,
+  .whoWeAre-container .box2:hover,
+  .whoWeAre-container .box3:hover {
+    transform: none;
+  }
+  
+  /* Larger touch targets */
+  .text-container .join-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .accordion-button {
+    min-height: 44px;
+  }
+}
+
+/* Ultra-wide screens */
+@media (min-width: 2000px) {
+  .container {
+    max-width: 1600px;
+  }
+  
+  .text-container h1 {
+    font-size: 100px;
+    width: 900px;
+  }
+  
+  .text-container p {
+    font-size: 20px;
+    width: 700px;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 280px) {
+  .container {
+    padding: 0 5px;
+  }
+  
+  .text-container h1 {
+    font-size: 1.2rem;
+  }
+  
+  .text-container p {
+    font-size: 0.75rem;
+  }
+  
+  .text-container .join-btn {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    max-width: 140px;
+  }
+} 
