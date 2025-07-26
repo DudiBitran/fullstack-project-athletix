@@ -1,5 +1,7 @@
 import { FaLink } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import "../../style/trainerDash/programTable.css";
+
 function ProgramTable({
   programs,
   onEditClick,
@@ -8,15 +10,15 @@ function ProgramTable({
   onUnAssignClick,
 }) {
   return (
-    <section className="table-responsive container">
-      <table className="table table-dark table-hover table-striped">
+    <div className="programs-table-container">
+      <table className="programs-table">
         <thead>
           <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Duration (weeks)</th>
-            <th scope="col">Difficulty</th>
-            <th scope="col">Description</th>
-            <th scope="col">Actions</th>
+            <th>Title</th>
+            <th>Duration (weeks)</th>
+            <th>Difficulty</th>
+            <th>Description</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -26,9 +28,9 @@ function ProgramTable({
               <td>{program.durationWeeks}</td>
               <td>{program.difficulty}</td>
               <td>{program.description}</td>
-              <td className="d-flex justify-content-center gap-2 flex-wrap">
+              <td className="actions-cell">
                 <button
-                  className="btn btn-sm btn-outline-warning flex-fill me-2"
+                  className="action-btn edit-btn"
                   onClick={() => onEditClick(program)}
                 >
                   ✏️ Edit
@@ -36,7 +38,7 @@ function ProgramTable({
                 {!program.assignedTo ? (
                   <button
                     onClick={() => onAssignClick(program._id)}
-                    className="btn btn-sm btn-outline-success flex-fill me-2"
+                    className="action-btn assign-btn"
                   >
                     <FaLink /> Assign
                   </button>
@@ -45,20 +47,20 @@ function ProgramTable({
                     onClick={() =>
                       onUnAssignClick(program._id, program.assignedTo)
                     }
-                    className="btn btn-sm btn-outline-danger flex-fill me-2"
+                    className="action-btn unassign-btn"
                   >
                     <FaLink /> UnAssign
                   </button>
                 )}
                 <button
-                  className="btn btn-sm btn-outline-danger flex-fill me-2"
+                  className="action-btn delete-btn"
                   onClick={() => onDeleteClick(program._id)}
                 >
                   🗑️ Delete
                 </button>
                 <Link
                   to={`/trainer/program/${program._id}`}
-                  className="btn btn-sm btn-outline-info"
+                  className="action-btn view-btn"
                 >
                   View Details
                 </Link>
@@ -67,7 +69,7 @@ function ProgramTable({
           ))}
         </tbody>
       </table>
-    </section>
+    </div>
   );
 }
 

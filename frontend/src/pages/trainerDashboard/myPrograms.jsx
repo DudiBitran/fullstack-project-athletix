@@ -351,28 +351,36 @@ function MyPrograms() {
           )}
         </section>
       </div>
-      {/* Mobile/tablet: My Clients below */}
-      <section className="sidebar-users d-block d-md-none mt-4">
+
+      {/* Mobile/tablet: My Clients below with enhanced styling */}
+      <section className="my-clients-section d-block d-md-none mt-4">
         <h3>My Clients: {assignedUsers.length}</h3>
-        <ul>
+        <div className="my-clients-content">
           {assignedUsers.length === 0 ? (
-            <li>No users assigned</li>
+            <p>No users assigned</p>
           ) : (
-            assignedUsers.map((user) => (
-              <li key={user._id}>
-                {user.firstName} {user.lastName}
-              </li>
-            ))
+            <div className="clients-grid">
+              {assignedUsers.map((user) => (
+                <div key={user._id} className="client-card">
+                  <div className="client-info">
+                    <h5>{user.firstName} {user.lastName}</h5>
+                    <p className="client-email">{user.email}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           )}
-        </ul>
-        <Link to="/trainer/my-customers">
-          <button
-            style={{ fontSize: "1.1rem", fontWeight: "600" }}
-            className="btn btn-warning"
-          >
-            View clients details ➔
-          </button>
-        </Link>
+          <div className="view-clients-btn">
+            <Link to="/trainer/my-customers">
+              <button
+                style={{ fontSize: "1.1rem", fontWeight: "600" }}
+                className="btn btn-warning"
+              >
+                View clients details ➔
+              </button>
+            </Link>
+          </div>
+        </div>
       </section>
 
       {/* Available Clients Section (Below) */}
