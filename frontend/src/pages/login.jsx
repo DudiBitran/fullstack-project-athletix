@@ -1,7 +1,7 @@
 import "../style/login.css";
 import Input from "../components/common/input";
 import { useState } from "react";
-import { FaUser, FaLock } from "react-icons/fa";
+import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate, Navigate } from "react-router-dom";
 import { useFormik } from "formik";
 import Joi from "joi";
@@ -9,8 +9,11 @@ import { useAuth } from "../context/auth.context";
 
 function Login() {
   const [serverError, setServerError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { login, user } = useAuth();
   const navigate = useNavigate();
+  
   const generatePostObj = (json) => {
     let postObj = {};
     postObj["email"] = json["email"];
@@ -54,6 +57,8 @@ function Login() {
     },
 
     onSubmit: async (values) => {
+      setIsLoading(true);
+      setServerError("");
       try {
         const userDetails = generatePostObj(values);
         await login(userDetails);
@@ -67,6 +72,8 @@ function Login() {
           const response = err.response.data;
           setServerError(response);
         }
+      } finally {
+        setIsLoading(false);
       }
     },
   });
@@ -77,67 +84,112 @@ function Login() {
 
   return (
     <section className="login-wrapper">
-      <div className="login-box">
-        <h2>Welcome Back</h2>
-        <p>Sign in to continue</p>
-        {serverError && (
-          <div className="server-error">
-            <span>{serverError}</span>
+      <div className="login-background">
+        <div className="background-shapes">
+          <div className="shape shape-1"></div>
+          <div className="shape shape-2"></div>
+          <div className="shape shape-3"></div>
+        </div>
+      </div>
+      
+      <div className="login-container">
+        <div className="login-box">
+          <div className="login-header">
+            <div className="logo-container">
+              <div className="logo-icon">
+                <FaUser />
+              </div>
+            </div>
+            <h2>Welcome Back</h2>
+            <p>Sign in to your account to continue</p>
           </div>
-        )}
-        <form
-          className="login-form"
-          noValidate
-          autoComplete="off"
-          onSubmit={formik.handleSubmit}
-        >
-          <div className="input-group">
-            <FaUser className="input-icon" />
-            <Input
-              {...formik.getFieldProps("email")}
-              type="text"
-              name="email"
-              placeholder="Email"
-              className={`form-control ${
-                formik.touched.email && formik.errors.email ? "is-invalid" : ""
-              }`}
-            />
-          </div>
-          {formik.touched.email && formik.errors.email && (
-            <div className="invalid-feedback mt-1">{formik.errors.email}</div>
-          )}
 
-          <div className="input-group">
-            <FaLock className="input-icon" />
-            <Input
-              {...formik.getFieldProps("password")}
-              type="password"
-              name="password"
-              placeholder="Password"
-              className={`form-control ${
-                formik.touched.password && formik.errors.password
-                  ? "is-invalid"
-                  : ""
-              }`}
-            />
-          </div>
-          {formik.touched.password && formik.errors.password && (
-            <div className="invalid-feedback mt-1">
-              {formik.errors.password}
+          {serverError && (
+            <div className="server-error">
+              <span>{serverError}</span>
             </div>
           )}
-          <button type="submit">Login</button>
-        </form>
-        <div className="login-links">
-          <p>
-            Don't have an account?{" "}
-            <Link to="/register" className="link-span">
-              Sign up
+
+          <form
+            className="login-form"
+            noValidate
+            autoComplete="off"
+            onSubmit={formik.handleSubmit}
+          >
+            <div className="input-wrapper">
+              <div className="input-group">
+                <FaUser className="input-icon" />
+                <Input
+                  {...formik.getFieldProps("email")}
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  className={`form-control ${
+                    formik.touched.email && formik.errors.email ? "is-invalid" : ""
+                  }`}
+                />
+              </div>
+              {formik.touched.email && formik.errors.email && (
+                <div className="invalid-feedback">{formik.errors.email}</div>
+              )}
+            </div>
+
+            <div className="input-wrapper">
+              <div className="input-group">
+                <FaLock className="input-icon" />
+                <Input
+                  {...formik.getFieldProps("password")}
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Password"
+                  className={`form-control ${
+                    formik.touched.password && formik.errors.password
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                />
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
+              {formik.touched.password && formik.errors.password && (
+                <div className="invalid-feedback">
+                  {formik.errors.password}
+                </div>
+              )}
+            </div>
+
+            <button 
+              type="submit" 
+              className={`login-button ${isLoading ? 'loading' : ''}`}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <div className="loading-spinner">
+                  <div className="spinner"></div>
+                  <span>Signing in...</span>
+                </div>
+              ) : (
+                'Sign In'
+              )}
+            </button>
+          </form>
+
+          <div className="login-links">
+            <Link to="/forgot-password" className="forgot-password">
+              Forgot your password?
             </Link>
-          </p>
-          <p>
-            <Link to="/forgot-password" className="link-span">Forgot the password?</Link>
-          </p>
+            <div className="signup-link">
+              <span>Don't have an account? </span>
+              <Link to="/register" className="link-span">
+                Sign up
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </section>
