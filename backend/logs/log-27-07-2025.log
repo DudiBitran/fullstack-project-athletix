@@ -380,3 +380,94 @@
 27-07-2025 22:57:02 | INFO: status: 200 | Message: Clients has been sent successfully.
 27-07-2025 22:57:04 | INFO: status: 304 | Message: Exercise have been sent successfully.
 27-07-2025 22:57:04 | INFO: status: 200 | Message: Exercise have been sent successfully.
+27-07-2025 22:57:34 | INFO: status: 200 | Message: Token provided.
+27-07-2025 22:57:34 | INFO: status: 200 | Message: User sent successfully.
+27-07-2025 22:57:34 | INFO: status: 304 | Message: Delete requests have bees sent successfully.
+27-07-2025 22:57:34 | INFO: status: 200 | Message: Delete requests have bees sent successfully.
+27-07-2025 22:57:40 | INFO: status: 200 | Message: Exercise have been sent successfully.
+27-07-2025 22:57:40 | INFO: status: 200 | Message: Exercise have been sent successfully.
+27-07-2025 22:59:11 | INFO: status: 304 | Message: User sent successfully.
+27-07-2025 22:59:11 | INFO: status: 304 | Message: User sent successfully.
+27-07-2025 22:59:11 | INFO: status: 200 | Message: Delete requests have bees sent successfully.
+27-07-2025 22:59:11 | INFO: status: 304 | Message: Delete requests have bees sent successfully.
+27-07-2025 22:59:11 | INFO: status: 200 | Message: Delete requests have bees sent successfully.
+27-07-2025 22:59:14 | INFO: status: 200 | Message: Exercise have been sent successfully.
+27-07-2025 22:59:14 | INFO: status: 200 | Message: Exercise have been sent successfully.
+27-07-2025 23:00:37 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:00:37 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:02:47 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:02:48 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:02:55 | INFO: status: 304 | Message: User sent successfully.
+27-07-2025 23:02:55 | INFO: status: 200 | Message: User sent successfully.
+27-07-2025 23:02:55 | INFO: status: 304 | Message: Delete requests have bees sent successfully.
+27-07-2025 23:02:55 | INFO: status: 200 | Message: Delete requests have bees sent successfully.
+27-07-2025 23:02:55 | INFO: status: 304 | Message: Delete requests have bees sent successfully.
+27-07-2025 23:03:05 | INFO: status: 200 | Message: User sent successfully.
+27-07-2025 23:03:05 | INFO: status: 304 | Message: User sent successfully.
+27-07-2025 23:03:05 | INFO: status: 200 | Message: Delete requests have bees sent successfully.
+27-07-2025 23:03:05 | INFO: status: 304 | Message: Delete requests have bees sent successfully.
+27-07-2025 23:03:09 | INFO: status: 304 | Message: User sent successfully.
+27-07-2025 23:03:09 | INFO: status: 200 | Message: User sent successfully.
+27-07-2025 23:03:09 | INFO: status: 200 | Message: Delete requests have bees sent successfully.
+27-07-2025 23:03:09 | INFO: status: 304 | Message: Delete requests have bees sent successfully.
+27-07-2025 23:03:11 | INFO: status: 200 | Message: User sent successfully.
+27-07-2025 23:03:11 | INFO: status: 304 | Message: User sent successfully.
+27-07-2025 23:03:11 | INFO: status: 200 | Message: Delete requests have bees sent successfully.
+27-07-2025 23:03:11 | INFO: status: 304 | Message: Delete requests have bees sent successfully.
+27-07-2025 23:03:13 | INFO: status: 304 | Message: User sent successfully.
+27-07-2025 23:03:13 | INFO: status: 200 | Message: User sent successfully.
+27-07-2025 23:03:13 | INFO: status: 200 | Message: Delete requests have bees sent successfully.
+27-07-2025 23:03:13 | INFO: status: 304 | Message: Delete requests have bees sent successfully.
+27-07-2025 23:04:08 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:04:08 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:04:30 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:04:30 | INFO: status: 200 | Message: Exercise have been sent successfully.
+27-07-2025 23:04:35 | INFO: status: 304 | Message: User sent successfully.
+27-07-2025 23:04:35 | INFO: status: 200 | Message: User sent successfully.
+27-07-2025 23:04:35 | INFO: status: 200 | Message: Delete requests have bees sent successfully.
+27-07-2025 23:04:35 | INFO: status: 304 | Message: Delete requests have bees sent successfully.
+27-07-2025 23:04:35 | INFO: status: 304 | Message: Delete requests have bees sent successfully.
+27-07-2025 23:04:40 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:04:40 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:04:44 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:04:44 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:04:46 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:04:46 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:04:47 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:04:47 | INFO: status: 200 | Message: Exercise have been sent successfully.
+27-07-2025 23:04:57 | ERROR: status: 400 | Message: Access denied, trainer is not the owner.
+27-07-2025 23:07:19 | INFO: status: 200 | Message: Exercise have been updated successfully.
+27-07-2025 23:07:20 | INFO: status: 200 | Message: Exercise have been sent successfully.
+27-07-2025 23:07:20 | INFO: status: 200 | Message: Exercise have been sent successfully.
+27-07-2025 23:07:27 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:07:27 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:07:29 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:07:30 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:07:31 | INFO: status: 200 | Message: Exercise have been sent successfully.
+27-07-2025 23:07:31 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:07:35 | INFO: status: 200 | Message: Exercise have been updated successfully.
+27-07-2025 23:07:37 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:07:37 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:07:38 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:07:38 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:08:34 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:08:34 | INFO: status: 200 | Message: Exercise have been sent successfully.
+27-07-2025 23:08:36 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:08:36 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:08:39 | ERROR: status: 500 | Message: path is not defined
+27-07-2025 23:09:14 | INFO: status: 200 | Message: Exercise have been updated successfully.
+27-07-2025 23:09:15 | INFO: status: 200 | Message: Exercise have been sent successfully.
+27-07-2025 23:09:15 | INFO: status: 200 | Message: Exercise have been sent successfully.
+27-07-2025 23:09:17 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:09:17 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:09:20 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:09:20 | INFO: status: 200 | Message: Exercise have been sent successfully.
+27-07-2025 23:09:45 | INFO: status: 200 | Message: Exercise have been sent successfully.
+27-07-2025 23:09:45 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:09:49 | INFO: status: 200 | Message: Exercise have been updated successfully.
+27-07-2025 23:09:50 | INFO: status: 200 | Message: Exercise have been sent successfully.
+27-07-2025 23:09:50 | INFO: status: 200 | Message: Exercise have been sent successfully.
+27-07-2025 23:09:51 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:09:51 | INFO: status: 200 | Message: Exercise have been sent successfully.
+27-07-2025 23:09:53 | INFO: status: 304 | Message: Exercise have been sent successfully.
+27-07-2025 23:09:53 | INFO: status: 200 | Message: Exercise have been sent successfully.

@@ -32,6 +32,8 @@ import AdminPanel from "./pages/adminDashboard/AdminPanel";
 import UserDetails from "./pages/adminDashboard/UserDetails";
 import EditUser from "./pages/adminDashboard/EditUser";
 import AllExercises from "./pages/adminDashboard/AllExercises";
+import AdminViewExercise from "./pages/adminDashboard/AdminViewExercise";
+import AdminEditExercise from "./pages/adminDashboard/AdminEditExercise";
 
 function App() {
   const { user } = useAuth();
@@ -169,6 +171,14 @@ function App() {
           <Route 
             path="/admin/exercises" 
             element={user && user.role === "admin" ? <AllExercises /> : <Navigate to="/login" />} 
+          />
+          <Route 
+            path="/admin/exercises/:id" 
+            element={user && user.role === "admin" ? <AdminViewExercise /> : <Navigate to="/login" />} 
+          />
+          <Route 
+            path="/admin/exercises/:id/edit" 
+            element={user && user.role === "admin" ? <AdminEditExercise /> : <Navigate to="/login" />} 
           />
           <Route path="*" element={<NotFound />} />
         </Routes>

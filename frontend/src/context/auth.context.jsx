@@ -296,6 +296,15 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const adminUpdateExercise = async (id, data) => {
+    try {
+      const response = await adminService.updateExercise(id, data);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
   const getAllUsers = async () => {
     try {
       const response = await adminService.getAllUsers();
@@ -381,6 +390,7 @@ export function AuthProvider({ children }) {
         updateExercise,
         deleteExerciseById,
         getAllExercises,
+    adminUpdateExercise,
         getAllUsers,
         getTrainerDeleteRequests,
         handleTrainerDeleteRequest,

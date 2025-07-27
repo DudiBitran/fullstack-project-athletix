@@ -69,6 +69,15 @@ const getAllExercises = async () => {
   }
 };
 
+const updateExercise = async (id, data) => {
+  try {
+    const response = await httpService.put(`/exercise/${id}`, data);
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
 // Add more admin-related methods as needed
 
 const adminService = {
@@ -79,6 +88,7 @@ const adminService = {
   updateUserById,
   createTrainer,
   getAllExercises,
+  updateExercise,
 };
 
 export default adminService; 

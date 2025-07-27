@@ -68,7 +68,7 @@ router.post(
 //get all exercises
 router.get("/", authMw, permitRoles("admin"), async (req, res) => {
   try {
-    const exercises = await Exercise.find();
+    const exercises = await Exercise.find().populate('createdBy', 'firstName lastName email');
     if (exercises.length === 0) {
       res.status(400).send("Exercise not found.");
       logger.error(`status: ${res.statusCode} | Message: Exercise not found.`);
@@ -172,7 +172,7 @@ router.put(
         );
         return;
       }
-      const user = User.findById(req.user._id);
+      const user = await User.findById(req.user._id);
 
       if (
         exercise.createdBy.toString() !== req.user._id &&
@@ -188,19 +188,32 @@ router.put(
       Object.assign(exercise, req.body);
 
       if (req.file) {
-        const newFilename = req.file.filename;
-
-        if (exercise.file && exercise.file !== newFilename) {
-          const oldPath = path.join(
-            __dirname,
-            "../../file-upload",
-            exercise.file
-          );
-          fs.unlink(oldPath, (err) => {
-            if (err) console.log("Failed to delete old image:", err.message);
-          });
+        // Delete old attachment file if it exists
+        if (exercise.attachment && exercise.attachment.url) {
+          try {
+            const oldPath = exercise.attachment.url;
+          
+            const cleanPath = oldPath.replace(/^\/+/, "");
+            const fullOldPath = path.join(__dirname, "../../", cleanPath);
+            
+            // Check if file exists before trying to delete
+            if (fs.existsSync(fullOldPath)) {
+              fs.unlinkSync(fullOldPath);
+              console.log("Old attachment deleted successfully");
+            }
+          } catch (err) {
+            console.log("Failed to delete old attachment:", err.message);
+            // Continue with update even if deletion fails
+          }
         }
-        exercise.file = newFilename;
+        
+        // Update attachment with new file
+        exercise.attachment = {
+          filename: req.file.originalname,
+          url: req.file.path.replace(/\\/g, "/"),
+          mimetype: req.file.mimetype,
+          size: req.file.size / 1024 / 1024,
+        };
       }
       exercise.updatedBy = req.user._id;
       await exercise.save();
