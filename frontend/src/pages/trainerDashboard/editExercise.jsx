@@ -14,6 +14,19 @@ const schema = Joi.object({
     "string.min": "Name must be at least 2 characters",
     "string.max": "Name can't exceed 100 characters",
   }),
+  description: Joi.string().allow("").optional().messages({
+    "string.base": "Description must be a string",
+  }),
+  category: Joi.string().valid("Strength", "Cardio", "Flexibility", "Balance", "Yoga").required().messages({
+    "string.empty": "Category is required",
+    "any.only": "Category must be one of: Strength, Cardio, Flexibility, Balance, Yoga",
+    "any.required": "Category is required",
+  }),
+  difficulty: Joi.string().valid("Beginner", "Intermediate", "Advanced").required().messages({
+    "string.empty": "Difficulty is required",
+    "any.only": "Difficulty must be one of: Beginner, Intermediate, Advanced",
+    "any.required": "Difficulty is required",
+  }),
   sets: Joi.number().min(1).required().messages({
     "number.base": "Sets must be a number",
     "number.min": "Sets must be at least 1",
@@ -42,6 +55,9 @@ function EditExercise() {
   const { id } = useParams();
   const [initialValues, setInitialValues] = useState({
     name: "",
+    description: "",
+    category: "",
+    difficulty: "",
     sets: "",
     reps: "",
     restSeconds: "",
@@ -62,6 +78,9 @@ function EditExercise() {
         }
         setInitialValues({
           name: exercise.name || "",
+          description: exercise.description || "",
+          category: exercise.category || "",
+          difficulty: exercise.difficulty || "",
           sets: exercise.sets || "",
           reps: exercise.reps || "",
           restSeconds: exercise.restSeconds || "",
@@ -93,6 +112,9 @@ function EditExercise() {
       try {
         const formData = new FormData();
         formData.append("name", values.name);
+        formData.append("description", values.description);
+        formData.append("category", values.category);
+        formData.append("difficulty", values.difficulty);
         formData.append("sets", values.sets);
         formData.append("reps", values.reps);
         formData.append("restSeconds", values.restSeconds);
@@ -141,6 +163,53 @@ function EditExercise() {
           />
           {formik.touched.name && formik.errors.name && (
             <div className="error">{formik.errors.name}</div>
+          )}
+        </div>
+
+        {/* Description */}
+        <div className="form-group">
+          <label htmlFor="description">Description</label>
+          <textarea
+            rows="3"
+            placeholder="Describe the exercise..."
+            {...formik.getFieldProps("description")}
+          />
+          {formik.touched.description && formik.errors.description && (
+            <div className="error">{formik.errors.description}</div>
+          )}
+        </div>
+
+        {/* Category */}
+        <div className="form-group">
+          <label htmlFor="category">
+            Category <span className="red-dot">*</span>
+          </label>
+          <select {...formik.getFieldProps("category")}>
+            <option value="">Select a category</option>
+            <option value="Strength">Strength</option>
+            <option value="Cardio">Cardio</option>
+            <option value="Flexibility">Flexibility</option>
+            <option value="Balance">Balance</option>
+            <option value="Yoga">Yoga</option>
+          </select>
+          {formik.touched.category && formik.errors.category && (
+            <div className="error">{formik.errors.category}</div>
+          )}
+        </div>
+
+        {/* Difficulty */}
+        <div className="form-group">
+          <label htmlFor="difficulty">
+            Difficulty <span className="red-dot">*</span>
+          </label>
+          <select {...formik.getFieldProps("difficulty")}>
+            <option value="">Select difficulty level</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+          </select>
+          {formik.touched.difficulty && formik.errors.difficulty && (
+            <div className="error">{formik.errors.difficulty}</div>
           )}
         </div>
 

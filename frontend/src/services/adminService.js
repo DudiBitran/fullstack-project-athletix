@@ -60,6 +60,15 @@ const createTrainer = async (formData) => {
   }
 };
 
+const getAllExercises = async () => {
+  try {
+    const response = await httpService.get("/exercise/");
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
 // Add more admin-related methods as needed
 
 const adminService = {
@@ -69,6 +78,7 @@ const adminService = {
   deleteUserById,
   updateUserById,
   createTrainer,
+  getAllExercises,
 };
 
 export default adminService; 

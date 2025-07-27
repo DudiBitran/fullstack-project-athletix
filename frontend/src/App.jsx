@@ -31,6 +31,7 @@ import ViewExercise from "./pages/trainerDashboard/viewExercise";
 import AdminPanel from "./pages/adminDashboard/AdminPanel";
 import UserDetails from "./pages/adminDashboard/UserDetails";
 import EditUser from "./pages/adminDashboard/EditUser";
+import AllExercises from "./pages/adminDashboard/AllExercises";
 
 function App() {
   const { user } = useAuth();
@@ -165,6 +166,10 @@ function App() {
           />
           <Route path="/admin/users/:userId" element={<UserDetails />} />
           <Route path="/admin/users/:userId/edit" element={<EditUser />} />
+          <Route 
+            path="/admin/exercises" 
+            element={user && user.role === "admin" ? <AllExercises /> : <Navigate to="/login" />} 
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

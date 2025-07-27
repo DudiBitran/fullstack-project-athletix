@@ -47,6 +47,14 @@ function ViewExercise() {
           <FaDumbbell /> {exercise.name}
         </h2>
         <div className="form-group">
+          <label>Category</label>
+          <div>{exercise.category || <span style={{ color: '#aaa' }}>Not specified</span>}</div>
+        </div>
+        <div className="form-group">
+          <label>Difficulty</label>
+          <div>{exercise.difficulty || <span style={{ color: '#aaa' }}>Not specified</span>}</div>
+        </div>
+        <div className="form-group">
           <label>Sets</label>
           <div>{exercise.sets}</div>
         </div>

@@ -28,10 +28,6 @@ function TrainerDeleteRequests() {
 
   const handleStatusUpdate = async (requestId, newStatus) => {
     try {
-      // Add your API call here to update the status
-      // await adminService.updateTrainerDeleteRequestStatus(requestId, newStatus);
-      
-      // Update local state
       setRequests(prev => prev.map(req => 
         req._id === requestId ? { ...req, status: newStatus } : req
       ));

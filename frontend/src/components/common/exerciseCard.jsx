@@ -33,6 +33,8 @@ function ExerciseCardList(props) {
           return (
             <div className="exercise-card" key={ex._id} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
               <div className="exercise-name">{ex.name}</div>
+              <div className="exercise-info"><span>Category: {ex.category || 'Not specified'}</span></div>
+              <div className="exercise-info"><span>Difficulty: {ex.difficulty || 'Not specified'}</span></div>
               <div className="exercise-info"><span>Sets: {ex.sets}</span></div>
               <div className="exercise-info"><span>Reps: {ex.reps}</span></div>
               <div className="exercise-info">

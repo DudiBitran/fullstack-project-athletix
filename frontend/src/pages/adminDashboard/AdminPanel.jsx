@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "../../style/adminDash/adminPanel.css";
 import "../../style/adminDash/trainerDeleteRequests.css";
 import AllUsersTable from "./AllUsersTable";
@@ -23,20 +24,6 @@ function AdminPanel() {
     setError(null);
     try {
       const res = await getTrainerDeleteRequests();
-      console.log("Trainer Delete Requests API response:", res.data);
-      
-      // Check for duplicates
-      const requestIds = res.data.map(req => req._id);
-      const uniqueIds = [...new Set(requestIds)];
-      console.log("Total requests:", res.data.length);
-      console.log("Unique IDs:", uniqueIds.length);
-      
-      if (requestIds.length !== uniqueIds.length) {
-        console.warn("Duplicate trainer delete requests detected!");
-        const duplicates = requestIds.filter((id, index) => requestIds.indexOf(id) !== index);
-        console.log("Duplicate IDs:", duplicates);
-      }
-      
       setDeleteRequests(res.data);
     } catch (err) {
       setError(err.response?.data || "Failed to load delete requests");
@@ -115,6 +102,13 @@ function AdminPanel() {
       <section className="admin-panel-section">
         <h2>All Users</h2>
         <AllUsersTable />
+      </section>
+      <section className="admin-panel-section">
+        <h2>All Exercises</h2>
+        <p>View and manage all exercises in the database</p>
+        <Link to="/admin/exercises" className="admin-panel-link-btn">
+          View All Exercises
+        </Link>
       </section>
       <section className="admin-panel-section admin-panel-trainer-delete-section">
         <h2>Trainer Delete Requests</h2>

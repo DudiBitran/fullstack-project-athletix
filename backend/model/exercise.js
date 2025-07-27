@@ -7,6 +7,21 @@ const ExerciseSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    description: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+    category: {
+      type: String,
+      enum: ["Strength", "Cardio", "Flexibility", "Balance", "Yoga"],
+      required: true,
+    },
+    difficulty: {
+      type: String,
+      enum: ["Beginner", "Intermediate", "Advanced"],
+      required: true,
+    },
     sets: {
       type: Number,
       required: true,
@@ -59,6 +74,22 @@ const Validation = {
     "any.required": "Exercise name is required.",
   }),
 
+  description: Joi.string().allow("").optional().messages({
+    "string.base": "Description must be a string.",
+  }),
+
+  category: Joi.string().valid("Strength", "Cardio", "Flexibility", "Balance", "Yoga").required().messages({
+    "string.base": "Category must be a string.",
+    "any.only": "Category must be one of: Strength, Cardio, Flexibility, Balance, Yoga.",
+    "any.required": "Category is required.",
+  }),
+
+  difficulty: Joi.string().valid("Beginner", "Intermediate", "Advanced").required().messages({
+    "string.base": "Difficulty must be a string.",
+    "any.only": "Difficulty must be one of: Beginner, Intermediate, Advanced.",
+    "any.required": "Difficulty is required.",
+  }),
+
   sets: Joi.number().min(1).required().messages({
     "number.base": "Sets must be a number.",
     "number.min": "Sets must be at least 1.",
@@ -95,6 +126,20 @@ const exerciseUpdateValidation = Joi.object({
     "string.base": "Exercise name must be a string.",
     "string.min": "Exercise name must be at least 2 characters.",
     "string.max": "Exercise name can't exceed 100 characters.",
+  }),
+
+  description: Joi.string().allow("").optional().messages({
+    "string.base": "Description must be a string.",
+  }),
+
+  category: Joi.string().valid("Strength", "Cardio", "Flexibility", "Balance", "Yoga").messages({
+    "string.base": "Category must be a string.",
+    "any.only": "Category must be one of: Strength, Cardio, Flexibility, Balance, Yoga.",
+  }),
+
+  difficulty: Joi.string().valid("Beginner", "Intermediate", "Advanced").messages({
+    "string.base": "Difficulty must be a string.",
+    "any.only": "Difficulty must be one of: Beginner, Intermediate, Advanced.",
   }),
 
   sets: Joi.number().min(1).messages({

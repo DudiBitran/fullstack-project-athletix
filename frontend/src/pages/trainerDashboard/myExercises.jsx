@@ -14,6 +14,8 @@ function MyExercises() {
   const [exercises, setExercises] = useState([]);
   const [viewMode, setViewMode] = useState("grid");
   const [search, setSearch] = useState("");
+  const [difficultyFilter, setDifficultyFilter] = useState("all");
+  const [categoryFilter, setCategoryFilter] = useState("all");
   const { user, getMyExercises, deleteExerciseById } = useAuth();
   const [showRemoveModal, setShowRemoveModal] = useState(false);
   const [removeId, setRemoveId] = useState(null);
@@ -35,8 +37,20 @@ function MyExercises() {
     getExercises();
   }, []);
 
-  // Filter exercises by name
-  const filteredExercises = exercises.filter(ex => !search || (ex.name && ex.name.toLowerCase().includes(search.toLowerCase())));
+  // Filter exercises by name, difficulty, and category
+  const filteredExercises = exercises.filter(ex => {
+    const matchesSearch = !search || (ex.name && ex.name.toLowerCase().includes(search.toLowerCase()));
+    
+    // Handle difficulty filter with case-insensitive comparison and null/undefined values
+    const matchesDifficulty = difficultyFilter === "all" || 
+      (ex.difficulty && ex.difficulty.toLowerCase() === difficultyFilter.toLowerCase());
+    
+    // Handle category filter with case-insensitive comparison and null/undefined values
+    const matchesCategory = categoryFilter === "all" || 
+      (ex.category && ex.category.toLowerCase() === categoryFilter.toLowerCase());
+    
+    return matchesSearch && matchesDifficulty && matchesCategory;
+  });
 
   function handleRemove(id) {
     setRemoveId(id);
@@ -63,18 +77,83 @@ function MyExercises() {
 
   return (
     <main className="myExercises-container">
-      {/* Mobile/Tablet search input */}
-      <div className="d-block d-lg-none mb-4 d-flex justify-content-center">
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Search exercises..."
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          style={{ maxWidth: 260 }}
-        />
-      </div>
       <h2>My Exercises</h2>
+      
+      {/* Search and Filters Section */}
+      <div className="filters-section">
+        <div className="filters-container">
+          {/* Search by Title */}
+          <div className="filter-group">
+            <label htmlFor="searchInput">Search by Title:</label>
+            <input
+              id="searchInput"
+              type="text"
+              placeholder="Enter exercise title..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="filter-input"
+            />
+          </div>
+          
+          <div className="filter-group">
+            <label htmlFor="difficultyFilter">Difficulty:</label>
+            <select
+              id="difficultyFilter"
+              value={difficultyFilter}
+              onChange={(e) => setDifficultyFilter(e.target.value)}
+              className="filter-select"
+            >
+              <option value="all">All Difficulties</option>
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+          </div>
+          
+          <div className="filter-group">
+            <label htmlFor="categoryFilter">Category:</label>
+            <select
+              id="categoryFilter"
+              value={categoryFilter}
+              onChange={(e) => setCategoryFilter(e.target.value)}
+              className="filter-select"
+            >
+              <option value="all">All Categories</option>
+              <option value="strength">Strength</option>
+              <option value="cardio">Cardio</option>
+              <option value="flexibility">Flexibility</option>
+              <option value="balance">Balance</option>
+              <option value="sports">Sports</option>
+              <option value="yoga">Yoga</option>
+              <option value="pilates">Pilates</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        
+        {/* Clear Filters Button */}
+        <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+          <button
+            onClick={() => {
+              setSearch("");
+              setDifficultyFilter("all");
+              setCategoryFilter("all");
+            }}
+            style={{
+              background: 'var(--primary-color)',
+              color: '#000',
+              border: 'none',
+              padding: '8px 16px',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              fontWeight: 'bold'
+            }}
+          >
+            Clear All Filters
+          </button>
+        </div>
+      </div>
+
       <div className="d-flex justify-content-between align-items-center mb-4 container">
         <div className="btn-group" role="group">
           <button

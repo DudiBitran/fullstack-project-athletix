@@ -12,6 +12,8 @@ function ExerciseTable({
         <thead>
           <tr>
             <th>Name</th>
+            <th>Category</th>
+            <th>Difficulty</th>
             <th>Sets</th>
             <th>Reps</th>
             <th>Rest</th>
@@ -24,6 +26,8 @@ function ExerciseTable({
           {exercises.map((exercise) => (
             <tr key={exercise._id}>
               <td>{exercise.name}</td>
+              <td>{exercise.category || "Not specified"}</td>
+              <td>{exercise.difficulty || "Not specified"}</td>
               <td>{exercise.sets}</td>
               <td>{exercise.reps}</td>
               <td>{exercise.restSeconds}s</td>

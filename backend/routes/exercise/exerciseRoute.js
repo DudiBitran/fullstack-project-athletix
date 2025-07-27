@@ -66,7 +66,7 @@ router.post(
 );
 
 //get all exercises
-router.get("/", authMw, permitRoles("trainer", "admin"), async (req, res) => {
+router.get("/", authMw, permitRoles("admin"), async (req, res) => {
   try {
     const exercises = await Exercise.find();
     if (exercises.length === 0) {
