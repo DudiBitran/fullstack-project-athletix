@@ -9,5 +9,5 @@
 /* Import Form Styles */
 @import url('./forms/createTrainerForm.css');
 
-/* Import Trainer Delete Requests Styles */
-@import url('./trainerDeleteRequests.css'); 
+/* Import Admin Panel Trainer Delete Requests Styles */
+@import url('./adminPanelTrainerDelete.css'); 

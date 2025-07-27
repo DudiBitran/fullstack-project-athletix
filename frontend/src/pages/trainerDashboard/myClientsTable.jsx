@@ -33,7 +33,11 @@ function MyClientsTableBody({ clients, onUnassign, onViewAnalytics, onViewProgra
           <td>{client.age || "N/A"}</td>
           <td>{client.gender || "N/A"}</td>
           <td>
-            {client.stats.weight} KG | {client.stats.height} CM
+            {(client.stats?.weight === null || client.stats?.weight === undefined || client.stats?.weight === "") 
+              ? "Not provided" 
+              : `${client.stats.weight} KG`} | {(client.stats?.height === null || client.stats?.height === undefined || client.stats?.height === "") 
+              ? "Not provided" 
+              : `${client.stats.height} CM`}
           </td>
           <td>
             <button

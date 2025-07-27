@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/auth.context";
-import Pagination from "react-bootstrap/Pagination";
 import { Link } from "react-router-dom";
 import ConfirmationModal from "../../components/common/confirmationModal";
+import "../../style/adminDash/adminUsersTable.css";
 
 const USERS_PER_PAGE = 10;
 
@@ -15,6 +15,8 @@ function AllUsersTable() {
   const [deletingId, setDeletingId] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [roleFilter, setRoleFilter] = useState("all");
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -47,16 +49,33 @@ function AllUsersTable() {
     }
   };
 
-  if (loading) return <div>Loading users...</div>;
+  // Filter users based on search term and role filter
+  const filteredUsers = users.filter(user => {
+    const matchesSearch = searchTerm === "" || 
+      user.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.lastName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email?.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    const matchesRole = roleFilter === "all" || user.role === roleFilter;
+    
+    return matchesSearch && matchesRole;
+  });
+
+  // Reset page when filters change
+  useEffect(() => {
+    setPage(1);
+  }, [searchTerm, roleFilter]);
+
+  if (loading) return <div className="loading-message">Loading users...</div>;
   if (error) return (
-    <div className="alert alert-danger mb-2">
+    <div className="error-message">
       {typeof error === "string"
         ? error
         : error.message
           ? <>
               {error.message}
               {Array.isArray(error.details) && (
-                <ul style={{ margin: 0, paddingLeft: 18 }}>
+                <ul>
                   {error.details.map((d, i) => <li key={i}>{d}</li>)}
                 </ul>
               )}
@@ -66,14 +85,46 @@ function AllUsersTable() {
   );
 
   // Pagination logic
-  const totalPages = Math.ceil(users.length / USERS_PER_PAGE);
-  const paginatedUsers = users.slice((page - 1) * USERS_PER_PAGE, page * USERS_PER_PAGE);
+  const totalPages = Math.ceil(filteredUsers.length / USERS_PER_PAGE);
+  const paginatedUsers = filteredUsers.slice((page - 1) * USERS_PER_PAGE, page * USERS_PER_PAGE);
 
   return (
     <>
-      <div className="table-scroll-hint">← Scroll to see actions →</div>
-      <div className="table-responsive">
-        <table className="table">
+      {/* Search and Filter Section */}
+      <div className="table-controls">
+        <div className="search-filter-container">
+          <div className="search-box">
+            <input
+              type="text"
+              placeholder="Search by name or email..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="search-input"
+            />
+            <span className="search-icon">🔍</span>
+          </div>
+          
+          <div className="filter-box">
+            <select
+              value={roleFilter}
+              onChange={(e) => setRoleFilter(e.target.value)}
+              className="role-filter-select"
+            >
+              <option value="all">All Roles</option>
+              <option value="admin">Admin</option>
+              <option value="trainer">Trainer</option>
+              <option value="user">User</option>
+            </select>
+          </div>
+        </div>
+        
+        <div className="results-info">
+          Showing {filteredUsers.length} of {users.length} users
+        </div>
+      </div>
+
+      <div className="admin-users-table-container">
+        <table className="admin-users-table">
           <thead>
             <tr>
               <th>Name</th>
@@ -83,55 +134,69 @@ function AllUsersTable() {
             </tr>
           </thead>
           <tbody>
-            {paginatedUsers.map(user => (
-              <tr key={user._id || user.id}>
-                <td>{user.firstName} {user.lastName}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
-                <td>
-                  <div className="table-actions">
-                    <Link 
-                      to={`/admin/users/${user._id}`} 
-                      className="btn btn-secondary"
-                    >
-                      View
-                    </Link>
-                    <Link 
-                      to={`/admin/users/${user._id}/edit`} 
-                      className="btn btn-warning"
-                    >
-                      Edit
-                    </Link>
-                    {user.role === "user" && (
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => { setUserToDelete(user); setShowDeleteModal(true); }}
-                        disabled={deletingId === user._id}
-                      >
-                        {deletingId === user._id ? "Deleting..." : "Delete"}
-                      </button>
-                    )}
-                  </div>
+            {paginatedUsers.length === 0 ? (
+              <tr>
+                <td colSpan="4" className="no-results">
+                  {searchTerm || roleFilter !== "all" 
+                    ? "No users found matching your criteria" 
+                    : "No users available"}
                 </td>
               </tr>
-            ))}
+            ) : (
+              paginatedUsers.map(user => (
+                <tr key={user._id || user.id}>
+                  <td>{user.firstName} {user.lastName}</td>
+                  <td>{user.email}</td>
+                  <td>
+                    <span className={`role-badge role-${user.role}`}>
+                      {user.role}
+                    </span>
+                  </td>
+                  <td className="actions-cell">
+                    <div className="table-actions">
+                      <Link 
+                        to={`/admin/users/${user._id}`} 
+                        className="action-btn view-btn"
+                      >
+                        View
+                      </Link>
+                      <Link 
+                        to={`/admin/users/${user._id}/edit`} 
+                        className="action-btn edit-btn"
+                      >
+                        Edit
+                      </Link>
+                      {user.role === "user" && (
+                        <button
+                          className="action-btn delete-btn"
+                          onClick={() => { setUserToDelete(user); setShowDeleteModal(true); }}
+                          disabled={deletingId === user._id}
+                        >
+                          {deletingId === user._id ? "Deleting..." : "Delete"}
+                        </button>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
       
       {totalPages > 1 && (
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
-          <Pagination>
+        <div className="pagination-container">
+          <div className="pagination">
             {[...Array(totalPages)].map((_, i) => (
-              <Pagination.Item
+              <button
                 key={i + 1}
-                active={page === i + 1}
+                className={`pagination-btn ${page === i + 1 ? 'active' : ''}`}
                 onClick={() => setPage(i + 1)}
               >
                 {i + 1}
-              </Pagination.Item>
+              </button>
             ))}
-          </Pagination>
+          </div>
         </div>
       )}
 

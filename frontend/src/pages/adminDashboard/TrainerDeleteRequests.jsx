@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import adminService from "../../services/adminService";
-import "../../style/adminDash/adminPanel.css";
-
-
+import "../../style/adminDash/trainerDeleteRequests.css";
 
 function TrainerDeleteRequests() {
   const [requests, setRequests] = useState([]);
@@ -28,6 +26,20 @@ function TrainerDeleteRequests() {
     fetchRequests();
   }, []);
 
+  const handleStatusUpdate = async (requestId, newStatus) => {
+    try {
+      // Add your API call here to update the status
+      // await adminService.updateTrainerDeleteRequestStatus(requestId, newStatus);
+      
+      // Update local state
+      setRequests(prev => prev.map(req => 
+        req._id === requestId ? { ...req, status: newStatus } : req
+      ));
+    } catch (err) {
+      console.error("Failed to update status:", err);
+    }
+  };
+
   const filtered = requests.filter(req => {
     const matchesStatus = statusFilter === "all" || req.status === statusFilter;
     const matchesSearch =
@@ -48,99 +60,115 @@ function TrainerDeleteRequests() {
     }
   });
 
+  const getStatusBadge = (status) => {
+    const statusClass = `status-badge status-${status.toLowerCase()}`;
+    return <span className={statusClass}>{status}</span>;
+  };
+
+  // Use filtered and sorted data
+  const displayData = sortedAndFiltered;
+
+  if (loading) return <div className="loading-message">Loading delete requests...</div>;
+  if (error) return <div className="error-message">{error}</div>;
+
   return (
-    <div className="admin-panel-section">
+    <div className="trainer-delete-requests-section">
       <h2>Trainer Delete Requests</h2>
       
-      {/* Simple filters */}
-      <div style={{ 
-        backgroundColor: "blue", 
-        padding: "20px", 
-        marginBottom: "20px",
-        border: "5px solid orange"
-      }}>
-        <p style={{ color: "white", marginBottom: "10px" }}>FILTERS:</p>
+      {/* Filters */}
+      <div className="filter-container">
+        <div className="filter-group">
+          <label className="filter-label">Status Filter</label>
+          <select 
+            value={statusFilter} 
+            onChange={e => setStatusFilter(e.target.value)}
+            className="filter-select"
+          >
+            <option value="all">All Status</option>
+            <option value="pending">Pending</option>
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
+          </select>
+        </div>
         
-        <select 
-          value={statusFilter} 
-          onChange={e => setStatusFilter(e.target.value)}
-          style={{ 
-            backgroundColor: "white", 
-            color: "black", 
-            padding: "10px", 
-            marginRight: "10px",
-            border: "3px solid green"
-          }}
-        >
-          <option value="all">All</option>
-          <option value="pending">Pending</option>
-          <option value="approved">Approved</option>
-          <option value="rejected">Rejected</option>
-        </select>
+        <div className="filter-group">
+          <label className="filter-label">Sort By Date</label>
+          <select 
+            value={dateSort} 
+            onChange={e => setDateSort(e.target.value)}
+            className="filter-select"
+          >
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+          </select>
+        </div>
         
-        <select 
-          value={dateSort} 
-          onChange={e => setDateSort(e.target.value)}
-          style={{ 
-            backgroundColor: "white", 
-            color: "black", 
-            padding: "10px", 
-            marginRight: "10px",
-            border: "3px solid green"
-          }}
-        >
-          <option value="newest">Newest First</option>
-          <option value="oldest">Oldest First</option>
-        </select>
-        
-        <input 
-          type="text" 
-          placeholder="Search..." 
-          value={search} 
-          onChange={e => setSearch(e.target.value)}
-          style={{ 
-            backgroundColor: "white", 
-            color: "black", 
-            padding: "10px",
-            border: "3px solid green"
-          }}
-        />
+        <div className="filter-group">
+          <label className="filter-label">Search</label>
+          <input 
+            type="text" 
+            placeholder="Search by name or email..." 
+            value={search} 
+            onChange={e => setSearch(e.target.value)}
+            className="filter-input"
+          />
+        </div>
       </div>
       
-      {loading ? (
-        <div>Loading...</div>
-      ) : error ? (
-        <div className="create-trainer-error">{error}</div>
-      ) : (
-        <div className="table-responsive">
-          <table className="table">
-            <thead>
+      <div className="trainer-delete-table-container">
+        <table className="trainer-delete-table">
+          <thead>
+            <tr>
+              <th>Trainer Name</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Requested At</th>
+              <th>Reason</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {displayData.length === 0 ? (
               <tr>
-                <th>Trainer Name</th>
-                <th>Email</th>
-                <th>Status</th>
-                <th>Requested At</th>
-                <th>Reason</th>
+                <td colSpan={6} className="no-results">
+                  No requests found
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {sortedAndFiltered.length === 0 ? (
-                <tr><td colSpan={5} style={{ textAlign: "center" }}>No requests found</td></tr>
-              ) : (
-                sortedAndFiltered.map(req => (
-                  <tr key={req._id}>
-                    <td>{req.trainerName || "-"}</td>
-                    <td>{req.trainerEmail || "-"}</td>
-                    <td>{req.status}</td>
-                    <td>{req.createdAt ? new Date(req.createdAt).toLocaleString() : "-"}</td>
-                    <td>{req.reason || "-"}</td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
-      )}
+            ) : (
+              displayData.map(req => (
+                <tr key={req._id}>
+                  <td>{req.trainerName || "-"}</td>
+                  <td>{req.trainerEmail || "-"}</td>
+                  <td>{getStatusBadge(req.status)}</td>
+                  <td>{req.createdAt ? new Date(req.createdAt).toLocaleString() : "-"}</td>
+                  <td>{req.reason || "-"}</td>
+                  <td className="actions-cell">
+                    {req.status === "pending" && (
+                      <div className="table-actions">
+                        <button
+                          className="action-btn approve-btn"
+                          onClick={() => handleStatusUpdate(req._id, "approved")}
+                        >
+                          Approve
+                        </button>
+                        <button
+                          className="action-btn reject-btn"
+                          onClick={() => handleStatusUpdate(req._id, "rejected")}
+                        >
+                          Reject
+                        </button>
+                      </div>
+                    )}
+                    {req.status !== "pending" && (
+                      <span className="no-actions">No actions available</span>
+                    )}
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

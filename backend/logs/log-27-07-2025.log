@@ -169,3 +169,26 @@
 27-07-2025 21:03:00 | INFO: status: 200 | Message: User image have been changes successfully.
 27-07-2025 21:03:01 | INFO: status: 200 | Message: User sent successfully.
 27-07-2025 21:03:01 | INFO: status: 304 | Message: User sent successfully.
+27-07-2025 21:34:04 | ERROR: status: 400 | Message: failed to login, password not matching.
+27-07-2025 21:40:30 | INFO: status: 200 | Message: Token provided.
+27-07-2025 21:40:30 | INFO: status: 304 | Message: User sent successfully.
+27-07-2025 21:40:31 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+27-07-2025 21:40:31 | INFO: status: 304 | Message: Clients has been sent successfully.
+27-07-2025 21:40:31 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+27-07-2025 21:40:31 | INFO: status: 200 | Message: Program sent successfully.
+27-07-2025 21:40:31 | INFO: status: 304 | Message: Program sent successfully.
+27-07-2025 21:40:31 | INFO: status: 304 | Message: Clients has been sent successfully.
+27-07-2025 21:41:59 | INFO: status: 200 | Message: Token provided.
+27-07-2025 21:41:59 | INFO: status: 200 | Message: User sent successfully.
+27-07-2025 21:42:00 | INFO: status: 304 | Message: Delete requests have bees sent successfully.
+27-07-2025 21:42:00 | INFO: status: 304 | Message: Delete requests have bees sent successfully.
+27-07-2025 21:52:21 | INFO: status: 304 | Message: Delete requests have bees sent successfully.
+27-07-2025 21:52:21 | INFO: status: 200 | Message: Delete requests have bees sent successfully.
+27-07-2025 21:54:12 | INFO: status: 200 | Message: Delete requests have bees sent successfully.
+27-07-2025 21:54:12 | INFO: status: 304 | Message: Delete requests have bees sent successfully.
+27-07-2025 21:55:09 | INFO: status: 304 | Message: Delete requests have bees sent successfully.
+27-07-2025 21:55:09 | INFO: status: 200 | Message: Delete requests have bees sent successfully.
+27-07-2025 21:55:25 | INFO: status: 200 | Message: Delete requests have bees sent successfully.
+27-07-2025 21:55:25 | INFO: status: 304 | Message: Delete requests have bees sent successfully.
+27-07-2025 21:57:22 | INFO: status: 304 | Message: Delete requests have bees sent successfully.
+27-07-2025 21:57:22 | INFO: status: 200 | Message: Delete requests have bees sent successfully.

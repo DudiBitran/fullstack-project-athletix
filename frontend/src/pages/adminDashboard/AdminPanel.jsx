@@ -23,6 +23,20 @@ function AdminPanel() {
     setError(null);
     try {
       const res = await getTrainerDeleteRequests();
+      console.log("Trainer Delete Requests API response:", res.data);
+      
+      // Check for duplicates
+      const requestIds = res.data.map(req => req._id);
+      const uniqueIds = [...new Set(requestIds)];
+      console.log("Total requests:", res.data.length);
+      console.log("Unique IDs:", uniqueIds.length);
+      
+      if (requestIds.length !== uniqueIds.length) {
+        console.warn("Duplicate trainer delete requests detected!");
+        const duplicates = requestIds.filter((id, index) => requestIds.indexOf(id) !== index);
+        console.log("Duplicate IDs:", duplicates);
+      }
+      
       setDeleteRequests(res.data);
     } catch (err) {
       setError(err.response?.data || "Failed to load delete requests");
@@ -85,7 +99,11 @@ function AdminPanel() {
       const dateA = new Date(a.createdAt);
       const dateB = new Date(b.createdAt);
       return sortOrder === "desc" ? dateB - dateA : dateA - dateB;
-    });
+    })
+    // Remove duplicates based on _id
+    .filter((request, index, self) => 
+      index === self.findIndex(r => r._id === request._id)
+    );
 
   return (
     <div className="admin-panel-wrapper">
@@ -98,17 +116,17 @@ function AdminPanel() {
         <h2>All Users</h2>
         <AllUsersTable />
       </section>
-      <section className="admin-panel-section trainer-delete-requests-section">
+      <section className="admin-panel-section admin-panel-trainer-delete-section">
         <h2>Trainer Delete Requests</h2>
         
         {/* Filter Controls */}
-        <div className="filter-container">
-          <div className="filter-group">
-            <label className="filter-label">Status:</label>
+        <div className="admin-panel-filter-container">
+          <div className="admin-panel-filter-group">
+            <label className="admin-panel-filter-label">Status:</label>
             <select
               value={statusFilter}
               onChange={e => setStatusFilter(e.target.value)}
-              className="filter-select"
+              className="admin-panel-filter-select"
             >
               <option value="all">All</option>
               <option value="pending">Pending</option>
@@ -117,68 +135,76 @@ function AdminPanel() {
             </select>
           </div>
           
-          <div className="filter-group">
-            <label className="filter-label">Sort by Date:</label>
+          <div className="admin-panel-filter-group">
+            <label className="admin-panel-filter-label">Sort by Date:</label>
             <select
               value={sortOrder}
               onChange={e => setSortOrder(e.target.value)}
-              className="filter-select"
+              className="admin-panel-filter-select"
             >
               <option value="desc">Newest First</option>
               <option value="asc">Oldest First</option>
             </select>
           </div>
           
-          <div className="filter-group">
-            <label className="filter-label">Search:</label>
+          <div className="admin-panel-filter-group">
+            <label className="admin-panel-filter-label">Search:</label>
             <input
               type="text"
               placeholder="Search by name or status..."
               value={search}
               onChange={e => setSearch(e.target.value)}
-              className="filter-input"
+              className="admin-panel-filter-input"
             />
           </div>
         </div>
         
         {loading ? (
-          <div className="loading-message">Loading delete requests...</div>
+          <div className="admin-panel-loading-message">Loading delete requests...</div>
         ) : error ? (
-          <div className="error-message">{error}</div>
+          <div className="admin-panel-error-message">{error}</div>
         ) : (
-          <table className="trainer-delete-table">
-            <thead>
-              <tr>
-                <th>Trainer Name</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredAndSortedDeleteRequests.map(deleteRequest => (
-                <tr key={deleteRequest._id}>
-                  <td>{deleteRequest.firstName} {deleteRequest.lastName}</td>
-                  <td>{deleteRequest.status}</td>
-                  <td>
-                    <button
-                      className="action-btn btn-success"
-                      disabled={rowLoading[deleteRequest.trainerId] || deleteRequest.status !== "pending"}
-                      onClick={() => handleAccept(deleteRequest.trainerId, `${deleteRequest.firstName} ${deleteRequest.lastName}`)}
-                    >
-                      {rowLoading[deleteRequest.trainerId] && deleteRequest.status === "pending" ? "Processing..." : "Accept"}
-                    </button>
-                    <button
-                      className="action-btn btn-danger"
-                      disabled={rowLoading[deleteRequest.trainerId] || deleteRequest.status !== "pending"}
-                      onClick={() => handleReject(deleteRequest.trainerId, `${deleteRequest.firstName} ${deleteRequest.lastName}`)}
-                    >
-                      {rowLoading[deleteRequest.trainerId] && deleteRequest.status === "pending" ? "Processing..." : "Reject"}
-                    </button>
-                  </td>
+          <div className="admin-panel-trainer-delete-table-container">
+            <table className="admin-panel-trainer-delete-table">
+              <thead>
+                <tr>
+                  <th>Trainer Name</th>
+                  <th>Status</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {filteredAndSortedDeleteRequests.map(deleteRequest => (
+                  <tr key={deleteRequest._id}>
+                    <td>{deleteRequest.firstName} {deleteRequest.lastName}</td>
+                    <td>
+                      <span className={`admin-panel-status-badge admin-panel-status-${deleteRequest.status?.toLowerCase()}`}>
+                        {deleteRequest.status}
+                      </span>
+                    </td>
+                    <td className="admin-panel-actions-cell">
+                      <div className="admin-panel-table-actions">
+                        <button
+                          className="admin-panel-action-btn admin-panel-accept-btn"
+                          disabled={rowLoading[deleteRequest.trainerId] || deleteRequest.status !== "pending"}
+                          onClick={() => handleAccept(deleteRequest.trainerId, `${deleteRequest.firstName} ${deleteRequest.lastName}`)}
+                        >
+                          {rowLoading[deleteRequest.trainerId] && deleteRequest.status === "pending" ? "Processing..." : "Accept"}
+                        </button>
+                        <button
+                          className="admin-panel-action-btn admin-panel-reject-btn"
+                          disabled={rowLoading[deleteRequest.trainerId] || deleteRequest.status !== "pending"}
+                          onClick={() => handleReject(deleteRequest.trainerId, `${deleteRequest.firstName} ${deleteRequest.lastName}`)}
+                        >
+                          {rowLoading[deleteRequest.trainerId] && deleteRequest.status === "pending" ? "Processing..." : "Reject"}
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </section>
       <ConfirmationModal

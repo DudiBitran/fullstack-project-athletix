@@ -311,7 +311,7 @@
 
 /* Server Error */
 .server-error {
-  background: linear-gradient(135deg, #ff4757, #ff3742);
+  background: #ff0000;
   color: #fff;
   padding: 16px;
   border-radius: 12px;
@@ -325,6 +325,17 @@
   0%, 100% { transform: translateX(0); }
   25% { transform: translateX(-5px); }
   75% { transform: translateX(5px); }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Links */
