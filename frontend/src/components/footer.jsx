@@ -133,8 +133,7 @@ function Footer() {
       >
         © {new Date().getFullYear()} Copyright: {" "}
         <span className="">
-          Athleti
-          <Logo className="logo" />
+          AthletiX
         </span>
       </div>
     </footer>

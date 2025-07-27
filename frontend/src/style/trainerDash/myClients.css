@@ -46,6 +46,9 @@
   border-bottom: 1px solid #444;
   text-align: left;
   white-space: nowrap; /* Prevent text from wrapping for better scroll */
+  vertical-align: middle;
+  min-height: 50px;
+  line-height: 1.2;
 }
 
 .my-clients-table tbody tr:hover {
@@ -54,7 +57,7 @@
 }
 
 .my-clients-table button.btn-danger {
-  font-size: 0.9rem;
+  font-size: 1rem;
   padding: 5px 10px;
   border-radius: 4px;
   background-color: #dc3545;
@@ -73,6 +76,33 @@
   color: #999;
   font-style: italic;
   padding: 20px;
+}
+
+/* Actions column styling for consistent alignment */
+.my-clients-table td:last-child {
+  vertical-align: middle;
+  text-align: center;
+  min-height: 50px;
+  display: table-cell;
+  align-items: center;
+  justify-content: center;
+}
+
+.my-clients-table td:last-child .btn {
+  vertical-align: middle;
+  margin: 2px;
+  font-size: 0.9rem;
+  padding: 4px 8px;
+  line-height: 1;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* General button styling for consistent sizing */
+.my-clients-table .btn {
+  font-size: 1rem;
+  padding: 6px 12px;
+  vertical-align: middle;
 }
 
 /* Responsive styles */
@@ -97,14 +127,14 @@
     padding: 7px 4px;
   }
   .my-clients-table td:last-child {
-    min-width: 120px;
+    min-width: 100px;
+    padding: 4px;
   }
   .my-clients-table td:last-child .btn {
-    display: block;
-    width: 100%;
-    margin-bottom: 6px;
-  }
-  .my-clients-table td:last-child .btn:last-child {
-    margin-bottom: 0;
+    font-size: 0.8rem;
+    padding: 3px 6px;
+    margin: 1px;
   }
 }
+
+

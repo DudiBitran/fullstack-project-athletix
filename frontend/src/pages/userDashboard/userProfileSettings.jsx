@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { Navigate } from "react-router";
 import Input from "../../components/common/input";
 import ImageUploader from "../../components/common/imageUploader";
-import { FaUser, FaEnvelope, FaBirthdayCake, FaVenusMars, FaRulerVertical, FaWeight, FaPercentage, FaCamera, FaSave, FaUndo, FaTrash } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaBirthdayCake, FaVenusMars, FaRulerVertical, FaWeight, FaPercentage, FaCamera, FaSave, FaUndo, FaTrash, FaExclamationTriangle } from "react-icons/fa";
 import "../../style/userDashboard/userProfileSettings.css";
 import ConfirmationModal from "../../components/common/confirmationModal";
 import axios from "axios";
@@ -101,6 +101,13 @@ function UserProfileSettings() {
     setPreviewUrl(URL.createObjectURL(file));
     profileFormik.setFieldValue("image", file.name);
     setRemoveImage(false);
+  };
+
+  const handleRemoveImage = () => {
+    setImageFile(null);
+    setPreviewUrl("/default-avatar-profile.jpg");
+    setRemoveImage(true);
+    profileFormik.setFieldValue("image", "");
   };
 
   const profileFormik = useFormik({
@@ -357,392 +364,281 @@ function UserProfileSettings() {
   }
 
   return (
-    <div className="profile-settings-wrapper">
-      <div className="profile-settings-box">
-        <div className="profile-header">
-          <h2>Profile Settings</h2>
-          <p>Update your personal information and fitness stats</p>
-          {currentUser && (
-            <div className="user-info-summary">
-              <div className="user-role">
-                <span className="role-badge">{currentUser.role}</span>
-              </div>
-              <div className="account-info">
-                <small>Member since: {new Date(currentUser.createdAt).toLocaleDateString()}</small>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {serverError && (
-          <div className="server-error">
-            <span>{serverError}</span>
+    <>
+      <div className="profile-settings-wrapper">
+        <div className="profile-settings-box">
+          {/* Profile Header */}
+          <div className="profile-header">
+            <h2>Profile Settings</h2>
+            <p>Manage your account information and preferences</p>
           </div>
-        )}
 
-        <form
-          className="profile-form"
-          noValidate
-          autoComplete="off"
-          onSubmit={profileFormik.handleSubmit}
-        >
+          {/* User Info Summary */}
+          <div className="user-info-summary">
+            <div className="user-role">
+              <span className="role-badge">{user?.role}</span>
+            </div>
+            <div className="account-info">
+              Account created: {new Date(user?.createdAt).toLocaleDateString()}
+            </div>
+          </div>
+
           {/* Profile Image Section */}
-          <div className="profile-image-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', background: 'none', boxShadow: 'none', border: 'none', padding: 0, paddingBottom: '2rem' }}>
-            <h3 style={{ alignSelf: 'flex-start' }}><FaCamera className="me-2" />Profile Picture</h3>
-            <img
-              src={previewUrl || "/default-avatar-profile.jpg"}
-              alt="Profile preview"
-              style={{ width: 120, height: 120, borderRadius: '50%', objectFit: 'cover', border: '1px solid #ccc', marginBottom: 0 }}
-              onError={(e) => {
-                e.target.src = "/default-avatar-profile.jpg";
-              }}
-            />
-            {/* Only show remove button if not already default avatar */}
-            {previewUrl !== "/default-avatar-profile.jpg" && (
-              <button
-                type="button"
-                onClick={() => {
-                  setImageFile(null);
-                  setPreviewUrl("/default-avatar-profile.jpg");
-                  setOriginalImageUrl("/default-avatar-profile.jpg");
-                  setRemoveImage(true);
-                  profileFormik.setFieldValue("image", "");
-                }}
-                style={{ marginTop: 8, marginBottom: 24 }}
-                className="image-remove-original-btn"
-                aria-label="Remove original image"
-                title="Remove profile picture"
-              >
-                Remove Profile Picture
-              </button>
-            )}
-            {/* Always show upload option if default avatar is displayed */}
-            {previewUrl === "/default-avatar-profile.jpg" && (
-              <div style={{ width: '100%', marginTop: 8 }}>
-                <ImageUploader
-                  onFileSelected={handleImageSelect}
-                  previewUrl={null}
+          <div className="profile-image-section">
+            <h3>Profile Picture</h3>
+            <div className="image-upload-container">
+              <ImageUploader
+                onImageSelect={handleImageSelect}
+                previewUrl={previewUrl}
+                originalImageUrl={originalImageUrl}
+                onRemoveImage={handleRemoveImage}
+                onRemoveOriginalImage={() => setOriginalImageUrl(null)}
+                removeImage={removeImage}
+                setRemoveImage={setRemoveImage}
+              />
+            </div>
+          </div>
+
+          {/* Personal Information Form */}
+          <form onSubmit={profileFormik.handleSubmit} autoComplete="off">
+            <div className="form-section">
+              <h3>Personal Information</h3>
+              
+              <div className="input-icon-wrapper">
+                <FaUser className="input-icon" />
+                <Input
+                  type="text"
+                  name="firstName"
+                  placeholder="First Name"
+                  className="underline-input"
+                  formik={profileFormik}
                 />
               </div>
+
+              <div className="input-icon-wrapper">
+                <FaUser className="input-icon" />
+                <Input
+                  type="text"
+                  name="lastName"
+                  placeholder="Last Name"
+                  className="underline-input"
+                  formik={profileFormik}
+                />
+              </div>
+
+              <div className="input-icon-wrapper">
+                <FaEnvelope className="input-icon" />
+                <Input
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  className="underline-input"
+                  formik={profileFormik}
+                />
+              </div>
+
+              <div className="input-icon-wrapper">
+                <FaBirthdayCake className="input-icon" />
+                <Input
+                  type="number"
+                  name="age"
+                  placeholder="Age"
+                  className="underline-input"
+                  formik={profileFormik}
+                />
+              </div>
+
+              <div className="input-icon-wrapper">
+                <FaVenusMars className="input-icon" />
+                <select
+                  name="gender"
+                  className={`form-select ${profileFormik.touched.gender && profileFormik.errors.gender ? 'is-invalid' : ''}`}
+                  value={profileFormik.values.gender}
+                  onChange={profileFormik.handleChange}
+                  onBlur={profileFormik.handleBlur}
+                >
+                  <option value="">Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+                {profileFormik.touched.gender && profileFormik.errors.gender && (
+                  <div className="invalid-feedback">{profileFormik.errors.gender}</div>
+                )}
+              </div>
+            </div>
+
+            {/* Physical Information Section */}
+            <div className="form-section">
+              <h3>Physical Information</h3>
+              
+              <div className="input-icon-wrapper">
+                <FaRulerVertical className="input-icon" />
+                <Input
+                  type="number"
+                  name="height"
+                  placeholder="Height (cm)"
+                  className="underline-input"
+                  formik={profileFormik}
+                />
+              </div>
+
+              <div className="input-icon-wrapper">
+                <FaWeight className="input-icon" />
+                <Input
+                  type="number"
+                  name="weight"
+                  placeholder="Weight (kg)"
+                  className="underline-input"
+                  formik={profileFormik}
+                />
+              </div>
+
+              <div className="input-icon-wrapper">
+                <FaPercentage className="input-icon" />
+                <Input
+                  type="number"
+                  name="bodyFat"
+                  placeholder="Body Fat (%)"
+                  className="underline-input"
+                  formik={profileFormik}
+                />
+              </div>
+            </div>
+
+            {/* Server Error Display */}
+            {serverError && (
+              <div className="server-error">
+                <FaExclamationTriangle className="me-2" />
+                {serverError}
+              </div>
             )}
-          </div>
 
-          {/* Personal Information Section */}
-          <div className="form-section">
-            <h3><FaUser className="me-2" />Personal Information</h3>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="input-icon-wrapper">
-                  <FaUser className="input-icon" />
-                  <Input
-                    {...profileFormik.getFieldProps("firstName")}
-                    type="text"
-                    name="firstName"
-                    placeholder="First Name"
-                    className={`underline-input ${
-                      profileFormik.touched.firstName && profileFormik.errors.firstName ? "is-invalid" : ""
-                    }`}
-                  />
-                </div>
-                {profileFormik.touched.firstName && profileFormik.errors.firstName && (
-                  <div className="invalid-feedback mt-1 d-block">
-                    {profileFormik.errors.firstName}
-                  </div>
-                )}
-              </div>
-
-              <div className="col-md-6">
-                <div className="input-icon-wrapper">
-                  <FaUser className="input-icon" />
-                  <Input
-                    {...profileFormik.getFieldProps("lastName")}
-                    type="text"
-                    name="lastName"
-                    placeholder="Last Name"
-                    className={`underline-input ${
-                      profileFormik.touched.lastName && profileFormik.errors.lastName ? "is-invalid" : ""
-                    }`}
-                  />
-                </div>
-                {profileFormik.touched.lastName && profileFormik.errors.lastName && (
-                  <div className="invalid-feedback mt-1 d-block">
-                    {profileFormik.errors.lastName}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-6">
-                <div className="input-icon-wrapper">
-                  <FaEnvelope className="input-icon" />
-                  <Input
-                    {...profileFormik.getFieldProps("email")}
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    className={`underline-input ${
-                      profileFormik.touched.email && profileFormik.errors.email ? "is-invalid" : ""
-                    }`}
-                  />
-                </div>
-                {profileFormik.touched.email && profileFormik.errors.email && (
-                  <div className="invalid-feedback mt-1 d-block">
-                    {profileFormik.errors.email}
-                  </div>
-                )}
-              </div>
-
-              <div className="col-md-6">
-                <div className="input-icon-wrapper">
-                  <FaBirthdayCake className="input-icon" />
-                  <Input
-                    {...profileFormik.getFieldProps("age")}
-                    type="number"
-                    name="age"
-                    placeholder="Age"
-                    className={`underline-input ${
-                      profileFormik.touched.age && profileFormik.errors.age ? "is-invalid" : ""
-                    }`}
-                  />
-                </div>
-                {profileFormik.touched.age && profileFormik.errors.age && (
-                  <div className="invalid-feedback mt-1 d-block">
-                    {profileFormik.errors.age}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-6">
-                <div className="input-icon-wrapper">
-                  <FaVenusMars className="input-icon" />
-                  <select
-                    {...profileFormik.getFieldProps("gender")}
-                    name="gender"
-                    className={`form-select ${
-                      profileFormik.touched.gender && profileFormik.errors.gender ? "is-invalid" : ""
-                    }`}
-                  >
-                    <option value="">Select Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                  </select>
-                  {profileFormik.touched.gender && profileFormik.errors.gender && (
-                    <div className="invalid-feedback mt-1 d-block">
-                      {profileFormik.errors.gender}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Fitness Stats Section */}
-          <div className="form-section">
-            <h3><FaWeight className="me-2" />Fitness Statistics</h3>
-            <div className="row">
-              <div className="col-md-4">
-                <div className="input-icon-wrapper">
-                  <FaRulerVertical className="input-icon" />
-                  <Input
-                    {...profileFormik.getFieldProps("height")}
-                    type="number"
-                    name="height"
-                    placeholder="Height (cm)"
-                    className={`underline-input ${
-                      profileFormik.touched.height && profileFormik.errors.height ? "is-invalid" : ""
-                    }`}
-                  />
-                </div>
-                {profileFormik.touched.height && profileFormik.errors.height && (
-                  <div className="invalid-feedback mt-1 d-block">
-                    {profileFormik.errors.height}
-                  </div>
-                )}
-              </div>
-
-              <div className="col-md-4">
-                <div className="input-icon-wrapper">
-                  <FaWeight className="input-icon" />
-                  <Input
-                    {...profileFormik.getFieldProps("weight")}
-                    type="number"
-                    name="weight"
-                    placeholder="Weight (kg)"
-                    className={`underline-input ${
-                      profileFormik.touched.weight && profileFormik.errors.weight ? "is-invalid" : ""
-                    }`}
-                  />
-                </div>
-                {profileFormik.touched.weight && profileFormik.errors.weight && (
-                  <div className="invalid-feedback mt-1 d-block">
-                    {profileFormik.errors.weight}
-                  </div>
-                )}
-              </div>
-
-              <div className="col-md-4">
-                <div className="input-icon-wrapper">
-                  <FaPercentage className="input-icon" />
-                  <Input
-                    {...profileFormik.getFieldProps("bodyFat")}
-                    type="number"
-                    name="bodyFat"
-                    placeholder="Body Fat (%)"
-                    className={`underline-input ${
-                      profileFormik.touched.bodyFat && profileFormik.errors.bodyFat ? "is-invalid" : ""
-                    }`}
-                  />
-                </div>
-                {profileFormik.touched.bodyFat && profileFormik.errors.bodyFat && (
-                  <div className="invalid-feedback mt-1 d-block">
-                    {profileFormik.errors.bodyFat}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="submit-section">
-            <div className="d-flex gap-3 justify-content-center">
-              <button 
-                type="button" 
-                className="reset-btn"
-                onClick={() => {
-                  if (currentUser) {
-                    profileFormik.setValues({
-                      firstName: currentUser.firstName || "",
-                      lastName: currentUser.lastName || "",
-                      email: currentUser.email || "",
-                      age: currentUser.age || "",
-                      gender: currentUser.gender || "",
-                      height: currentUser.stats?.height || "",
-                      weight: currentUser.stats?.weight || "",
-                      bodyFat: currentUser.stats?.bodyFat || "",
-                      image: "",
-                    });
+            {/* Submit Section */}
+            <div className="submit-section">
+              <div className="d-flex justify-content-center gap-3">
+                <button
+                  type="submit"
+                  className="submit-btn"
+                  disabled={isLoading || !profileFormik.isValid || !profileFormik.dirty}
+                >
+                  <FaSave className="me-2" />
+                  {isLoading ? "Saving..." : "Save Changes"}
+                </button>
+                <button
+                  type="button"
+                  className="reset-btn"
+                  onClick={() => {
+                    profileFormik.resetForm();
                     setImageFile(null);
                     setPreviewUrl(originalImageUrl);
                     setRemoveImage(false);
-                    toast.info("Form reset to original values");
-                  }
-                }}
-                disabled={isLoading}
-              >
-                <FaUndo className="me-2" />
-                Reset
-              </button>
-              <button 
-                type="submit" 
-                className="submit-btn"
-                disabled={isLoading}
-              >
-                <FaSave className="me-2" />
-                {isLoading ? "Updating..." : "Update Profile"}
-              </button>
+                    setServerError("");
+                  }}
+                  disabled={isLoading}
+                >
+                  <FaUndo className="me-2" />
+                  Reset
+                </button>
+              </div>
             </div>
-          </div>
-
-        </form>
-
-        {/* Change Password Section */}
-        <div className="form-section" style={{ marginTop: '2.5rem', borderTop: '1px solid #dee2e6', paddingTop: '2.5rem' }}>
-          <h3 style={{ color: '#ffe600' }}>Change Password</h3>
-          <form onSubmit={handleChangePw} autoComplete="off" style={{ maxWidth: 400, margin: '0 auto' }}>
-            <div className="mb-3">
-              <label htmlFor="currentPassword" className="form-label">Current Password</label>
-              <input
-                type="password"
-                className="form-control"
-                id="currentPassword"
-                value={pwForm.currentPassword}
-                onChange={e => setPwForm(f => ({ ...f, currentPassword: e.target.value }))}
-                autoComplete="current-password"
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="newPassword" className="form-label">New Password</label>
-              <input
-                type="password"
-                className="form-control"
-                id="newPassword"
-                value={pwForm.newPassword}
-                onChange={e => setPwForm(f => ({ ...f, newPassword: e.target.value }))}
-                autoComplete="new-password"
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="confirmPassword" className="form-label">Confirm New Password</label>
-              <input
-                type="password"
-                className="form-control"
-                id="confirmPassword"
-                value={pwForm.confirmPassword}
-                onChange={e => setPwForm(f => ({ ...f, confirmPassword: e.target.value }))}
-                autoComplete="new-password"
-                required
-              />
-            </div>
-            {changePwError && <div className="text-danger mb-2">{changePwError}</div>}
-            {changePwSuccess && <div className="text-success mb-2">{changePwSuccess}</div>}
-            <button type="submit" className="btn btn-warning w-100" disabled={changePwLoading}>
-              {changePwLoading ? "Changing..." : "Change Password"}
-            </button>
           </form>
-        </div>
 
-        {/* Delete Account Request Section - Only for Trainers */}
-        {user?.role === "trainer" && (
-          <div className="form-section" style={{ marginTop: '2rem', borderTop: '1px solid #dee2e6', paddingTop: '2rem' }}>
-            <h3 style={{ color: '#dc3545' }}><FaTrash className="me-2" />Delete Account Request</h3>
-            <p style={{ color: '#6c757d', fontSize: '0.9rem', marginBottom: '1rem' }}>
-              Request to delete your trainer account. This action will be reviewed by an administrator.
-            </p>
-            <button
-              type="button"
-              className="btn btn-danger"
-              onClick={() => setShowDeleteConfirmModal(true)}
-              disabled={deleteRequestLoading}
-              style={{ width: '100%', maxWidth: '300px' }}
-            >
-              <FaTrash className="me-2" />
-              {deleteRequestLoading ? "Sending Request..." : "Request Account Deletion"}
-            </button>
+          {/* Change Password Section */}
+          <div className="form-section" style={{ marginTop: '2.5rem', borderTop: '1px solid #dee2e6', paddingTop: '2.5rem' }}>
+            <h3 style={{ color: '#ffe600' }}>Change Password</h3>
+            <form onSubmit={handleChangePw} autoComplete="off" style={{ maxWidth: 400, margin: '0 auto' }}>
+              <div className="mb-3">
+                <label htmlFor="currentPassword" className="form-label">Current Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="currentPassword"
+                  value={pwForm.currentPassword}
+                  onChange={e => setPwForm(f => ({ ...f, currentPassword: e.target.value }))}
+                  autoComplete="current-password"
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="newPassword" className="form-label">New Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="newPassword"
+                  value={pwForm.newPassword}
+                  onChange={e => setPwForm(f => ({ ...f, newPassword: e.target.value }))}
+                  autoComplete="new-password"
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="confirmPassword" className="form-label">Confirm New Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="confirmPassword"
+                  value={pwForm.confirmPassword}
+                  onChange={e => setPwForm(f => ({ ...f, confirmPassword: e.target.value }))}
+                  autoComplete="new-password"
+                  required
+                />
+              </div>
+              {changePwError && <div className="text-danger mb-2">{changePwError}</div>}
+              {changePwSuccess && <div className="text-success mb-2">{changePwSuccess}</div>}
+              <button type="submit" className="btn btn-warning w-100" disabled={changePwLoading}>
+                {changePwLoading ? "Changing..." : "Change Password"}
+              </button>
+            </form>
           </div>
-        )}
 
-        {/* Delete Confirmation Modal */}
-        <ConfirmationModal
-          show={showDeleteConfirmModal}
-          title="Request Account Deletion"
-          message="Are you sure you want to request account deletion? This action will be reviewed by an administrator and cannot be undone."
-          onConfirm={async () => {
-            setShowDeleteConfirmModal(false);
-            setDeleteRequestLoading(true);
-            try {
-              await sendTrainerDeleteRequest();
-              toast.success("Delete request sent successfully. An administrator will review your request.");
-            } catch (err) {
-              if (err.response?.status === 400 && err.response?.data === "Delete request already sent.") {
-                toast.warning("A delete request has already been sent and is pending review.");
-              } else {
-                toast.error(err.response?.data || "Failed to send delete request. Please try again.");
-              }
-            } finally {
-              setDeleteRequestLoading(false);
-            }
-          }}
-          onCancel={() => setShowDeleteConfirmModal(false)}
-          icon="fas fa-exclamation-triangle"
-        />
+          {/* Delete Account Request Section - Only for Trainers */}
+          {user?.role === "trainer" && (
+            <div className="form-section" style={{ marginTop: '2rem', borderTop: '1px solid #dee2e6', paddingTop: '2rem' }}>
+              <h3 style={{ color: '#dc3545' }}><FaTrash className="me-2" />Delete Account Request</h3>
+              <p style={{ color: '#6c757d', fontSize: '0.9rem', marginBottom: '1rem' }}>
+                Request to delete your trainer account. This action will be reviewed by an administrator.
+              </p>
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={() => setShowDeleteConfirmModal(true)}
+                disabled={deleteRequestLoading}
+                style={{ width: '100%', maxWidth: '300px' }}
+              >
+                <FaTrash className="me-2" />
+                {deleteRequestLoading ? "Sending Request..." : "Request Account Deletion"}
+              </button>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+
+      {/* Delete Confirmation Modal - Moved outside the wrapper */}
+      <ConfirmationModal
+        show={showDeleteConfirmModal}
+        title="Request Account Deletion"
+        message="Are you sure you want to request account deletion? This action will be reviewed by an administrator and cannot be undone."
+        onConfirm={async () => {
+          setShowDeleteConfirmModal(false);
+          setDeleteRequestLoading(true);
+          try {
+            await sendTrainerDeleteRequest();
+            toast.success("Delete request sent successfully. An administrator will review your request.");
+          } catch (err) {
+            if (err.response?.status === 400 && err.response?.data === "Delete request already sent.") {
+              toast.warning("A delete request has already been sent and is pending review.");
+            } else {
+              toast.error(err.response?.data || "Failed to send delete request. Please try again.");
+            }
+          } finally {
+            setDeleteRequestLoading(false);
+          }
+        }}
+        onCancel={() => setShowDeleteConfirmModal(false)}
+        icon="fas fa-exclamation-triangle"
+      />
+    </>
   );
 }
 

@@ -1,7 +1,7 @@
 import "../style/login.css";
 import Input from "../components/common/input";
 import { useState } from "react";
-import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaUser, FaLock, FaEye, FaEyeSlash, FaDumbbell } from "react-icons/fa";
 import { Link, useNavigate, Navigate } from "react-router-dom";
 import { useFormik } from "formik";
 import Joi from "joi";
@@ -86,9 +86,15 @@ function Login() {
     <section className="login-wrapper">
       <div className="login-background">
         <div className="background-shapes">
-          <div className="shape shape-1"></div>
-          <div className="shape shape-2"></div>
-          <div className="shape shape-3"></div>
+          <div className="shape shape-1">
+            <FaDumbbell />
+          </div>
+          <div className="shape shape-2">
+            <FaDumbbell />
+          </div>
+          <div className="shape shape-3">
+            <FaDumbbell />
+          </div>
         </div>
       </div>
       

@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 
-.upload-box {
+.image-uploader-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,14 +12,106 @@
   height: 100%;
 }
 
+.upload-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+
 .upload-box p {
   margin: 0;
+  margin-top: 10px;
+  color: var(--primary-color);
+  font-size: 0.9rem;
+  font-style: italic;
 }
 
 .upload-box img {
-  width: 40%;
+  width: 200px;
+  height: 200px;
+  display: block;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.remove-image-btn {
+  background: rgba(255, 0, 0, 0.8);
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  color: white;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.remove-image-btn:hover {
+  background: rgba(255, 0, 0, 1);
+}
+
+.image-preview-wrapper {
+  position: relative;
+  max-width: 300px;
+  border-radius: 12px;
+  padding: 20px;
+  border: 3px solid #ffe600;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.image-preview-wrapper:hover {
+  border-color: #ffd700;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.image-preview {
+  max-width: 200px;
+  max-height: 200px;
+  min-height: 150px;
+  border-radius: 50%;
   height: auto;
   display: block;
-  border-radius: 8px;
-  object-fit: contain;
+  object-fit: cover;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.drag-click-text {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin: 0;
+  font-style: italic;
+}
+
+.image-remove-original-btn {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 0, 0, 0.8);
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  color: white;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.image-remove-original-btn:hover {
+  background: rgba(255, 0, 0, 1);
 }
