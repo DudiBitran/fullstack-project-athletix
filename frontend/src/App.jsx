@@ -32,6 +32,9 @@ import AdminPanel from "./pages/adminDashboard/AdminPanel";
 import UserDetails from "./pages/adminDashboard/UserDetails";
 import EditUser from "./pages/adminDashboard/EditUser";
 import AllExercises from "./pages/adminDashboard/AllExercises";
+import AllPrograms from "./pages/adminDashboard/AllPrograms";
+import AdminViewProgram from "./pages/adminDashboard/AdminViewProgram";
+import AdminEditProgram from "./pages/adminDashboard/AdminEditProgram";
 import AdminViewExercise from "./pages/adminDashboard/AdminViewExercise";
 import AdminEditExercise from "./pages/adminDashboard/AdminEditExercise";
 
@@ -171,6 +174,18 @@ function App() {
           <Route 
             path="/admin/exercises" 
             element={user && user.role === "admin" ? <AllExercises /> : <Navigate to="/login" />} 
+          />
+          <Route 
+            path="/admin/programs" 
+            element={user && user.role === "admin" ? <AllPrograms /> : <Navigate to="/login" />} 
+          />
+          <Route 
+            path="/admin/programs/:id" 
+            element={user && user.role === "admin" ? <AdminViewProgram /> : <Navigate to="/login" />} 
+          />
+          <Route 
+            path="/admin/programs/:id/edit" 
+            element={user && user.role === "admin" ? <AdminEditProgram /> : <Navigate to="/login" />} 
           />
           <Route 
             path="/admin/exercises/:id" 

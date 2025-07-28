@@ -307,6 +307,24 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const getAllPrograms = async () => {
+    try {
+      const response = await adminService.getAllPrograms();
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const adminUpdateProgram = async (id, data) => {
+    try {
+      const response = await adminService.adminUpdateProgram(id, data);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
   const adminUpdateExercise = async (id, data) => {
     try {
       const response = await adminService.updateExercise(id, data);
@@ -403,7 +421,9 @@ export function AuthProvider({ children }) {
         updateExercise,
         deleteExerciseById,
         getAllExercises,
-    adminUpdateExercise,
+        getAllPrograms,
+        adminUpdateProgram,
+        adminUpdateExercise,
         getAllUsers,
         getTrainerDeleteRequests,
         handleTrainerDeleteRequest,

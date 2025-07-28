@@ -110,6 +110,14 @@ function AdminPanel() {
           View All Exercises
         </Link>
       </section>
+
+      <section className="admin-panel-section">
+        <h2>All Programs</h2>
+        <p>View and manage all programs in the database</p>
+        <Link to="/admin/programs" className="admin-panel-link-btn">
+          View All Programs
+        </Link>
+      </section>
       <section className="admin-panel-section admin-panel-trainer-delete-section">
         <h2>Trainer Delete Requests</h2>
         
