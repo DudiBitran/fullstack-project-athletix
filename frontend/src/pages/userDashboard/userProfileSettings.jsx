@@ -476,10 +476,9 @@ function UserProfileSettings() {
                 <FaRulerVertical className="input-icon" />
                 <Input
                   type="number"
-                  name="height"
                   placeholder="Height (cm)"
                   className="underline-input"
-                  formik={profileFormik}
+                  {...profileFormik.getFieldProps('height')}
                 />
               </div>
 
@@ -487,10 +486,9 @@ function UserProfileSettings() {
                 <FaWeight className="input-icon" />
                 <Input
                   type="number"
-                  name="weight"
                   placeholder="Weight (kg)"
                   className="underline-input"
-                  formik={profileFormik}
+                  {...profileFormik.getFieldProps('weight')}
                 />
               </div>
 
@@ -498,10 +496,9 @@ function UserProfileSettings() {
                 <FaPercentage className="input-icon" />
                 <Input
                   type="number"
-                  name="bodyFat"
                   placeholder="Body Fat (%)"
                   className="underline-input"
-                  formik={profileFormik}
+                  {...profileFormik.getFieldProps('bodyFat')}
                 />
               </div>
             </div>
