@@ -42,7 +42,7 @@ const getMe = async () => {
     const response = await httpService.get("/users/me");
     return response;
   } catch (err) {
-    throw err; // Don't wrap in new Error() to preserve Axios error structure
+    throw err; 
   }
 };
 
@@ -51,7 +51,7 @@ const updateUser = async (userData) => {
     const response = await httpService.put("/users/me", userData);
     return response;
   } catch (err) {
-    throw err; // Don't wrap in new Error() to preserve Axios error structure
+    throw err; 
   }
 };
 
@@ -67,7 +67,7 @@ const updateUserImage = async (imageFile) => {
     return response;
   } catch (err) {
     console.error("Error in updateUserImage:", err);
-    throw err; // Don't wrap in new Error() to preserve Axios error structure
+    throw err; 
   }
 };
 
@@ -79,7 +79,7 @@ const removeUserImage = async () => {
     return response;
   } catch (err) {
     console.error("Error in removeUserImage:", err);
-    throw err; // Don't wrap in new Error() to preserve Axios error structure
+    throw err;
   }
 };
 

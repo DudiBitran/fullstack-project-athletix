@@ -246,6 +246,7 @@ export function AuthProvider({ children }) {
     return userService.getUserById(userId);
   };
 
+  // Update User
   const updateUser = async (userData) => {
     return userService.updateUser(userData);
   };
@@ -254,6 +255,16 @@ export function AuthProvider({ children }) {
   };
   const removeUserImage = async () => {
     return userService.removeUserImage();
+  };
+
+  // Forgot Password
+  const forgotPassword = async (email) => {
+    return userService.forgotPassword(email);
+  };
+
+  // Reset Password
+  const resetPassword = async ({ token, password }) => {
+    return userService.resetPassword({ token, password });
   };
 
   const markWorkoutStatus = async ({ programId, date, completed }) => {
@@ -382,6 +393,8 @@ export function AuthProvider({ children }) {
         updateUser,
         updateUserImage,
         removeUserImage,
+        forgotPassword,
+        resetPassword,
         markWorkoutStatus,
         getWorkoutStatuses,
         getProgressAnalytics,

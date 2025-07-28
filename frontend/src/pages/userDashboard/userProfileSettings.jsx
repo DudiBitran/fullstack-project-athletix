@@ -77,8 +77,6 @@ function UserProfileSettings() {
     }
     
     try {
-      // This would need a backend endpoint to check email existence
-      // For now, we'll handle this in the backend validation
       return false;
     } catch (err) {
       console.error("Error checking email:", err);
@@ -218,6 +216,7 @@ function UserProfileSettings() {
           },
         };
 
+        console.log(updateData);
         // Update profile information first
         try {
           await updateUser(updateData);
@@ -236,7 +235,7 @@ function UserProfileSettings() {
               return;
             }
           }
-          throw updateErr; // Re-throw if it's not a handled error
+          throw updateErr; 
         }
 
         // Update profile image if a new image was selected or if image should be removed
@@ -359,6 +358,11 @@ function UserProfileSettings() {
     }
   }, [currentUser]);
 
+  // Add loading state to ensure data is present before rendering form
+  if (!user || !currentUser) {
+    return <div>Loading...</div>;
+  }
+
   if (!user) {
     return <Navigate to="/login" />;
   }
@@ -408,10 +412,9 @@ function UserProfileSettings() {
                 <FaUser className="input-icon" />
                 <Input
                   type="text"
-                  name="firstName"
-                  placeholder="First Name"
+                  placeholder={profileFormik.values.firstName || "First Name"}
                   className="underline-input"
-                  formik={profileFormik}
+                  {...profileFormik.getFieldProps('firstName')}
                 />
               </div>
 
@@ -419,10 +422,9 @@ function UserProfileSettings() {
                 <FaUser className="input-icon" />
                 <Input
                   type="text"
-                  name="lastName"
-                  placeholder="Last Name"
+                  placeholder={profileFormik.values.lastName || "Last Name"}
                   className="underline-input"
-                  formik={profileFormik}
+                  {...profileFormik.getFieldProps('lastName')}
                 />
               </div>
 
@@ -430,10 +432,9 @@ function UserProfileSettings() {
                 <FaEnvelope className="input-icon" />
                 <Input
                   type="email"
-                  name="email"
-                  placeholder="Email Address"
+                  placeholder={profileFormik.values.email || "Email Address"}
                   className="underline-input"
-                  formik={profileFormik}
+                  {...profileFormik.getFieldProps('email')}
                 />
               </div>
 
@@ -441,10 +442,9 @@ function UserProfileSettings() {
                 <FaBirthdayCake className="input-icon" />
                 <Input
                   type="number"
-                  name="age"
-                  placeholder="Age"
+                  placeholder={profileFormik.values.age || "Age"}
                   className="underline-input"
-                  formik={profileFormik}
+                  {...profileFormik.getFieldProps('age')}
                 />
               </div>
 

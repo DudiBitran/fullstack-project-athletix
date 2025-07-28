@@ -34,6 +34,8 @@ function ForgotPassword() {
       await forgotPassword(values.email);
       setSubmitted(true);
     } catch (err) {
+      console.log(err);
+      
       setError("Something went wrong. Please try again later.");
     }
     setSubmitting(false);
