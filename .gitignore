@@ -1,0 +1,5 @@
+# Node modules
+node_modules/
+
+# Backend logs
+backend/logs/ 
