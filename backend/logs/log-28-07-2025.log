@@ -130,3 +130,25 @@
 28-07-2025 12:31:21 | INFO: status: 200 | Message: Password changed successfully for user 68703beef075a9f0f876bd19
 28-07-2025 12:31:50 | INFO: status: 200 | Message: Password changed successfully for user 68703beef075a9f0f876bd19
 28-07-2025 12:32:04 | INFO: status: 200 | Message: Password changed successfully for user 68703beef075a9f0f876bd19
+28-07-2025 12:33:20 | INFO: status: 200 | Message: User updated successfully.
+28-07-2025 12:33:20 | INFO: status: 200 | Message: User sent successfully.
+28-07-2025 12:34:07 | INFO: status: 304 | Message: User sent successfully.
+28-07-2025 12:34:07 | INFO: status: 200 | Message: User sent successfully.
+28-07-2025 12:34:07 | INFO: status: 304 | Message: Clients has been sent successfully.
+28-07-2025 12:34:07 | INFO: status: 200 | Message: Available clients have been sent successfully. 
+28-07-2025 12:34:07 | INFO: status: 200 | Message: Clients has been sent successfully.
+28-07-2025 12:34:07 | INFO: status: 304 | Message: Available clients have been sent successfully. 
+28-07-2025 12:34:07 | INFO: status: 304 | Message: Program sent successfully.
+28-07-2025 12:34:07 | INFO: status: 200 | Message: Program sent successfully.
+28-07-2025 12:34:33 | INFO: status: 200 | Message: User updated successfully.
+28-07-2025 12:34:34 | INFO: status: 200 | Message: User sent successfully.
+28-07-2025 12:39:28 | INFO: status: 200 | Message: Password changed successfully for user 68703beef075a9f0f876bd19
+28-07-2025 12:39:46 | INFO: status: 200 | Message: Password changed successfully for user 68703beef075a9f0f876bd19
+28-07-2025 12:42:40 | INFO: status: 200 | Message: Password changed successfully for user 68703beef075a9f0f876bd19
+28-07-2025 12:43:05 | INFO: status: 200 | Message: User sent successfully.
+28-07-2025 12:43:05 | INFO: status: 304 | Message: User sent successfully.
+28-07-2025 12:45:23 | INFO: status: 200 | Message: Clients has been sent successfully.
+28-07-2025 12:45:23 | INFO: status: 304 | Message: Clients has been sent successfully.
+28-07-2025 12:45:43 | INFO: status: 200 | Message: Exercise have been sent successfully.
+28-07-2025 12:45:43 | INFO: status: 304 | Message: Exercise have been sent successfully.
+28-07-2025 12:46:21 | INFO: status: 200 | Message: The request to delete the account have been sent successfully. 

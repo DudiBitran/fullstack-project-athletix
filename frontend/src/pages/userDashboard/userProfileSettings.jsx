@@ -37,12 +37,13 @@ function UserProfileSettings() {
     e.preventDefault();
     setChangePwError("");
     setChangePwSuccess("");
+    const passwordRegex = /^(?=(?:.*\d){4,})(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
     if (!pwForm.currentPassword || !pwForm.newPassword || !pwForm.confirmPassword) {
       setChangePwError("All fields are required.");
       return;
     }
-    if (pwForm.newPassword.length < 6) {
-      setChangePwError("New password must be at least 6 characters.");
+    if (!passwordRegex.test(pwForm.newPassword)) {
+      setChangePwError("Password must be at least 8 characters, contain at least 4 digits, one uppercase letter, one lowercase letter, and one special character.");
       return;
     }
     if (pwForm.newPassword !== pwForm.confirmPassword) {
@@ -216,7 +217,6 @@ function UserProfileSettings() {
           },
         };
 
-        console.log(updateData);
         // Update profile information first
         try {
           await updateUser(updateData);
@@ -542,48 +542,53 @@ function UserProfileSettings() {
           </form>
 
           {/* Change Password Section */}
-          <div className="form-section" style={{ marginTop: '2.5rem', borderTop: '1px solid #dee2e6', paddingTop: '2.5rem' }}>
-            <h3 style={{ color: '#ffe600' }}>Change Password</h3>
-            <form onSubmit={handleChangePw} autoComplete="off" style={{ maxWidth: 400, margin: '0 auto' }}>
-              <div className="mb-3">
-                <label htmlFor="currentPassword" className="form-label">Current Password</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="currentPassword"
-                  value={pwForm.currentPassword}
-                  onChange={e => setPwForm(f => ({ ...f, currentPassword: e.target.value }))}
-                  autoComplete="current-password"
-                  required
-                />
+          <div className="change-password-card">
+            <h3 className="change-password-title">Change Password</h3>
+            <form onSubmit={handleChangePw} autoComplete="off">
+              <div className="change-password-fields">
+                <div className="change-password-input-group">
+                  <label htmlFor="currentPassword" className="change-password-label">Current Password</label>
+                  <input
+                    type="password"
+                    className="change-password-input"
+                    id="currentPassword"
+                    value={pwForm.currentPassword}
+                    onChange={e => setPwForm(f => ({ ...f, currentPassword: e.target.value }))}
+                    autoComplete="current-password"
+                    required
+                  />
+                </div>
+                <div className="change-password-input-group">
+                  <label htmlFor="newPassword" className="change-password-label">New Password</label>
+                  <input
+                    type="password"
+                    className="change-password-input"
+                    id="newPassword"
+                    value={pwForm.newPassword}
+                    onChange={e => setPwForm(f => ({ ...f, newPassword: e.target.value }))}
+                    autoComplete="new-password"
+                    required
+                  />
+                  <div className="change-password-hint">
+                    Password must be at least 8 characters, contain at least 4 digits, one uppercase letter, one lowercase letter, and one special character.
+                  </div>
+                </div>
+                <div className="change-password-input-group">
+                  <label htmlFor="confirmPassword" className="change-password-label">Confirm New Password</label>
+                  <input
+                    type="password"
+                    className="change-password-input"
+                    id="confirmPassword"
+                    value={pwForm.confirmPassword}
+                    onChange={e => setPwForm(f => ({ ...f, confirmPassword: e.target.value }))}
+                    autoComplete="new-password"
+                    required
+                  />
+                </div>
               </div>
-              <div className="mb-3">
-                <label htmlFor="newPassword" className="form-label">New Password</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="newPassword"
-                  value={pwForm.newPassword}
-                  onChange={e => setPwForm(f => ({ ...f, newPassword: e.target.value }))}
-                  autoComplete="new-password"
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="confirmPassword" className="form-label">Confirm New Password</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="confirmPassword"
-                  value={pwForm.confirmPassword}
-                  onChange={e => setPwForm(f => ({ ...f, confirmPassword: e.target.value }))}
-                  autoComplete="new-password"
-                  required
-                />
-              </div>
-              {changePwError && <div className="text-danger mb-2">{changePwError}</div>}
-              {changePwSuccess && <div className="text-success mb-2">{changePwSuccess}</div>}
-              <button type="submit" className="btn btn-warning w-100" disabled={changePwLoading}>
+              {changePwError && <div className="change-password-error">{changePwError}</div>}
+              {changePwSuccess && <div className="change-password-success">{changePwSuccess}</div>}
+              <button type="submit" className="change-password-btn" disabled={changePwLoading}>
                 {changePwLoading ? "Changing..." : "Change Password"}
               </button>
             </form>
