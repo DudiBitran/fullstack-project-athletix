@@ -326,9 +326,10 @@
   }
   
   .status-badge {
-    padding: 4px 8px;
-    font-size: 0.7rem;
-    min-width: 60px;
+    padding: 3px 6px;
+    font-size: 0.65rem;
+    min-width: 50px;
+    border-radius: 12px;
   }
 }
 
@@ -366,9 +367,11 @@
   }
   
   .status-badge {
-    padding: 3px 6px;
-    font-size: 0.65rem;
-    min-width: 50px;
+    padding: 2px 4px;
+    font-size: 0.6rem;
+    min-width: 40px;
+    border-radius: 8px;
+    letter-spacing: 0.2px;
   }
 }
 
@@ -394,9 +397,21 @@
   }
   
   .status-badge {
-    padding: 2px 4px;
-    font-size: 0.6rem;
-    min-width: 45px;
+    padding: 1px 3px;
+    font-size: 0.55rem;
+    min-width: 35px;
+    border-radius: 6px;
+    letter-spacing: 0.1px;
+  }
+}
+
+@media (max-width: 360px) {
+  .status-badge {
+    padding: 1px 2px;
+    font-size: 0.5rem;
+    min-width: 30px;
+    border-radius: 4px;
+    letter-spacing: 0;
   }
 }
 

@@ -296,6 +296,14 @@
     font-size: 0.7rem;
     min-width: 60px;
   }
+  
+  .admin-panel-status-badge {
+    padding: 4px 8px;
+    font-size: 0.7rem;
+    min-width: 60px;
+    border-radius: 12px;
+    white-space: nowrap;
+  }
 }
 
 @media (max-width: 576px) {
@@ -313,5 +321,36 @@
     padding: 5px 8px;
     font-size: 0.65rem;
     min-width: 50px;
+  }
+  
+  .admin-panel-status-badge {
+    padding: 3px 6px;
+    font-size: 0.65rem;
+    min-width: 50px;
+    border-radius: 10px;
+    white-space: nowrap;
+    letter-spacing: 0.2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-panel-status-badge {
+    padding: 2px 4px;
+    font-size: 0.6rem;
+    min-width: 40px;
+    border-radius: 8px;
+    white-space: nowrap;
+    letter-spacing: 0.1px;
+  }
+}
+
+@media (max-width: 360px) {
+  .admin-panel-status-badge {
+    padding: 1px 3px;
+    font-size: 0.55rem;
+    min-width: 35px;
+    border-radius: 6px;
+    white-space: nowrap;
+    letter-spacing: 0;
   }
 } 
