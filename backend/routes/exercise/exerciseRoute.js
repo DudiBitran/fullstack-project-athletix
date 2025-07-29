@@ -18,7 +18,7 @@ router.post(
   "/",
   authMw,
   permitRoles("admin", "trainer"),
-  fileUpload.single("attachment"),
+  fileUpload.single("attachment"), // still allow file upload, but don't enforce it
   async (req, res) => {
     try {
       const { error } = exerciseValidation.validate(req.body);
@@ -37,33 +37,33 @@ router.post(
 
       const file = req.file;
 
-      if (!file) {
-        res.status(400).send("File not uploaded.");
-        logger.error(`status: ${res.statusCode} | Message: File not uploaded.`);
-        return;
-      }
-
-      const newExercise = await new Exercise({
+      const exerciseData = {
         ...req.body,
-        attachment: {
+        updatedBy: req.user._id,
+        createdBy: req.user._id,
+      };
+
+      // Add attachment only if file is uploaded
+      if (file) {
+        exerciseData.attachment = {
           filename: file.originalname,
           url: file.path.replace(/\\/g, "/"),
           mimetype: file.mimetype,
           size: file.size / 1024 / 1024,
-        },
-        updatedBy: req.user._id,
-        createdBy: req.user._id,
-      }).save();
+        };
+      }
+
+      const newExercise = await new Exercise(exerciseData).save();
 
       res.send(newExercise);
     } catch (err) {
       console.log(err);
-
       res.status(500).send("Internal server error.");
       logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
     }
   }
 );
+
 
 //get all exercises
 router.get("/", authMw, permitRoles("admin"), async (req, res) => {
