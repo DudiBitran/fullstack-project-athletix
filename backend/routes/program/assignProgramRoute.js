@@ -6,6 +6,7 @@ const { permitRoles } = require("../../middleware/role");
 const authMw = require("../../middleware/auth");
 const { Program } = require("../../model/program");
 const { User } = require("../../model/user");
+const { WorkoutStatus } = require("../../model/workoutStatus");
 
 router.patch(
   "/:programId/:userId/assign-user",
@@ -69,6 +70,10 @@ router.patch(
 
       program.assignedTo = null;
       await program.save();
+
+      // Delete all workout status for this user and program
+      await WorkoutStatus.deleteMany({ user: userId, programId });
+
       res.send("User unassigned successfully.");
     } catch (err) {
       console.log(err);

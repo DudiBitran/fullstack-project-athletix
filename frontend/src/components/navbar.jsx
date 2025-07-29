@@ -87,7 +87,7 @@ function CustomNavbar() {
                       src={
                         profileImage
                           ? (profileImage === "/public/defaults/trainer-icon.jpg" || profileImage === "public/defaults/trainer-icon.jpg"
-                              ? "/trainer-icon.jpg"
+                              ? "/default-avatar-profile.jpg"
                               : profileImage.startsWith("http")
                                 ? profileImage
                                 : `${baseUrl}/${profileImage.replace(/^\/+/,'')}`)

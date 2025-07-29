@@ -1,5 +1,5 @@
 import "../../style/trainerDash/createExercise.css";
-import { FaDumbbell } from "react-icons/fa";
+import { FaDumbbell, FaArrowLeft } from "react-icons/fa";
 import { useFormik } from "formik";
 import Joi from "joi";
 import { useState, useEffect } from "react";
@@ -110,6 +110,9 @@ function AdminEditProgram() {
         noValidate
         autoComplete="off"
       >
+        <button className="btn btn-secondary mb-3" onClick={() => navigate(-1)}>
+          <FaArrowLeft /> Back
+        </button>
         <h2 className="form-title">
           <FaDumbbell /> Edit Program
         </h2>

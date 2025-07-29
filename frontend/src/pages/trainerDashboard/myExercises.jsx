@@ -176,7 +176,18 @@ function MyExercises() {
       </div>
 
       <section className="w-100 px-3 px-lg-0 container-lg">
-        {viewMode === "grid" ? (
+        {filteredExercises.length === 0 ? (
+          <div className="no-exercises-message" style={{ textAlign: 'center', margin: '2rem 0' }}>
+            <p style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Create your first exercise!</p>
+            <button
+              className="btn btn-primary"
+              onClick={() => navigate('/trainer/create-exercise')}
+              style={{ fontWeight: 'bold', fontSize: '1rem' }}
+            >
+              Go to Create Exercise
+            </button>
+          </div>
+        ) : viewMode === "grid" ? (
           <ExerciseCardList exercises={filteredExercises} onRemove={async function(id) {
             try {
               await deleteExerciseById(id);

@@ -26,6 +26,9 @@ const schema = Joi.object({
       "string.pattern.base":
         "Password must be at least 8 characters, contain at least 4 digits, one uppercase letter, one lowercase letter, and one special character",
     }),
+  confirmPassword: Joi.string().required().messages({
+    "string.empty": "Confirm password is required",
+  }),
   age: Joi.number().min(18).required().messages({
     "number.base": "Age must be a number",
     "number.min": "You must be at least 18 years old",
@@ -72,6 +75,7 @@ function CreateTrainer() {
       lastName: "",
       email: "",
       password: "",
+      confirmPassword: "",
       age: "",
       gender: "",
       height: "",
@@ -82,10 +86,21 @@ function CreateTrainer() {
     },
     validate: (values) => {
       const { error } = schema.validate(values, { abortEarly: false });
-      if (!error) return {};
+      if (!error) {
+        // Custom validation for password confirmation
+        const errors = {};
+        if (values.password !== values.confirmPassword) {
+          errors.confirmPassword = "Passwords do not match";
+        }
+        return errors;
+      }
       const errors = {};
       for (let detail of error.details) {
         errors[detail.path[0]] = detail.message;
+      }
+      // Custom validation for password confirmation
+      if (values.password !== values.confirmPassword) {
+        errors.confirmPassword = "Passwords do not match";
       }
       return errors;
     },
@@ -184,6 +199,19 @@ function CreateTrainer() {
               />
               {formik.touched.password && formik.errors.password && (
                 <div className="create-trainer-invalid-feedback">{formik.errors.password}</div>
+              )}
+            </div>
+            <div className="create-trainer-input-group">
+              <Input
+                {...formik.getFieldProps("confirmPassword")}
+                type="password"
+                label="Confirm Password"
+                name="confirmPassword"
+                className="create-trainer-input"
+                required
+              />
+              {formik.touched.confirmPassword && formik.errors.confirmPassword && (
+                <div className="create-trainer-invalid-feedback">{formik.errors.confirmPassword}</div>
               )}
             </div>
             <div className="create-trainer-input-group">

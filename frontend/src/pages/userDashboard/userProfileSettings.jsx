@@ -88,7 +88,13 @@ function UserProfileSettings() {
   useEffect(() => {
     if (user) {
       setCurrentUser(user);
-      const userImageUrl = user.image ? `http://localhost:3000/${user.image.replace(/^\/+/, "")}` : "/default-avatar-profile.jpg";
+      const userImageUrl = user.image 
+        ? (user.image === "/public/defaults/trainer-icon.jpg" || user.image === "public/defaults/trainer-icon.jpg"
+            ? "/default-avatar-profile.jpg"
+            : user.image.startsWith("http")
+              ? user.image
+              : `http://localhost:3000/${user.image.replace(/^\/+/, "")}`)
+        : "/default-avatar-profile.jpg";
       setPreviewUrl(userImageUrl);
       setOriginalImageUrl(userImageUrl);
     }

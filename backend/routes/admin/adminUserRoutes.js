@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const { User, userValidation, userUpdateValidation } = require("../../model/user");
 const { trainerValidation, Trainer } = require("../../model/trainer");
+const { Program } = require("../../model/program");
+const { Exercise } = require("../../model/exercise");
+const { WorkoutStatus } = require("../../model/workoutStatus");
 const logger = require("../../fileLogger/fileLogger");
 const _ = require("lodash");
 const { permitRoles } = require("../../middleware/role");
@@ -12,6 +15,7 @@ const {
   DeleteRequest,
   deleteRequestValidation,
 } = require("../../model/trainerDeleteRequest");
+const transporter = require('../../utils/mailer');
 
 // admin getting all users
 router.get("/get-all-users", authMw, permitRoles("admin"), async (req, res) => {
@@ -228,9 +232,18 @@ router.delete(
         logger.error(
           `status: ${res.statusCode} | Message: Delete request answared by reject.`
         );
+        const trainer = await User.findById(req.params.id);
+        if (trainer) {
+          await transporter.sendMail({
+            to: trainer.email,
+            subject: "Trainer Delete Request Rejected",
+            text: `Hello ${trainer.firstName},\n\nYour request to delete your trainer account has been rejected by the admin. You can continue using your account as usual.\n\nBest regards,\nAthletiX Team`
+          });
+        }
         return;
       }
       if (req.body.status === "approve") {
+        // 1. Delete the trainer's user account
         const deletedTrainer = await User.findByIdAndDelete(req.params.id);
         if (!deletedTrainer) {
           res.status(400).send("User not found.");
@@ -239,6 +252,37 @@ router.delete(
           );
           return;
         }
+
+        // 2. Delete the trainer's profile
+        await Trainer.deleteOne({ userId: req.params.id });
+
+        // 3. Find all programs by this trainer
+        const programs = await Program.find({ trainer: req.params.id });
+
+        // 4. For each program, remove from users and delete workout statuses
+        for (const program of programs) {
+          // Unassign users from this program
+          await User.updateMany(
+            { programs: program._id },
+            { $pull: { programs: program._id } }
+          );
+          // Delete workout statuses for this program
+          await WorkoutStatus.deleteMany({ programId: program._id });
+        }
+
+        // 5. Delete all programs by this trainer
+        await Program.deleteMany({ trainer: req.params.id });
+
+        // 6. Delete all exercises created by this trainer
+        await Exercise.deleteMany({ createdBy: req.params.id });
+
+        // 7. Unassign all users who had this trainer
+        await User.updateMany(
+          { assignedTrainerId: req.params.id },
+          { $set: { assignedTrainerId: null } }
+        );
+
+        // 8. Mark the delete request as approved
         await deleteRequest.updateOne(
           {
             $set: {
@@ -250,8 +294,17 @@ router.delete(
           },
           { new: true }
         );
+
         res.send(deletedTrainer);
         logger.info(`status: ${res.statusCode} | Message: Trainer deleted and request approved. TrainerID: ${req.params.id}`);
+        const trainer = deletedTrainer; // deletedTrainer is the user document before deletion
+        if (trainer) {
+          await transporter.sendMail({
+            to: trainer.email,
+            subject: "Trainer Account Deleted",
+            text: `Hello ${trainer.firstName},\n\nYour request to delete your trainer account has been approved. Your account and all related data have been deleted from AthletiX.\n\nBest regards,\nAthletiX Team`
+          });
+        }
         return;
       }
     } catch (err) {

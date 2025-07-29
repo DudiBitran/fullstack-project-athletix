@@ -331,7 +331,16 @@ function MyPrograms() {
         {/* Main content */}
         <section className="myProgram-content" style={{ flex: 1 }}>
           {filteredPrograms.length === 0 ? (
-            <p>No programs found.</p>
+            <div className="no-programs-message" style={{ textAlign: 'center', margin: '2rem 0' }}>
+              <p style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Create your first program!</p>
+              <button
+                className="btn btn-primary"
+                onClick={() => navigate('/trainer/create-program')}
+                style={{ fontWeight: 'bold', fontSize: '1rem' }}
+              >
+                Go to Create Program
+              </button>
+            </div>
           ) : viewMode === "grid" ? (
             <ProgramCard
               programs={filteredPrograms}
