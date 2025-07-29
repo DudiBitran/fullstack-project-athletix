@@ -370,6 +370,15 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const deleteTrainerDirectly = async (trainerId) => {
+    try {
+      const response = await adminService.deleteTrainerDirectly(trainerId);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
   const updateUserById = async (userId, data) => {
     try {
       const response = await adminService.updateUserById(userId, data);
@@ -427,8 +436,9 @@ export function AuthProvider({ children }) {
         getAllUsers,
         getTrainerDeleteRequests,
         handleTrainerDeleteRequest,
-        deleteUserById,
-        updateUserById,
+              deleteUserById,
+      deleteTrainerDirectly,
+      updateUserById,
       }}
     >
       {children}

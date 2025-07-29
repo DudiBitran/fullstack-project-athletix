@@ -7,7 +7,7 @@ import "../../style/adminDash/adminUsersTable.css";
 const USERS_PER_PAGE = 10;
 
 function AllUsersTable() {
-  const { getAllUsers, deleteUserById } = useAuth();
+  const { getAllUsers, deleteUserById, deleteTrainerDirectly } = useAuth();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -39,7 +39,11 @@ function AllUsersTable() {
     setShowDeleteModal(false);
     setDeletingId(userToDelete._id);
     try {
-      await deleteUserById(userToDelete._id);
+      if (userToDelete.role === "trainer") {
+        await deleteTrainerDirectly(userToDelete._id);
+      } else {
+        await deleteUserById(userToDelete._id);
+      }
       setUsers((prev) => prev.filter((u) => u._id !== userToDelete._id));
     } catch (err) {
       alert(err.response?.data || "Failed to delete user");
@@ -166,7 +170,7 @@ function AllUsersTable() {
                       >
                         Edit
                       </Link>
-                      {user.role === "user" && (
+                      {(user.role === "user" || user.role === "trainer") && (
                         <button
                           className="action-btn delete-btn"
                           onClick={() => { setUserToDelete(user); setShowDeleteModal(true); }}
@@ -202,8 +206,12 @@ function AllUsersTable() {
 
       <ConfirmationModal
         show={showDeleteModal}
-        title="Delete User"
-        message={`Are you sure you want to delete this user? This action cannot be undone.`}
+        title={userToDelete?.role === "trainer" ? "Delete Trainer" : "Delete User"}
+        message={
+          userToDelete?.role === "trainer" 
+            ? `Are you sure you want to delete this trainer? This will permanently delete their account, all their programs, exercises, and client assignments. This action cannot be undone.`
+            : `Are you sure you want to delete this user? This action cannot be undone.`
+        }
         onConfirm={handleDelete}
         onCancel={() => { setShowDeleteModal(false); setUserToDelete(null); }}
         icon="fas fa-trash-alt text-danger"

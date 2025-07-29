@@ -314,8 +314,93 @@ router.delete(
   }
 );
 
-// Get all delete request (Admin)
+// Admin delete trainer directly (without delete request)
+router.delete(
+  "/trainer-direct/:id",
+  authMw,
+  permitRoles("admin"),
+  async (req, res) => {
+    try {
+      const trainerId = req.params.id;
+      
+      // Check if trainer exists
+      const trainer = await User.findById(trainerId);
+      if (!trainer) {
+        res.status(404).send("Trainer not found.");
+        logger.error(
+          `status: ${res.statusCode} | Message: Failed to delete trainer, Trainer not found.`
+        );
+        return;
+      }
 
+      // Verify it's actually a trainer
+      if (trainer.role !== "trainer") {
+        res.status(400).send("User is not a trainer.");
+        logger.error(
+          `status: ${res.statusCode} | Message: Failed to delete trainer, User is not a trainer.`
+        );
+        return;
+      }
+
+      // 1. Delete the trainer's user account
+      const deletedTrainer = await User.findByIdAndDelete(trainerId);
+      if (!deletedTrainer) {
+        res.status(400).send("Failed to delete trainer account.");
+        logger.error(
+          `status: ${res.statusCode} | Message: Failed to delete trainer account.`
+        );
+        return;
+      }
+
+      // 2. Delete the trainer's profile
+      await Trainer.deleteOne({ userId: trainerId });
+
+      // 3. Find all programs by this trainer
+      const programs = await Program.find({ trainer: trainerId });
+
+      // 4. For each program, remove from users and delete workout statuses
+      for (const program of programs) {
+        // Unassign users from this program
+        await User.updateMany(
+          { programs: program._id },
+          { $pull: { programs: program._id } }
+        );
+        // Delete workout statuses for this program
+        await WorkoutStatus.deleteMany({ programId: program._id });
+      }
+
+      // 5. Delete all programs by this trainer
+      await Program.deleteMany({ trainer: trainerId });
+
+      // 6. Delete all exercises created by this trainer
+      await Exercise.deleteMany({ createdBy: trainerId });
+
+      // 7. Unassign all users who had this trainer
+      await User.updateMany(
+        { assignedTrainerId: trainerId },
+        { $set: { assignedTrainerId: null } }
+      );
+
+      // 8. Send email notification to trainer
+      if (deletedTrainer.email) {
+        await transporter.sendMail({
+          to: deletedTrainer.email,
+          subject: "Trainer Account Deleted by Admin",
+          text: `Hello ${deletedTrainer.firstName},\n\nYour trainer account has been deleted by an administrator. All your programs, exercises, and client assignments have been removed from AthletiX.\n\nBest regards,\nAthletiX Team`
+        });
+      }
+
+      res.send({ message: "Trainer deleted successfully", trainer: deletedTrainer });
+      logger.info(`status: ${res.statusCode} | Message: Trainer deleted directly by admin. TrainerID: ${trainerId}`);
+      
+    } catch (err) {
+      res.status(500).send("Internal server error.");
+      logger.error(`status: ${res.statusCode} | Message: ${err.message}`);
+    }
+  }
+);
+
+// Get all delete request (Admin)
 router.get(
   "/trainer-delete-requests",
   authMw,

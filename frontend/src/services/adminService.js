@@ -36,6 +36,15 @@ const deleteUserById = async (userId) => {
   }
 };
 
+const deleteTrainerDirectly = async (trainerId) => {
+  try {
+    const response = await httpService.delete(`/users/admin/trainer-direct/${trainerId}`);
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const updateUserById = async (userId, data) => {
   try {
     // Only send allowed fields
@@ -105,6 +114,7 @@ const adminService = {
   getTrainerDeleteRequests,
   handleTrainerDeleteRequest,
   deleteUserById,
+  deleteTrainerDirectly,
   updateUserById,
   createTrainer,
   getAllExercises,
