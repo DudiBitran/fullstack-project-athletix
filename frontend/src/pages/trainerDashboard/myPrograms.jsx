@@ -32,6 +32,8 @@ function MyPrograms() {
   const [weeksMin, setWeeksMin] = useState("");
   const [weeksMax, setWeeksMax] = useState("");
   const [availableClientsSearch, setAvailableClientsSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
   const navigate = useNavigate();
   const { search, setSearch } = useTrainerSearchFilter();
   const {
@@ -211,6 +213,21 @@ function MyPrograms() {
     const searchLower = availableClientsSearch.toLowerCase();
     return fullName.includes(searchLower) || email.includes(searchLower);
   });
+
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentClients = filteredAvailableClients.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredAvailableClients.length / itemsPerPage);
+
+  // Reset to first page when search changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [availableClientsSearch]);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <main className="myPrograms-container">
@@ -394,7 +411,7 @@ function MyPrograms() {
 
       {/* Available Clients Section (Below) */}
       <section className="available-users">
-        <h3>Available Clients for Assignment: {availableClients.length}</h3>
+        <h3>Available Clients for Assignment: {filteredAvailableClients.length}</h3>
         <div className="d-flex justify-content-center mb-3">
           <div style={{ position: 'relative', maxWidth: 260, width: '100%' }}>
             <input
@@ -410,7 +427,7 @@ function MyPrograms() {
             </span>
           </div>
         </div>
-        {availableClients.length === 0 ? (
+        {filteredAvailableClients.length === 0 ? (
           <p>No available clients found.</p>
         ) : (
           <>
@@ -429,8 +446,9 @@ function MyPrograms() {
                   </thead>
                   <tbody>
                     <AvailableClientsTableBody
-                      clients={filteredAvailableClients}
+                      clients={currentClients}
                       onAssign={handleAskAssign}
+                      startIndex={indexOfFirstItem}
                     />
                   </tbody>
                 </table>
@@ -439,13 +457,13 @@ function MyPrograms() {
 
             {/* Mobile Card View */}
             <div className="d-md-none">
-              {filteredAvailableClients.map((client, index) => (
+              {currentClients.map((client, index) => (
                 <div key={client._id} className="card mb-3 bg-dark text-light">
                   <div className="card-body">
                     <div className="row">
                       <div className="col-8">
                         <h6 className="card-title mb-1">
-                          #{index + 1} - {client.firstName} {client.lastName}
+                          #{indexOfFirstItem + index + 1} - {client.firstName} {client.lastName}
                         </h6>
                         <p className="card-text mb-1">
                           <small style={{ color: '#fff' }}>{client.email}</small>
@@ -467,6 +485,53 @@ function MyPrograms() {
                 </div>
               ))}
             </div>
+
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <div className="d-flex justify-content-center mt-4">
+                <nav aria-label="Available clients pagination">
+                  <ul className="pagination pagination-dark">
+                    <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                      <button
+                        className="page-link"
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                      >
+                        Previous
+                      </button>
+                    </li>
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                      <li key={page} className={`page-item ${currentPage === page ? 'active' : ''}`}>
+                        <button
+                          className="page-link"
+                          onClick={() => handlePageChange(page)}
+                        >
+                          {page}
+                        </button>
+                      </li>
+                    ))}
+                    <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                      <button
+                        className="page-link"
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                      >
+                        Next
+                      </button>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            )}
+
+            {/* Page Info */}
+            {filteredAvailableClients.length > 0 && (
+              <div className="text-center mt-2">
+                <small className="text-muted">
+                  Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, filteredAvailableClients.length)} of {filteredAvailableClients.length} clients
+                </small>
+              </div>
+            )}
           </>
         )}
       </section>

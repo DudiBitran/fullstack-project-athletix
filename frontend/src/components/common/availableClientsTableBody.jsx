@@ -1,9 +1,9 @@
-function AvailableClientsTableBody({ clients, onAssign }) {
+function AvailableClientsTableBody({ clients, onAssign, startIndex = 0 }) {
   return (
     <>
       {clients.map((client, index) => (
         <tr key={client._id}>
-          <th scope="row">{index + 1}</th>
+          <th scope="row">{startIndex + index + 1}</th>
           <td>
             {client.firstName} {client.lastName}
           </td>
