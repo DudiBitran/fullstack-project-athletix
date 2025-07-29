@@ -158,7 +158,6 @@ router.post('/forgot-password', async (req, res) => {
     res.send({ message: 'If your email exists, you will receive a reset link.' });
   } catch (err) {
     console.log(err);
-    
     res.status(500).send('Internal server error.');
   }
 });
