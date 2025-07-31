@@ -5,6 +5,7 @@ import Logo from "./common/logo";
 import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/auth.context";
 import { useTrainerSearchFilter } from "../context/trainerSearchFilter.context";
+import { getUserImageUrl } from "../utils/imageUtils";
 function CustomNavbar() {
   const [scrolled, setScrolled] = useState(false);
   const { logout, user, profileImage } = useAuth();
@@ -84,15 +85,7 @@ function CustomNavbar() {
                 <NavDropdown
                   title={
                     <Image
-                      src={
-                        profileImage
-                          ? (profileImage === "/public/defaults/trainer-icon.jpg" || profileImage === "public/defaults/trainer-icon.jpg"
-                              ? "/default-avatar-profile.jpg"
-                              : profileImage.startsWith("http")
-                                ? profileImage
-                                : `${baseUrl}/${profileImage.replace(/^\/+/,'')}`)
-                          : "/default-avatar-profile.jpg"
-                      }
+                      src={getUserImageUrl(profileImage, baseUrl)}
                       roundedCircle
                       width="35"
                       height="35"

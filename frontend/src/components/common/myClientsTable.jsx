@@ -1,4 +1,5 @@
 import "../../style/trainerDash/myClientsTable.css";
+import { getUserImageUrl } from "../../utils/imageUtils";
 
 function MyClientsTable({
   clients,
@@ -52,15 +53,7 @@ function MyClientsTable({
             <tr key={client._id}>
               <td>
                 <img
-                  src={
-                    !client.image ||
-                    client.image === 'public/defaults/trainer-icon.jpg' ||
-                    client.image === '/public/defaults/trainer-icon.jpg'
-                      ? '/default-avatar-profile.jpg'
-                      : client.image.startsWith("http")
-                        ? client.image
-                        : `${baseUrl}/${client.image.replace(/^\/+/,"")}`
-                  }
+                  src={getUserImageUrl(client.image, baseUrl)}
                   alt={`${client.firstName} ${client.lastName}`}
                   className="client-avatar"
                 />

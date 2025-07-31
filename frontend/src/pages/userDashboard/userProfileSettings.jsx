@@ -10,6 +10,7 @@ import { FaUser, FaEnvelope, FaBirthdayCake, FaVenusMars, FaRulerVertical, FaWei
 import "../../style/userDashboard/userProfileSettings.css";
 import ConfirmationModal from "../../components/common/confirmationModal";
 import axios from "axios";
+import { getUserImageUrl } from "../../utils/imageUtils";
 
 function UserProfileSettings() {
   const { user, refreshUser, updateUserData, sendTrainerDeleteRequest, changePassword, updateUser, updateUserImage, removeUserImage } = useAuth();  
@@ -88,13 +89,7 @@ function UserProfileSettings() {
   useEffect(() => {
     if (user) {
       setCurrentUser(user);
-      const userImageUrl = user.image 
-        ? (user.image === "/public/defaults/trainer-icon.jpg" || user.image === "public/defaults/trainer-icon.jpg"
-            ? "/default-avatar-profile.jpg"
-            : user.image.startsWith("http")
-              ? user.image
-              : `http://localhost:3000/${user.image.replace(/^\/+/, "")}`)
-        : "/default-avatar-profile.jpg";
+      const userImageUrl = getUserImageUrl(user.image);
       setPreviewUrl(userImageUrl);
       setOriginalImageUrl(userImageUrl);
     }
@@ -254,8 +249,7 @@ function UserProfileSettings() {
             // Update the user state with the new image data
             if (imageResponse.data && imageResponse.data.user) {
               setCurrentUser(imageResponse.data.user);
-              const newImageUrl = imageResponse.data.user.image ? 
-                `http://localhost:3000/${imageResponse.data.user.image.replace(/^\/+/, "")}` : null;
+              const newImageUrl = getUserImageUrl(imageResponse.data.user.image);
               setPreviewUrl(newImageUrl);
               setOriginalImageUrl(newImageUrl);
             }
@@ -283,6 +277,7 @@ function UserProfileSettings() {
             // Update the user state with the default image data
             if (removeResponse.data && removeResponse.data.user) {
               setCurrentUser(removeResponse.data.user);
+              // Force set to default image since backend returns null
               setPreviewUrl("/default-avatar-profile.jpg");
               setOriginalImageUrl("/default-avatar-profile.jpg");
             }

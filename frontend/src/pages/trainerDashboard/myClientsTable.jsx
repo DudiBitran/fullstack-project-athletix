@@ -1,3 +1,5 @@
+import { getUserImageUrl } from "../../utils/imageUtils";
+
 function MyClientsTableBody({ clients, onUnassign, onViewAnalytics, onViewProgram }) {
   if (!clients || clients.length === 0) {
     return (
@@ -13,15 +15,7 @@ function MyClientsTableBody({ clients, onUnassign, onViewAnalytics, onViewProgra
         <tr key={client._id}>
           <td>
             <img
-              src={
-                !client.image ||
-                client.image === 'public/defaults/trainer-icon.jpg' ||
-                client.image === '/public/defaults/trainer-icon.jpg'
-                  ? '/default-avatar-profile.jpg'
-                  : client.image.startsWith("http")
-                    ? client.image
-                    : `${baseUrl}/${client.image.replace(/^\/+/,"")}`
-              }
+              src={getUserImageUrl(client.image, baseUrl)}
               alt={`${client.firstName} ${client.lastName}`}
               style={{ width: "33px", height: "33px", borderRadius: "50%" }}
             />
