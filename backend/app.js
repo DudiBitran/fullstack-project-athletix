@@ -14,8 +14,8 @@ const PORT = 3000;
 const DB_NAME = "AthletiX";
 
 const generalLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 min
-  max: 500, // up to 100 requests in 15 mins
+  windowMs: 5 * 60 * 1000, // 5 min
+  max: 500, // up to 100 requests in 5 mins
   message: "Too many requests from this IP, please try again later.",
   standardHeaders: true,
   legacyHeaders: false,
