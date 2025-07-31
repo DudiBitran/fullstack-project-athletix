@@ -453,13 +453,19 @@ frontend/
 3. Create `.env` file with required environment variables:
    ```env
    MONGODB_URI=your_mongodb_connection_string
+   MONGO_ATLAS_URI=your_mongodb_connection_string  (Recommended)
    JWT_SECRET=your_jwt_secret
    EMAIL_USER=your_email
    EMAIL_PASS=your_email_password
    PORT=3000
    ```
 
-4. Start the server:
+4. Seed the data:
+   ```bash
+   npm run data
+   ```
+
+5. Start the server:
    ```bash
    npm start
    ```
