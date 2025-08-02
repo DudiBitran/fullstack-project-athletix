@@ -3,7 +3,8 @@ import { Link } from 'react-router';
 import { FaCheck, FaStar, FaCrown, FaUserFriends } from 'react-icons/fa';
 import '../../style/homePage/plansSection.css';
 
-const PlansSection = () => {
+function PlansSection () {
+
   const plans = [
     {
       id: 1,
@@ -69,7 +70,7 @@ const PlansSection = () => {
         </div>
         
         <div className="plans-grid">
-          {plans.map((plan) => (
+          {plans.map((plan, index) => (
             <div 
               key={plan.id} 
               className={`plan-card ${plan.popular ? 'popular' : ''}`}
