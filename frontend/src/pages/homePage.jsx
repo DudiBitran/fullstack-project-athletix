@@ -4,11 +4,13 @@ import "../style/homePage/whoWeAre.css";
 import "../style/homePage/fixed-section.css";
 import "../style/homePage/ourProcess.css";
 import "../style/homePage/faq.css";
+import "../style/homePage/plansSection.css";
 import Slider from "react-slick";
 import { Accordion } from "react-bootstrap";
 import { FaDumbbell, FaExternalLinkAlt } from "react-icons/fa";
 import { Link, Navigate } from "react-router";
 import { useAuth } from "../context/auth.context";
+import PlansSection from "../components/common/plansSection";
 const images = [
   "/images/banner4.jpg",
   "/images/lifter-banner.jpg",
@@ -124,6 +126,8 @@ function HomePage() {
           </div>
         </div>
       </section>
+
+      <PlansSection />
 
       <section className="faq-section container">
         <div className="faq-content">
